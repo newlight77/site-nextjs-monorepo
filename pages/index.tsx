@@ -1,86 +1,98 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
+import React, { useEffect, useState } from 'react';
 
-const Home: NextPage = () => {
+import { NextPage } from 'next';
+import { useRouter } from 'next/router';
+
+import Layout from '../components/layout/layout.component';
+import Card from '../components/card/card.component';
+import Paginator from '../components/paginator/paginator.component';
+import { defaultMetaTags } from '../models/tags';
+import { ContentfulService } from '../service/contentful.service';
+import { BlogPost } from '../models/blog.post';
+import TagFilters from '../components/tag-filter/tag-filter.component';
+
+const calculateRange = (length: number) => Array.from({ length }, (v, k) => k + 1);
+
+type Props = {
+  entries: BlogPost[];
+  tags: { id: string; name: string }[];
+  url: any;
+  total: number;
+  skip: number;
+  limit: number;
+  page?: number;
+};
+
+const cards = (entries: any[]) =>
+  entries.map((entry, index) => <Card info={entry} key={index} />);
+
+const IndexPage: NextPage<Props, any> = (props: Props) => {
+  const router = useRouter();
+  const entries = props.entries.length ? props.entries : [];
+  const tags = props.tags || [];
+  const total = props.total;
+
+  const limit = props.limit;
+  const rangeLimit = Math.ceil(total / limit);
+  const range = calculateRange(rangeLimit);
+
+  const [page, updatePage] = useState(props.page ? props.page : 1);
+  const [tag, updateTag] = useState('');
+
+  useEffect(() => {
+    void router.push({ pathname: '/', query: { page: page, tag: tag } });
+  }, [page, tag]);
+
+  const handleTagChosen = (tag: any) => {
+    updatePage(1);
+    updateTag(tag);
+  };
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
-        </p>
-
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and its API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+    <Layout metaTags={defaultMetaTags}>
+      <div className="container">
+        <div className="blogposts">
+          <h1 className="blogposts__header">Latest posts</h1>
+          <div className="cards-deck">{cards(entries)}</div>
         </div>
-      </main>
+        <div className="sidenav">
+          <TagFilters
+            tags={tags}
+            updatePage={handleTagChosen}
+            selectedTagId={tag}
+          />
+        </div>
+        <div className="pagination">
+          <Paginator
+            handlePaginationChange={(event) => updatePage(event)}
+            range={range}
+            skip={page}
+          />
+        </div>
+      </div>
+    </Layout>
+  );
+};
 
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer>
-    </div>
-  )
-}
+IndexPage.getInitialProps = async ({ query }) => {
+  const contentfulService = new ContentfulService();
+  let page = 1;
 
-export default Home
+  if (query.page) {
+    page = parseInt(query.page + '');
+  }
+
+  const { entries, total, skip, limit } =
+    await contentfulService.getBlogPostEntries({
+      tag: query.tag ? query.tag.toString() : '',
+      skip: (page - 1) * 3,
+      limit: 3
+    });
+
+  // TODO: need to move outside
+  const { tags } = await contentfulService.getAllTags();
+
+  return { page, tags, entries, total, skip, limit };
+};
+
+export default IndexPage;
