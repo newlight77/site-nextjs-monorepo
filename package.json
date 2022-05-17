@@ -3,7 +3,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "populate:contentful": "source .env && contentful space migration --space-id $CONTENTFUL_SPACE_ID utils/migrate.contentful.js --yes"
   },
   "dependencies": {
     "next": "latest",
