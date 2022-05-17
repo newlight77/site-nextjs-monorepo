@@ -816,31 +816,9 @@ contentful-management@^7.45.5, contentful-management@^7.51.5:
     lodash.isplainobject "^4.0.6"
     type-fest "^2.5.3"
 
-contentful-migration@^4.8.0:
+contentful-migration@^4.8.0, contentful-migration@^4.9.0:
   version "4.9.0"
   resolved "https://registry.npmjs.org/contentful-migration/-/contentful-migration-4.9.0.tgz"
-  integrity sha512-n07YWDsVTIrNA4Uibug+qo6ofuiiFmnaisBmDrP+V2zzc2RX89KVGQwtZ1o0zBy0EmkdUdBZxaiftzwK7dyYbg==
-  dependencies:
-    axios "^0.21.0"
-    bluebird "^3.7.2"
-    callsites "^3.1.0"
-    cardinal "^2.1.1"
-    chalk "^4.0.0"
-    contentful-management "^7.51.5"
-    didyoumean2 "^5.0.0"
-    hoek "^6.1.3"
-    https-proxy-agent "^5.0.0"
-    inquirer "^8.1.2"
-    joi "^17.4.0"
-    kind-of "^6.0.3"
-    listr2 "^3.13.5"
-    lodash "^4.17.15"
-    uuid "^8.3.2"
-    yargs "^15.3.1"
-
-contentful-migration@^4.9.0:
-  version "4.9.0"
-  resolved "https://registry.yarnpkg.com/contentful-migration/-/contentful-migration-4.9.0.tgz#a4d3304812fd59b29b9ed4688a562a0767209666"
   integrity sha512-n07YWDsVTIrNA4Uibug+qo6ofuiiFmnaisBmDrP+V2zzc2RX89KVGQwtZ1o0zBy0EmkdUdBZxaiftzwK7dyYbg==
   dependencies:
     axios "^0.21.0"
@@ -892,6 +870,17 @@ contentful-sdk-core@^7.0.1:
 contentful@^9.0.0:
   version "9.1.28"
   resolved "https://registry.npmjs.org/contentful/-/contentful-9.1.28.tgz"
+  integrity sha512-8ivYmT+DsATrtSUo0WjldNrXwQPHxs/0PuFjpWH3NwsLoUDi1dshyry9AQtnEpbhWGv4B3LsX50+/BsHQptseg==
+  dependencies:
+    axios "^0.27.0"
+    contentful-resolve-response "^1.3.0"
+    contentful-sdk-core "^7.0.1"
+    fast-copy "^2.1.0"
+    json-stringify-safe "^5.0.1"
+
+contentful@^9.1.28:
+  version "9.1.28"
+  resolved "https://registry.yarnpkg.com/contentful/-/contentful-9.1.28.tgz#1dfdc9205fbf898a98448cfa87551e9807831c06"
   integrity sha512-8ivYmT+DsATrtSUo0WjldNrXwQPHxs/0PuFjpWH3NwsLoUDi1dshyry9AQtnEpbhWGv4B3LsX50+/BsHQptseg==
   dependencies:
     axios "^0.27.0"
@@ -1002,6 +991,25 @@ dlv@^1.1.3:
   version "1.1.3"
   resolved "https://registry.npmjs.org/dlv/-/dlv-1.1.3.tgz"
   integrity sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==
+
+dotenv-defaults@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/dotenv-defaults/-/dotenv-defaults-2.0.2.tgz#6b3ec2e4319aafb70940abda72d3856770ee77ac"
+  integrity sha512-iOIzovWfsUHU91L5i8bJce3NYK5JXeAwH50Jh6+ARUdLiiGlYWfGw6UkzsYqaXZH/hjE/eCd/PlfM/qqyK0AMg==
+  dependencies:
+    dotenv "^8.2.0"
+
+dotenv-webpack@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/dotenv-webpack/-/dotenv-webpack-7.1.0.tgz#211fefac6bf500bf3bb66b286e1b12a23a2a70c0"
+  integrity sha512-+aUOe+nqgLerA/n611oyC15fY79BIkGm2fOxJAcHDonMZ7AtDpnzv/Oe591eHAenIE0t6w03UyxDnLs/YUxx5Q==
+  dependencies:
+    dotenv-defaults "^2.0.2"
+
+dotenv@^8.2.0:
+  version "8.6.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.6.0.tgz#061af664d19f7f4d8fc6e4ff9b584ce237adcb8b"
+  integrity sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==
 
 ecdsa-sig-formatter@1.0.11:
   version "1.0.11"

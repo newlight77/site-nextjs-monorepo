@@ -7,6 +7,8 @@
     "populate:contentful": "source .env && contentful space migration --space-id $CONTENTFUL_SPACE_ID utils/migrate.contentful.js --yes"
   },
   "dependencies": {
+    "contentful": "^9.1.28",
+    "dotenv-webpack": "^7.1.0",
     "next": "latest",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
