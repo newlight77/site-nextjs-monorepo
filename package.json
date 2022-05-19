@@ -1,12 +1,12 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "source .env && next dev",
     "build": "next build",
-    "start": "next start",
-    "export": "next build && next export",
+    "start": "source .env && next start",
+    "export": "source .env && next build && next export",
     "postexport": "node utils/post-export.js",
-    "populate:contentful": "source .env && contentful space migration --space-id $CONTENTFUL_SPACE_ID utils/migrate.contentful.js --yes"
+    "populate:contentful": "source .env && contentful space migration --space-id $CONTENTFUL_SPACE_ID --management-token $CONTENTFUL_MANAGEMENT_TOKEN utils/migrate.contentful.js --yes"
   },
   "dependencies": {
     "contentful": "^9.1.28",
