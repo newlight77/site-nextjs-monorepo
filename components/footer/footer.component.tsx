@@ -9,13 +9,13 @@ const Footer: FunctionComponent = () => {
   return (
     <footer className={styles.footer}>
       <span className={styles.devTeam}>
-        Created with <span className={styles.devTeam__love}> ♥ </span> by{' '}
+        Created by {' '}
         <a
           className={styles.link}
-          href="https://www.techhive.io"
+          href="https://www.oneprofile.io/newlight77"
           target="_blank"
         >
-          TechHive.IO
+          oneprofile.io
         </a>
         {' ' + year} - Version {pjson.version}
       </span>

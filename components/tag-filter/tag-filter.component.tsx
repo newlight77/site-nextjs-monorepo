@@ -13,11 +13,11 @@ const TagFilters: FunctionComponent<Props> = ({
   updatePage,
   selectedTagId
 }) => {
-  const handleTagChosen = (tag) => {
+  const handleTagChosen = (tag: any) => {
     updatePage(tag);
   };
 
-  const renderTag = (tag, index) => (
+  const renderTag = (tag: any, index: number) => (
     <div
       className={`global-tag ${styles.tag} ${
         selectedTagId === '' || selectedTagId === tag.id

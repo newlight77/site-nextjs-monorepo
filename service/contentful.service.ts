@@ -1,45 +1,67 @@
 import { createClient } from 'contentful'
+import { BlogPost } from '../models/blog.post'
 
 export const CONTENT_TYPE_BLOGPOST = 'blogPost'
 export const CONTENT_TYPE_PERSON = 'author'
 export const CONTENT_TYPE_TAGS = 'tag'
 
-const Space = process.env.CONTENTFUL_SPACE_ID || ''
-const Token = process.env.CONTENTFUL_ACCESS_TOKEN || ''
+const spaceId = process.env.CONTENTFUL_SPACE_ID || ''
+const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN || ''
 
 export class ContentfulService {
   private client = createClient({
-    space: Space,
-    accessToken: Token,
-  })
+    space: spaceId,
+    accessToken: accessToken
+  });
+
+  /**
+   * Maps the items fetched by contentful
+   * @param entries
+   */
+  private mapData(entries: any): BlogPost[] {
+    return entries.map(({ sys, fields }: { sys: any; fields: any }) => ({
+      id: sys.id,
+      title: fields.title,
+      description: fields.description,
+      heroImage: fields.heroImage.fields.file.url,
+      slug: fields.slug,
+      tags: fields.tags,
+      publishedAt: fields.publishDate
+        ? new Date(fields.publishDate)
+        : new Date(sys.createdAt)
+    }));
+  }
 
   async fetchPostBySlug(slug: any) {
     return await this.client.getEntries({
       content_type: CONTENT_TYPE_BLOGPOST,
-      'fields.slug': slug,
-    })
+      'fields.slug': slug
+    });
   }
 
+  /**
+   * Get all tags
+   */
   async getAllTags() {
     const content = await this.client.getEntries({
-      content_type: CONTENT_TYPE_TAGS,
-    })
+      content_type: CONTENT_TYPE_TAGS
+    });
 
     const tags = content.items.map(
       ({ sys, fields }: { sys: any; fields: any }) => ({
         id: sys.id,
-        name: fields.name,
+        name: fields.name
       })
-    )
+    );
 
-    return { tags }
+    return { tags };
   }
 
-  public async getBlogPostEntries(
+  async getBlogPostEntries(
     { limit, skip, tag }: { limit?: number; skip?: number; tag?: string } = {
       limit: 5,
       skip: 0,
-      tag: '',
+      tag: ''
     }
   ) {
     try {
@@ -47,46 +69,34 @@ export class ContentfulService {
         include: 1,
         limit,
         skip,
-        'fields.tags.sys.id': tag,
-        content_type: CONTENT_TYPE_BLOGPOST,
         order: 'fields.publishDate',
-      })
+        'fields.tags.sys.id': tag,
+        content_type: CONTENT_TYPE_BLOGPOST
+      });
 
-      const entries = contents.items.map(
-        ({ sys, fields }: { sys: any; fields: any }) => ({
-          id: sys.id,
-          title: fields.title,
-          description: fields.description,
-          heroImage: fields.heroImage.fields.file.url,
-          slug: fields.slug,
-          tags: fields.tags,
-          publishedAt: fields.publishDate
-            ? new Date(fields.publishDate)
-            : new Date(sys.createdAt),
-        })
-      )
+      const entries = this.mapData(contents.items);
 
-      const total = contents.total
+      const total = contents.total;
 
-      return { entries, total, limit, skip }
+      return { entries, total, limit, skip };
     } catch (error) {
       // TODO: add error handling
-      console.log(error)
+      console.log(error);
     }
   }
 
   async getPostBySlug(slug: any) {
     try {
-      const content: any = await this.fetchPostBySlug(slug)
+      const content: any = await this.fetchPostBySlug(slug);
 
-      const entry: { sys: any; fields: any } = content.items[0]
+      const entry: { sys: any; fields: any } = content.items[0];
 
       const author = {
         name: entry.fields.author.fields.name,
         title: entry.fields.author.fields.title,
         company: entry.fields.author.fields.company,
-        shortBio: entry.fields.author.fields.shortBio,
-      }
+        shortBio: entry.fields.author.fields.shortBio
+      };
 
       return {
         id: entry.sys.id,
@@ -94,14 +104,59 @@ export class ContentfulService {
         body: entry.fields.body,
         title: entry.fields.title,
         description: entry.fields.description,
+        tags: entry.fields.tags,
         heroImage: { url: entry.fields.heroImage.fields.file.url },
         author: { ...author, id: entry.fields.author.sys.id },
         publishedAt: entry.fields.publishDate
           ? new Date(entry.fields.publishDate)
-          : new Date(entry.sys.createdAt),
-      }
+          : new Date(entry.sys.createdAt)
+      };
     } catch (error) {
-      console.error(error)
+      console.error(error);
+    }
+  }
+
+  async fetchSuggestions(tags: string[], currentArticleSlug: string) {
+    const limit = 3;
+    let entries = [];
+
+    const initialOptions = {
+      content_type: CONTENT_TYPE_BLOGPOST,
+      limit,
+      // find at least one matching tag, else undefined properties are not copied
+      'fields.tags.sys.id[in]': tags.length ? tags.join(',') : undefined,
+      'fields.slug[ne]': currentArticleSlug // exclude current article
+    };
+
+    try {
+      const suggestionsByTags = await this.client.getEntries(initialOptions);
+
+      entries = suggestionsByTags.items;
+      // number of suggestions by tag is less than the limit
+      if (suggestionsByTags.total < limit) {
+        // exclude already picked slugs
+        const slugsToExclude = [
+          ...suggestionsByTags.items,
+          { fields: { slug: currentArticleSlug } }
+        ]
+          .map((item: { fields: any }) => item.fields.slug)
+          .join(',');
+
+        // fetch random suggestions
+        const randomSuggestions = await this.client.getEntries({
+          content_type: CONTENT_TYPE_BLOGPOST,
+          limit: limit - suggestionsByTags.total,
+          'fields.slug[nin]': slugsToExclude // exclude slugs already fetched
+        });
+
+        entries = [...entries, ...randomSuggestions.items];
+      }
+
+      entries = this.mapData(entries);
+
+      return entries;
+    } catch (e) {
+      console.error(e);
     }
   }
 }

@@ -3,7 +3,7 @@ import React, { FunctionComponent, Fragment, useState, useEffect } from 'react';
 import styles from './paginator.module.css';
 
 type Props = {
-  skip?: number;
+  skip: number;
   range: number[];
   handlePaginationChange: (number: number) => any;
 };
@@ -43,7 +43,7 @@ const PaginatorComponent: FunctionComponent<Props> = ({
     return setPageNumber(pageNumber);
   };
 
-  const renderPageIndicators = (num, index) => (
+  const renderPageIndicators = (num: number, index: number) => (
     <span
       className={`${styles.paginator__page__number} ${
         num === page ? styles.paginator__pageNumber__selected : ''

@@ -10,13 +10,13 @@ const Header: FunctionComponent = () => {
         <Link href="/">
           <img
             className={styles.brand__logo}
-            src="https://www.techhive.io/static/brand/logo-masterclass.svg"
+            src="images/oneprofile-logo.png"
             alt="logo"
           />
         </Link>
 
         <h3 className={styles.brand__name}>
-          TechHive.IO: NextJs Static Starter Kit.
+          Oneprofile: open community for developers.
         </h3>
       </div>
     </div>

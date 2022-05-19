@@ -13,8 +13,8 @@ type Props = {
   suggestedArticles: BlogPost[];
 };
 
-const renderCards = (suggestions) =>
-  suggestions.map((suggestion, index) => (
+const renderCards = (suggestions: any) =>
+  suggestions.map((suggestion: any, index: number) => (
     <Card key={index} info={suggestion} />
   ));
 const PostPage: NextPage<Props, any> = (props: Props) => {
@@ -48,9 +48,9 @@ PostPage.getInitialProps = async ({ query }) => {
   const contentfulService = new ContentfulService();
 
   const { post } = query;
-  const article = await contentfulService.getPostBySlug(post);
+  const article: any = await contentfulService.getPostBySlug(post);
 
-  const tags = article.tags ? article.tags.map((tag) => tag.sys.id) : [];
+  const tags = article.tags ? article.tags.map((tag: any) => tag.sys.id) : [];
 
   const suggestedArticles = await contentfulService.fetchSuggestions(
     tags,

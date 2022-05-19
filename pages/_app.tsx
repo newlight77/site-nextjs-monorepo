@@ -4,13 +4,22 @@ import './home.css';
 
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router';
-import React, { useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import Script from 'next/script';
 import Header from '../components/header/header.component';
 import { GA_TRACKING_ID, trackPageView } from '../utils/gtag';
 import Footer from '../components/footer/footer.component';
+import { NextPage } from 'next';
 
-const App = ({ Component, pageProps }) => {
+type Page<P = {}> = NextPage<P> & {
+  getLayout?: (page: ReactNode) => ReactNode;
+};
+
+type Props = AppProps & {
+  Component: Page;
+};
+
+const App = ({ Component, pageProps }: Props) => {
   const router = useRouter();
 
   useEffect(() => {

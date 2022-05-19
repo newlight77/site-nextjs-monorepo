@@ -14,7 +14,7 @@ export const trackPageView = (url: string) => {
 };
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/events
-export const trackEvent = ({ action, category, label, value }) => {
+export const trackEvent = ({ action, category, label, value }: any) => {
   if (isProduction) {
     // @ts-ignore
     window.gtag('event', action, {
