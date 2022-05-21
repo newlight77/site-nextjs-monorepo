@@ -33,7 +33,7 @@ const TagFilters: FunctionComponent<Props> = ({
 
   return (
     <div className={styles.filters}>
-      <h2 className={styles.filters__header}>Filter By Tags.</h2>
+      <h2 className={styles.filters__header}>Filters : </h2>
       <div className={styles.filters__tags}>
         <div
           className={`${styles.tag} ${

@@ -20,7 +20,7 @@ type Props = {
 const Card: FunctionComponent<Props> = ({ info }) => {
   const cardBGStyles = {
     backgroundImage: `url(${info.heroImage})`,
-    background: `linear-gradient(45deg, rgba(18, 40, 76, 0.56), rgba(39, 173, 213, 0.56), rgba(79, 192, 176, 0.56)), url(${info.heroImage}) no-repeat`
+    background: `linear-gradient(45deg, rgba(18, 40, 76, 0.22), rgba(39, 173, 213, 0.22), rgba(79, 192, 176, 0.22)), url(${info.heroImage}) no-repeat`
   };
 
   return (

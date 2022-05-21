@@ -52,22 +52,18 @@ const IndexPage: NextPage<Props, any> = (props: Props) => {
     <Layout metaTags={defaultMetaTags}>
       <div className="container">
         <div className="blogposts">
+          <div className="blogposts__sidenav">
+            <TagFilters tags={tags} updatePage={handleTagChosen} selectedTagId={tag}/>
+          </div>
           <h1 className="blogposts__header">Latest posts</h1>
           <div className="cards-deck">{cards(entries)}</div>
-        </div>
-        <div className="sidenav">
-          <TagFilters
-            tags={tags}
-            updatePage={handleTagChosen}
-            selectedTagId={tag}
-          />
-        </div>
-        <div className="pagination">
-          <Paginator
-            handlePaginationChange={(event) => updatePage(event)}
-            range={range}
-            skip={page}
-          />
+          <div className="pagination">
+            <Paginator
+              handlePaginationChange={(event) => updatePage(event)}
+              range={range}
+              skip={page}
+            />
+          </div>
         </div>
       </div>
     </Layout>
@@ -85,8 +81,8 @@ IndexPage.getInitialProps = async ({ query }) => {
   const { entries, total, skip, limit }: any =
     await contentfulService.getBlogPostEntries({
       tag: query.tag ? query.tag.toString() : '',
-      skip: (page - 1) * 3,
-      limit: 3
+      skip: (page - 1) * 9,
+      limit: 9
     });
 
   // TODO: need to move outside

@@ -33,9 +33,9 @@ export type MetaTags = {
 
 export const defaultMetaTags: MetaTags = {
     canonical: `${process.env.DOMAIN_PUBLIC}`,
-    description: 'Pushing you to the edge of technological innovation',
-    image: 'https://www.techhive.io/image.png',
+    description: 'open community for developers',
+    image: 'https://www.oneprofile.io/images/oneprofile-logo.png',
     robots: [RobotsContent.index, RobotsContent.follow].join(','),
-    title: 'Techhive.IO',
+    title: 'Oneprofile.io',
     type: PageType.website
 };
