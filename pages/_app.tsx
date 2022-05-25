@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+import './markdown.css';
 import './styles.css';
 import './home.css';
 
