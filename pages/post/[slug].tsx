@@ -17,6 +17,7 @@ const renderCards = (suggestions: any) =>
   suggestions.map((suggestion: any, index: number) => (
     <Card key={index} info={suggestion} />
   ));
+
 const PostPage: NextPage<Props, any> = (props: Props) => {
   const postMetaTags: MetaTags = {
     canonical: `${process.env.DOMAIN_PUBLIC}`,
@@ -46,9 +47,7 @@ const PostPage: NextPage<Props, any> = (props: Props) => {
 
 PostPage.getInitialProps = async ({ query }) => {
   const contentfulService = new ContentfulService();
-
-  const { post } = query;
-  const article: any = await contentfulService.getPostBySlug(post);
+  const article: any = await contentfulService.getPostBySlug(query.slug);
 
   const tags = article.tags ? article.tags.map((tag: any) => tag.sys.id) : [];
 

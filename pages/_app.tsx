@@ -1,7 +1,7 @@
 import '../styles/globals.css'
-import './markdown.css';
-import './styles.css';
 import './home.css';
+import './styles.css';
+import './markdown.css';
 
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router';
