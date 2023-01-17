@@ -1,5 +1,5 @@
 // Add your GA tracking id here
-export const GA_TRACKING_ID = '';
+export const GA_TRACKING_ID = process.env.GA_TRACKING_ID || ''
 
 const isProduction = process.env.NODE_ENV.toLowerCase() === 'production';
 
