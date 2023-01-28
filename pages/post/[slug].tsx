@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import Card from '../../components/card/card.component';
@@ -45,7 +45,7 @@ const PostPage: NextPage<Props, any> = (props: Props) => {
   );
 };
 
-PostPage.getInitialProps = async ({ query }) => {
+PostPage.getInitialProps = async ({ query }: NextPageContext) => {
   const contentfulService = new ContentfulService();
   const article: any = await contentfulService.getPostBySlug(query.slug);
 
