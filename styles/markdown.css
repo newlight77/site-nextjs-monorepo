@@ -1,7 +1,7 @@
 .markdown {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-  color: #333;
+  color: var(--color-light);
   overflow: hidden;
   font-family: 'Helvetica Neue', Helvetica, 'Segoe UI', Arial, freesans,
     sans-serif;
@@ -38,12 +38,11 @@
   height: 0;
 }
 
-.markdown pre {
+/* .markdown pre {
   overflow: auto;
-}
+} */
 
-.markdown kbd,
-.markdown pre {
+.markdown kbd {
   font-family: monospace, monospace;
   font-size: 1em;
   padding: 0.5em;
@@ -190,12 +189,6 @@
   font: 12px Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 }
 
-.markdown pre {
-  margin-top: 0;
-  margin-bottom: 0;
-  font: 12px Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-}
-
 .markdown kbd {
   background-color: #e7e7e7;
   background-image: -webkit-linear-gradient(#fefefe, #e7e7e7);
@@ -316,17 +309,17 @@
 .markdown ul,
 .markdown ol,
 .markdown dl,
-.markdown table,
-.markdown pre {
+.markdown table {
   margin-top: 0;
   margin-bottom: 16px;
 }
+
 
 .markdown hr {
   height: 4px;
   padding: 0;
   margin: 16px 0;
-  background-color: #e7e7e7;
+  background-color: var(--color-white);
   border: 0 none;
 }
 
@@ -366,8 +359,8 @@
 
 .markdown blockquote {
   padding: 0 15px;
-  color: #777;
-  border-left: 4px solid #ddd;
+  color: var(--color-light);
+  border-left: 4px solid var(--color-white);
 }
 
 .markdown blockquote > :first-child {
@@ -427,6 +420,15 @@
   content: '\00a0';
 }
 
+
+.markdown pre {
+  border: 1px solid var(--color-light);
+  background-color: var(--color-secondary);
+  margin-top: 0;
+  margin-bottom: 0;
+  font: 12px Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+}
+
 .markdown pre > code {
   padding: 0;
   margin: 0;
@@ -441,8 +443,7 @@
   margin-bottom: 16px;
 }
 
-.markdown .highlight pre,
-.markdown pre {
+.markdown .highlight pre {
   padding: 16px;
   overflow: auto;
   font-size: 85%;
@@ -456,9 +457,9 @@
   word-break: normal;
 }
 
-.markdown pre {
+/* .markdown pre {
   word-wrap: normal;
-}
+} */
 
 .markdown pre code {
   display: inline;

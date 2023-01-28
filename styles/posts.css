@@ -1,8 +1,12 @@
 .container {
-  display: grid;
+  /* display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: auto 8rem auto;
-  grid-gap: 20px;
+  grid-gap: 20px; */
+  text-align: center;
+  height: 100%;
+  position: relative;
+
 }
   
 .blogposts {
@@ -12,7 +16,7 @@
 .blogposts .blogposts__header {
   font-weight: normal;
   font-size: 30px;
-  color: #12284c;
+  /* color: #12284c; */
 }
 
 .blogposts .blogposts__sidenav {
@@ -39,12 +43,23 @@
   padding-top: 30px;
 }
 
-.blogposts .cards-deck {
+/* .blogposts .cards-deck {
   display: grid;
   grid-template-columns: repeat(auto-fill, 100%);
   grid-auto-rows: 540px;
   grid-gap: 20px;
+} */
+
+.blogposts .cards-deck {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  /* place-items: center; */
+  justify-items: center;
+  justify-content: center;
 }
+
 
 
 @media (max-width: 768px) {
@@ -53,7 +68,9 @@
   }
 
   .blogposts .cards-deck {
-    grid-template-columns: repeat(auto-fill, 320px);
+    /* grid-template-columns: repeat(auto-fill, 320px); */
+    grid-template-columns: 1fr 1fr;
+    gap: 0.6rem;
   }
 }
 

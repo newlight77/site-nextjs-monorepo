@@ -1,7 +1,9 @@
 import '../styles/globals.css'
-import './home.css';
-import './styles.css';
-import './markdown.css';
+import '../styles/styles.css';
+import '../styles/app.css';
+import '../styles/posts.css';
+import '../styles/post.css';
+import '../styles/markdown.css';
 
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router';
@@ -61,9 +63,14 @@ const App = ({ Component, pageProps }: Props) => {
         </>
       )}
 
-      <Header />
-      <Component {...pageProps} />
-      <Footer />
+
+      <div className="app_container">
+        <div className="right_header">
+        </div>
+        <Header />
+        <Component {...pageProps} />
+        <Footer />
+      </div>
     </>
   );
 };

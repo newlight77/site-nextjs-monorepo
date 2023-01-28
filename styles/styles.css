@@ -1,0 +1,254 @@
+/* @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  box-sizing: border-box;
+  list-style: none;
+  text-decoration: none;
+}
+
+/* variables */
+:root {
+  /* deepskyblue */
+  --color-primary: hsl(195, 100%, 50%, 0.9);
+  --color-primary-variant: hsl(195, 100%, 50%, 0.2);
+  /* dark steelblue */
+  --color-secondary: hsl(207, 44%, 10%);
+  --color-secondary-variant: hsl(207, 44%, 10%, 0.8);
+
+  --color-white: #fff;
+  --color-light: rgba(255, 255, 255, 0.6);
+
+  --transition: all 400ms ease;
+
+  --container-width-lg: 75%;
+  --container-width-md: 86%;
+  --container-width-sm: 90%;
+}
+
+[data-theme='deepskyblue'] {
+  /* deepskyblue */
+  --color-primary: hsl(195, 100%, 50%, 0.9);
+  --color-primary-variant: hsl(195, 100%, 50%, 0.2);
+  /* dark steelblue */
+  --color-secondary: hsl(207, 44%, 10%);
+  --color-secondary-variant: hsl(207, 44%, 10%, 0.8);
+}
+
+[data-theme='darkindigoblue'] {
+  /* deepskyblue */
+  --color-primary: hsla(250, 100%, 55%, 0.95);
+  --color-primary-variant: hsl(250, 100%, 55%, 0.2);
+  /* dark steelblue */
+  --color-secondary: hsl(207, 44%, 10%);
+  --color-secondary-variant: hsl(207, 44%, 10%, 0.8);
+}
+
+[data-theme='lightseagreen'] {
+  /* lightseagreen */
+  --color-primary: hsl(177, 70%, 41%, 0.9);
+  --color-primary-variant: hsl(177, 70%, 41%, 0.2);
+  /* dark aqua */
+  --color-secondary: hsl(180, 100%, 10%);
+  --color-secondary-variant: hsl(180, 100%, 10%, 0.8);
+}
+
+[data-theme='darkseagreen'] {
+  /* darkgreen */
+  --color-primary: hsla(177, 93%, 26%, 0.792);
+  --color-primary-variant: rgba(17, 60, 58, 0.2);
+  /* dark */
+  --color-secondary: hsl(180, 93%, 5%);
+  --color-secondary-variant: hsla(180, 100%, 1%, 0.8);
+}
+
+[data-theme='peachpuff'] {
+  /* peachpuff */
+  --color-primary: hsl(28, 100%, 86%, 0.9);
+  --color-primary-variant: hsl(28, 100%, 86%, 0.2);
+  /* dark papayawhip */
+  --color-secondary: hsl(37, 100%, 10%);
+  --color-secondary-variant: hsl(37, 100%, 10%, 0.8);
+}
+
+[data-theme='salmon'] {
+  /* salmon */
+  --color-primary: hsl(6, 93%, 71%, 0.9);
+  --color-primary-variant: hsl(6, 93%, 71%, 0.2);
+  /* dark crimson */
+  --color-secondary: hsl(348, 83%, 10%);
+  --color-secondary-variant: hsl(348, 83%, 10%, 0.8);
+}
+
+[data-theme='orchid'] {
+  /* orchid */
+  --color-primary: hsl(302, 59%, 65%, 0.9);
+  --color-primary-variant: hsl(302, 59%, 65%, 0.2);
+  /* dark lavender */
+  --color-secondary: hsl(240, 67%, 10%);
+  --color-secondary-variant: hsl(240, 67%, 10%, 0.8);
+}
+
+[data-theme='blueviolet'] {
+  /* blueviolet */
+  --color-primary: hsl(271, 76%, 53%, 0.9);
+  --color-primary-variant: hsl(271, 76%, 53%, 0.2);
+  /* dark lavender */
+  --color-secondary: hsl(240, 67%, 10%);
+  --color-secondary-variant: hsl(240, 67%, 10%, 0.8);
+}
+
+[data-theme='lemonchiffon'] {
+  /* lemonchiffon */
+  --color-primary: hsl(54, 100%, 90%, 0.9);
+  --color-primary-variant: hsl(54, 100%, 90%, 0.2);
+  /* dark darkkhaki */
+  --color-secondary: hsl(56, 38%, 10%);
+  --color-secondary-variant: hsl(156, 38%, 10%, 0.8);
+}
+
+[data-theme='gold'] {
+  /* gold */
+  --color-primary: hsl(51, 100%, 50%, 0.9);
+  --color-primary-variant: hsl(51, 100%, 50%, 0.2);
+  /* dark moccasin */
+  --color-secondary: hsl(38, 100%, 10%);
+  --color-secondary-variant: hsl(38, 100%, 10%, 0.8);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  font-family: 'Oxygen', sans-serif;
+  background: var(--color-secondary);
+  color: var(--color-white);
+  line-height: 1.7;
+  /* background-image: url(../src/assets/bg-texture.png); */
+  background-image:
+    radial-gradient(at 30% 20%, var(--color-primary) 0, transparent 50%),
+    radial-gradient(at 27% 71%, var(--color-primary-variant) 0, transparent 50%),
+    radial-gradient(at 90% 35%, var(--color-primary) 0, transparent 50%),
+    radial-gradient(at 53% 75%, var(--color-primary-variant) 0, transparent 50%);
+  /* radial-gradient(at 83% 67%, rgb(152, 231, 156) 0, transparent 58%), 
+    radial-gradient(at 67% 20%, hsla(357,94%,71%,1) 0, transparent 59%), 
+    radial-gradient(at 88% 35%, hsla(222,81%,65%,1) 0, transparent 50%), 
+    radial-gradient(at 31% 91%, hsla(9,61%,61%,1) 0, transparent 52%), 
+    radial-gradient(at 27% 71%, hsla(336,91%,65%,1) 0, transparent 49%), 
+    radial-gradient(at 74% 89%, hsla(30,98%,65%,1) 0, transparent 51%), 
+    radial-gradient(at 53% 75%, hsla(174,94%,68%,1) 0, transparent 45%); */
+}
+
+/* ====== general styles ====== */
+.container {
+  width: var(--container-width-lg);
+  margin: 0 auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  width: 500;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+section {
+  margin-top: 8rem;
+  /* height: 100vh; */
+}
+
+section > h2,
+section > h5 {
+  text-align: center;
+  color: var(--color-light);
+}
+
+section > h2 {
+  color: var(--color-primary);
+  margin-bottom: 3rem;
+}
+
+article {
+  color: var(--color-light);
+  padding: 0.1rem 2.2rem;
+}
+
+.text-white {
+  color: var(--color-white);
+}
+
+.text-light {
+  color: var(--color-light);
+}
+
+a {
+  color: var(--color-primary);
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--color-white);
+}
+
+.btn {
+  width: max-content;
+  display: inline;
+  color: var(--color-primary);
+  padding: 0.75rem 1.2rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  border: 1px solid var(--color-primary);
+  transition: var(--transition);
+}
+
+.btn:hover {
+  background: var(--color-white);
+  color: var(--color-secondary);
+  border-color: transparent;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-secondary);
+}
+
+img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+}
+
+/* ===== Media Queries ===== */
+@media screen and (max-width: 1024px) {
+  .container {
+    width: var(--container-width-lg);
+  }
+
+  section {
+    margin-top: 6rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    width: var(--container-width-md);
+  }
+
+  section > h2 {
+    margin-top: 2rem;
+  }
+}

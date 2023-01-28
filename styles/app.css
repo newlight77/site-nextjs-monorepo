@@ -1,0 +1,12 @@
+.app_container {
+    margin: 0 auto;
+}
+
+.right_header {
+    /* display: flex; */
+    /* justify-content: right; */
+    float: right;
+    margin-right: 0.5rem;
+    margin-top: 6px;
+    z-index: 100;
+}
