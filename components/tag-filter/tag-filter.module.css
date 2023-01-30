@@ -1,11 +1,12 @@
 .filters {
   padding: 1.4rem;
-  border-radius: 4px;
-  border: 1px solid #ececec;
+  border-radius: 0.6rem;
+  border: 1px solid var(--color-primary-variant);
 }
 
 .filters__header {
   font-size: 22px;
+  color: var(--color-secondary-variant);
 }
 
 .filters__tags {
@@ -13,24 +14,28 @@
   flex-wrap: wrap;
 }
 
-.filters__tags .global-tag {
-  font-size: 1.1rem;
-  color: #16498a;
-  cursor: pointer;
-}
-
 .filters__tags .tag {
   padding: 0.25rem 0.5rem;
   margin: 0.5rem 0.25rem;
   font-size: .9rem;
-  border: 1px solid #12284c;
+  border: 1px solid var(--color-secondary-variant);
   border-radius: 10px;
   opacity: 0.5;
   transition: opacity 0.4s;
   cursor: pointer;
 }
 
-.filters__tags .tag.tag__selected,
+.filters__tags .tag .global-tag {
+  font-size: 5.1rem;
+  color: var(--color-primary-variant);
+  cursor: pointer;
+}
+
+.filters__tags .tag.tag__selected {
+  opacity: 1;
+  border-color: var(--color-primary);
+}
+
 .filters__tags .tag:hover {
   opacity: 1;
 }

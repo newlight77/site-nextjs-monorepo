@@ -1,4 +1,5 @@
 export type Author = {
+    id: string;
     name: string;
     title: string;
     company: string;

@@ -134,11 +134,11 @@ body {
   color: var(--color-white);
   line-height: 1.7;
   /* background-image: url(../src/assets/bg-texture.png); */
-  background-image:
+  /* background-image:
     radial-gradient(at 30% 20%, var(--color-primary) 0, transparent 50%),
     radial-gradient(at 27% 71%, var(--color-primary-variant) 0, transparent 50%),
     radial-gradient(at 90% 35%, var(--color-primary) 0, transparent 50%),
-    radial-gradient(at 53% 75%, var(--color-primary-variant) 0, transparent 50%);
+    radial-gradient(at 53% 75%, var(--color-primary-variant) 0, transparent 50%); */
   /* radial-gradient(at 83% 67%, rgb(152, 231, 156) 0, transparent 58%), 
     radial-gradient(at 67% 20%, hsla(357,94%,71%,1) 0, transparent 59%), 
     radial-gradient(at 88% 35%, hsla(222,81%,65%,1) 0, transparent 50%), 

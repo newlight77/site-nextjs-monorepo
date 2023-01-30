@@ -15,8 +15,6 @@ const cards = (entries: any[]) =>
   entries.map((entry, index) => <Card info={entry} key={index} />);
 
 const PostsPage: NextPage<PostsFilter, any> = (filter: PostsFilter) => {
-  console.log("PostsPage :", filter);
-
   const router = useRouter();
 
   let initResults: PostsResult = {
@@ -47,14 +45,13 @@ const PostsPage: NextPage<PostsFilter, any> = (filter: PostsFilter) => {
 
   return (
     <Layout metaTags={defaultMetaTags}>
-      <div className="container">
-        <div className="blogposts">
-          <div className="blogposts__sidenav">
+      <div className="blogposts_container">
+          <div className="blogposts__filters">
             <TagFilters tags={postsResult.tags} updatePage={handleTagChosen} selectedTagId={postsFilter.tag}/>
           </div>
           <h1 className="blogposts__header">Latest posts</h1>
-          <div className="cards-deck">{cards(postsResult.entries)}</div>
-          <div className="pagination">
+          <div className="blogposts__cards">{cards(postsResult.entries)}</div>
+          <div className="blogposts__pagination">
             <Paginator
               handlePaginationChange={(event) => handlePageChosen(event)}
               range={range}
@@ -62,7 +59,6 @@ const PostsPage: NextPage<PostsFilter, any> = (filter: PostsFilter) => {
             />
           </div>
         </div>
-      </div>
     </Layout>
   );
 };
@@ -75,8 +71,6 @@ const getRange = (total: number, limit: number) => {
 }
 
 const getBlogPostEntries = async( service: ContentfulService, filter: PostsFilter ): Promise<PostsResult> => {
-  console.log("postsPage getBlogPostEntries :", filter);
-
   const { entries, total, skip, limit }: any = 
   await service.getBlogPostEntries({
     tag: filter.tag,
@@ -90,8 +84,6 @@ const getBlogPostEntries = async( service: ContentfulService, filter: PostsFilte
 }
 
 export const toFilter = async (tag: string, page: number): Promise<PostsFilter> => {
-  console.log("IndexPage getInitialProps :", tag, page);
-
   return {
     tag: tag,
     page: page,

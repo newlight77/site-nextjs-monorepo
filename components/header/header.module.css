@@ -1,38 +1,43 @@
-.nav {
-    display: flex;
-  
-    padding: 1.5rem 1rem;
-  
-    background-color: #ffffff;
-    border-bottom: 1px solid #ececec;
+.header__nav {
+  margin: 0 0.6rem;
+  padding: 1rem 0.6rem;
+  background-color: var(--color-secondary-variant);
+  border-bottom: 1px solid var(--color-secondary);
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+}
+
+.header__nav a {
+  float: top;
+  text-decoration: none;
+}
+
+.header__brand {
+  display: flex;
+  cursor: pointer;
+}
+
+.header__brand_logo {
+  height: auto;
+  width: auto;
+  max-height: 3.6rem;
+  margin-right: 1.2rem;
+}
+
+.header__brand_name {
+  margin: auto 0;
+  color: var(--color-primary);
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+@media (min-width: 991px) {
+}
+
+@media (min-width: 1200px) {
+  .nav {
+    padding: 1.5rem 4rem;
   }
-  
-  .brand {
-    display: flex;
-  
-    cursor: pointer;
-  }
-  
-  .brand__logo {
-    height: auto;
-    width: auto;
-    max-height: 3rem;
-    margin-right: 1rem;
-  }
-  
-  .brand__name {
-    margin: auto 0;
-  
-    color: #16498a;
-    font-weight: normal;
-    letter-spacing: 2px;
-  }
-  
-  @media (min-width: 991px) {
-  }
-  
-  @media (min-width: 1200px) {
-    .nav {
-      padding: 1.5rem 4rem;
-    }
-  }
+}

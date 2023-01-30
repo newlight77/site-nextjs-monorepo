@@ -45,9 +45,7 @@ const PaginatorComponent: FunctionComponent<Props> = ({
 
   const renderPageIndicators = (num: number, index: number) => (
     <span
-      className={`${styles.paginator__page__number} ${
-        num === page ? styles.paginator__pageNumber__selected : ''
-      }`}
+      className={`${styles.paginator__page_number} ${num === page ? styles.paginator__page_number__selected : ''}`}
       key={index}
       onClick={() => moveToPage(num)}
     >
@@ -60,10 +58,10 @@ const PaginatorComponent: FunctionComponent<Props> = ({
       <div className={styles.paginator}>
         {range.length > 1 ? (
           <button className={styles.paginator__button} onClick={moveToNextPage}>
-            <span className={`${styles.paginator__button__indicator} left`}>
+            <span className={`${styles.paginator__button_indicator} left`}>
               {'<'}
             </span>{' '}
-            <span className="paginator__button__label"> Previous </span>
+            {/* <span className={styles.paginator__button_label}> Previous </span> */}
           </button>
         ) : null}
 
@@ -74,8 +72,8 @@ const PaginatorComponent: FunctionComponent<Props> = ({
             className={styles.paginator__button}
             onClick={moveToPreviousPage}
           >
-            <span className={styles.paginator__button__label}> Next</span>{' '}
-            <span className={`${styles.paginator__button__indicator} right`}>
+            {/* <span className={styles.paginator__button_label}> Next</span>{' '} */}
+            <span className={`${styles.paginator__button_indicator} right`}>
               {'>'}
             </span>
           </button>

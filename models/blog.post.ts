@@ -1,13 +1,15 @@
 import { Author } from './author';
 
 export type BlogPost = {
-    title: string;
+    id: string;
     slug: string;
-    heroImage: any;
-    description: string;
     body: any;
+    title: string;
+    description: string;
+    tags: { id: string; name: string }[];
+    heroImage: any;
     author: Author;
-    publishDate: Date;
+    publishedAt: Date;
 };
 
 export type PostsFilter = {

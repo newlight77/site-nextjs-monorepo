@@ -1,20 +1,15 @@
 import React, { FunctionComponent } from 'react';
 import Link from 'next/link';
 import styles from './card.module.css';
+import { BlogPost } from '../../models/blog.post';
+import { format } from 'date-fns';
 
 export const getNavigationLink = (slug: any): string => `/post/${slug}`;
 
 export const getHref = (): string => `/post/[slug]`;
 
 type Props = {
-  info: {
-    id: string;
-    title: string;
-    description: string;
-    heroImage: string;
-    publishedAt: Date;
-    slug: string;
-  };
+  info: BlogPost;
 };
 
 const Card: FunctionComponent<Props> = ({ info }) => {
@@ -23,20 +18,28 @@ const Card: FunctionComponent<Props> = ({ info }) => {
     background: `linear-gradient(45deg, rgba(18, 40, 76, 0.22), rgba(39, 173, 213, 0.22), rgba(79, 192, 176, 0.22)), url(${info.heroImage}) no-repeat`
   };
 
-  return (
-    <div className={styles.card}>
-      <div className={styles.card__header} style={cardBGStyles} />
-      <div className={styles.card__body}>
-        <h3 className={styles.card__title}>{info.title}</h3>
-        <p className={styles.card__text}>{info.description}</p>
-      </div>
+  const publishedAt = format(info.publishedAt, 'yyyy-MM-dd')
 
-      <div className={styles.card__footer}>
-        <Link href={getHref()} as={getNavigationLink(info.slug)}>
-          <a className={styles.card__action}>Explore</a>
-        </Link>
+  return (
+    <Link href={getHref()} as={getNavigationLink(info.slug)}>
+      <div className={styles.card__container}>
+        {/* <div className={styles.card__header} style={cardBGStyles} /> */}
+        <div className={styles.card__header}/>
+          <div className={styles.card__image}>
+              <img src={info.heroImage} alt={info.title} />
+          </div>
+        <div/>
+        <div className={styles.card__body}>
+          <h3 className={styles.card__title}>{info.title}</h3>
+          <p className={styles.card__text}>{info.description}</p>
+        </div>
+
+        <div className={styles.card__footer}>
+          <div className={styles.card__author}>{info.author.name}</div>
+          <div className={styles.card__publishedAt}>{publishedAt}</div>
+        </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

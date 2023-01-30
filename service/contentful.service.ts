@@ -19,17 +19,31 @@ export class ContentfulService {
    * @param entries
    */
   private mapData(entries: any): BlogPost[] {
-    return entries.map(({ sys, fields }: { sys: any; fields: any }) => ({
-      id: sys.id,
-      title: fields.title,
-      description: fields.description,
-      heroImage: fields.heroImage.fields.file.url,
-      slug: fields.slug,
-      tags: fields.tags,
-      publishedAt: fields.publishDate
-        ? new Date(fields.publishDate)
-        : new Date(sys.createdAt)
-    }));
+    return entries.map(({ sys, fields }: { sys: any; fields: any }) => {
+      const author = {
+        id: fields.author.sys.id,
+        name: fields.author.fields.name,
+        title: fields.author.fields.title,
+        company: fields.author.fields.company,
+        shortBio: fields.author.fields.shortBio,
+        email: fields.author.fields.email,
+        twitter: fields.author.fields.twitter
+      };
+
+      return {
+        id: sys.id,
+        slug: fields.slug,
+        body: fields.body,
+        title: fields.title,
+        description: fields.description,
+        tags: fields.tags,
+        heroImage: fields.heroImage.fields.file.url,
+        author: author,
+        publishedAt: fields.publishDate
+          ? new Date(fields.publishDate)
+          : new Date(sys.createdAt)
+      }
+    });
   }
 
   async fetchPostBySlug(slug: any) {
@@ -85,7 +99,7 @@ export class ContentfulService {
     }
   }
 
-  async getPostBySlug(slug: any) {
+  async getPostBySlug(slug: string | string[] | undefined): Promise<BlogPost | undefined> {
     try {
       const content: any = await this.fetchPostBySlug(slug);
 
@@ -95,7 +109,8 @@ export class ContentfulService {
         name: entry.fields.author.fields.name,
         title: entry.fields.author.fields.title,
         company: entry.fields.author.fields.company,
-        shortBio: entry.fields.author.fields.shortBio
+        shortBio: entry.fields.author.fields.shortBio,
+        email: entry.fields.author.fields.email
       };
 
       return {
@@ -117,7 +132,7 @@ export class ContentfulService {
   }
 
   async fetchSuggestions(tags: string[], currentArticleSlug: string) {
-    const limit = 3;
+    const limit = 2;
     let entries = [];
 
     const initialOptions = {

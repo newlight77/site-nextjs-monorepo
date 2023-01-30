@@ -1145,10 +1145,10 @@
   "resolved" "https://registry.npmjs.org/date-fns/-/date-fns-1.30.1.tgz"
   "version" "1.30.1"
 
-"date-fns@^2.0.1", "date-fns@^2.28.0":
-  "integrity" "sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw=="
-  "resolved" "https://registry.npmjs.org/date-fns/-/date-fns-2.28.0.tgz"
-  "version" "2.28.0"
+"date-fns@^2.0.1", "date-fns@^2.28.0", "date-fns@^2.29.3":
+  "integrity" "sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA=="
+  "resolved" "https://registry.npmjs.org/date-fns/-/date-fns-2.29.3.tgz"
+  "version" "2.29.3"
 
 "debug@^3.1.0":
   "integrity" "sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ=="
@@ -2475,9 +2475,9 @@
   "version" "1.0.4"
 
 "moment@^2.22.2", "moment@^2.29.1":
-  "integrity" "sha512-c6YRvhEo//6T2Jz/vVtYzqBzwvPT95JBQ+smCytzf7c50oMZRsR/a4w88aD34I+/QVSfnoAnSBFPJHItlOMJVw=="
-  "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.3.tgz"
-  "version" "2.29.3"
+  "integrity" "sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w=="
+  "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.4.tgz"
+  "version" "2.29.4"
 
 "mri@^1.1.0":
   "integrity" "sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA=="
