@@ -42,6 +42,7 @@ const App = ({ Component, pageProps }: Props) => {
       {/* Global Site Tag (gtag.js) - Google Analytics */}
       {isProduction && (
         <>
+          <link rel="stylesheet" href="github-markdown.css"></link>
           <Script
             strategy="afterInteractive"
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
