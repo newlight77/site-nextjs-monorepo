@@ -22,28 +22,50 @@ const Card: FunctionComponent<Props> = ({ info }) => {
     if (x === undefined) { return new Date(); }
     return new Date(x);
   }
+
   const publishedAt = format(newDate(info.publishedAt), 'yyyy-MM-dd');
 
-  return (
-    <Link href={getHref()} as={getNavigationLink(info.slug)}>
-      <div className={styles.card__container}>
-        {/* <div className={styles.card__header} style={cardBGStyles} /> */}
-        <div className={styles.card__header}/>
-          <div className={styles.card__image}>
-              <img src={info.heroImage} alt={info.title} />
-          </div>
-        <div/>
-        <div className={styles.card__body}>
-          <h3 className={styles.card__title}>{info.title}</h3>
-          <p className={styles.card__text}>{info.description}</p>
-        </div>
+  const handleTagChosen = (tag: any) => {
 
-        <div className={styles.card__footer}>
+  };
+
+  const renderTag = (tag: any, index: number) => (
+    // <div className={styles.card__tag} key={index}>{tag}</div>
+    <div
+      className={`${styles.card__tag}`}
+      key={index}
+      onClick={() => handleTagChosen(tag.id)}
+    >
+      {tag.name}
+    </div>
+
+  );
+
+  return (
+    <div className={styles.card__container}>
+      {/* <div className={styles.card__header} style={cardBGStyles} /> */}
+      <Link href={getHref()} as={getNavigationLink(info.slug)}>
+        <div className={styles.card__image}>
+            <img src={info.heroImage} alt={info.title} />
+        </div>
+      </Link>
+      <div className={styles.card}>
+        <div className={styles.card__header}>
           <div className={styles.card__author}>{info.author.name}</div>
-          <div className={styles.card__publishedAt}>{publishedAt}</div>
+          <div className={styles.card__publishedAt}>{'   '} {publishedAt}</div>
+        </div>
+        <Link href={getHref()} as={getNavigationLink(info.slug)}>
+          <div className={styles.card__body}>
+            <h3 className={styles.card__title}>{info.title}</h3>
+            <p className={styles.card__text}>{info.description}</p>
+          </div>
+        </Link>
+        <div className={styles.card__tags}>
+          {/* <p className={styles.card__tags_title}>tags: </p> */}
+          {info.tags.map(renderTag)}
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

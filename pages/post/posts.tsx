@@ -11,6 +11,8 @@ import { ContentfulService } from '../../service/contentful.service';
 import TagFilters from '../../components/tag-filter/tag-filter.component';
 import { PostsFilter, PostsResult } from '../../models/blog.post';
 
+const MAX_PER_PAGE = 15;
+
 const cards = (entries: any[]) =>
   entries.map((entry, index) => <Card info={entry} key={index} />);
 
@@ -38,7 +40,7 @@ const PostsPage: NextPage<PostsFilter, any> = (filter: PostsFilter) => {
   };
 
   const handlePageChosen = (page: number) => {
-    setFilter({tag: postsFilter.tag, page: page, skip: (page - 1) * 25, limit: postsFilter.limit});
+    setFilter({tag: postsFilter.tag, page: page, skip: (page - 1) * MAX_PER_PAGE, limit: postsFilter.limit});
   };
 
   const range = getRange(postsResult.total, postsResult.limit);
@@ -87,8 +89,8 @@ export const toFilter = async (tag: string, page: number): Promise<PostsFilter> 
   return {
     tag: tag,
     page: page,
-    skip: (page - 1) * 25,
-    limit: 25
+    skip: (page - 1) * MAX_PER_PAGE,
+    limit: MAX_PER_PAGE
   };
 };
 

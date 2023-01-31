@@ -49,6 +49,7 @@ const PostPage: NextPage<Props, any> = (props: Props) => {
         </ReactMarkdown>
       </div>
       <div className="post__footer">
+        <h2 className="post__suggestions_title">Related articles : </h2>
         <div className="post__suggestions">{renderCards(props.suggestedArticles)}</div>
       </div>
     </Layout>

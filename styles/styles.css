@@ -20,8 +20,17 @@
   --color-secondary: hsl(207, 44%, 10%);
   --color-secondary-variant: hsl(207, 44%, 10%, 0.8);
 
-  --color-white: #fff;
-  --color-light: rgba(255, 255, 255, 0.6);
+  /* --color-white: #fff; */
+  /* --color-light: rgba(255, 255, 255, 0.6); */
+
+  --color-white: rgba(255, 255, 255, 1);
+  --color-snow: rgba(240, 255, 255, 1);
+  --color-whitesmoke: rgba(245, 245, 245, 1);
+  --color-lightgrey: rgba(211, 211, 211, 1);
+  --color-silver: rgba(192, 192, 192, 1);
+  --color-darkgrey: rgba(169, 169, 169, 1);
+  --color-grey: rgba(128, 128, 128, 1);
+  --color-dimgrey: rgba(105, 105, 105, 1);
 
   --transition: all 400ms ease;
 
@@ -174,7 +183,7 @@ section {
 section > h2,
 section > h5 {
   text-align: center;
-  color: var(--color-light);
+  color: var(--color-whitesnow);
 }
 
 section > h2 {
@@ -183,7 +192,7 @@ section > h2 {
 }
 
 article {
-  color: var(--color-light);
+  color: var(--color-whitesnow);
   padding: 0.1rem 2.2rem;
 }
 
@@ -192,7 +201,7 @@ article {
 }
 
 .text-light {
-  color: var(--color-light);
+  color: var(--color-whitesnow);
 }
 
 a {

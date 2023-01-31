@@ -30,13 +30,18 @@ export class ContentfulService {
         twitter: fields.author.fields.twitter
       };
 
+      const tags = fields.tags.map((item: { sys: any, fields: any }) => ({
+        id: item.sys.id,
+        name: item.fields.name
+      }));
+
       return {
         id: sys.id,
         slug: fields.slug,
         body: fields.body,
         title: fields.title,
         description: fields.description,
-        tags: fields.tags,
+        tags: tags,
         heroImage: fields.heroImage.fields.file.url,
         author: author,
         publishedAt: fields.publishDate
