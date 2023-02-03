@@ -13,6 +13,9 @@ import Header from '../components/header/header.component';
 import { GA_TRACKING_ID, trackPageView } from '../utils/gtag';
 import Footer from '../components/footer/footer.component';
 import { NextPage } from 'next';
+import { ThemeProvider } from '../components/theme-dark-mode/ThemeContext';
+import ThemeToggle from '../components/theme-dark-mode/ThemeToggle';
+import ThemeSelector from '../components/theme-selector/ThemeSelector';
 
 type Page<P = {}> = NextPage<P> & {
   getLayout?: (page: ReactNode) => ReactNode;
@@ -67,6 +70,10 @@ const App = ({ Component, pageProps }: Props) => {
 
       <div className="app_container">
         <div className="right_header">
+          {/* <ThemeProvider>
+            <ThemeToggle />
+          </ThemeProvider> */}
+          <ThemeSelector/>
         </div>
         <Header />
         <Component {...pageProps} />

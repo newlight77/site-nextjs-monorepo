@@ -1,5 +1,5 @@
 .header__nav {
-  margin: 0 0.6rem;
+  margin: 0 0rem;
   padding: 1rem 0.6rem;
   background-color: var(--color-secondary-variant);
   border-bottom: 1px solid var(--color-secondary);
