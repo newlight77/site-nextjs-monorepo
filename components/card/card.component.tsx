@@ -42,14 +42,14 @@ const Card: FunctionComponent<Props> = ({ info }) => {
   );
 
   return (
-    <div className={styles.card__container}>
+    <div className={styles.card}>
       {/* <div className={styles.card__header} style={cardBGStyles} /> */}
       <Link href={getHref()} as={getNavigationLink(info.slug)}>
         <div className={styles.card__image}>
             <img src={info.heroImage} alt={info.title} />
         </div>
       </Link>
-      <div className={styles.card}>
+      <div className={styles.card__container}>
         <div className={styles.card__header}>
           <div className={styles.card__author}>{info.author.name}</div>
           <div className={styles.card__publishedAt}>{'   '} {publishedAt}</div>
@@ -57,7 +57,7 @@ const Card: FunctionComponent<Props> = ({ info }) => {
         <Link href={getHref()} as={getNavigationLink(info.slug)}>
           <div className={styles.card__body}>
             <h3 className={styles.card__title}>{info.title}</h3>
-            <p className={styles.card__text}>{info.description}</p>
+            <p className={styles.card__text}>{info.description.substring(0, 150)}</p>
           </div>
         </Link>
         <div className={styles.card__tags}>

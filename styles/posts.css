@@ -13,14 +13,14 @@
 }
 
 .blogposts__filters:hover {
-  border: 1px solid var(--color-primary);
+  border: 1px solid var(--color-secondary-text);
   border-radius: 0.6rem;
   cursor: default;
   transition: var(--transition);
 }
 
 .blogposts__header {
-  color: var(--color-secondary-variant);
+  color: var(--color-secondary-text);
   font-weight: normal;
   font-size: 30px;
   padding: 1.2rem;

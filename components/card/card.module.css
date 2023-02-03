@@ -1,9 +1,10 @@
-.card__container {
+.card {
   /* display: flex; */
   /* flex-direction: row; */
   display: grid;
   grid-template-columns: 1fr 3fr;
   gap: 0.5rem;
+  /* width: 80vw; */
 
   border-radius: 1rem;
   border: 1px solid transparent;
@@ -11,9 +12,9 @@
   transition: var(--transition);
 }
 
-.card__container:hover {
-  background: var(--color--variant);
-  border-color: var(--color-primary);
+.card:hover {
+  background: var(--color-primary-variant);
+  border-color: var(--color-primary-text);
   cursor: default;
   transition: var(--transition);
 }
@@ -22,7 +23,7 @@
   margin: 1.8rem;
   display: flex;
   border-radius: 0.8rem;
-  background: var(--color-lightgrey);
+  background: var(--color-primary-text);
   overflow: hidden;
   transition: var(--transition);
 
@@ -41,15 +42,16 @@
   cursor: pointer;
 }
 
-.card {
+.card_container {
   padding-top: 1.2rem;
   line-height: 1.1rem;
   font-size: 0.9rem;
-  color: var(--color-lightgrey);
+  color: var(--color-primary-text-variant);
 }
 
 .card__header {
   padding: 0 0 0 0;
+  margin-top: 1rem;
   margin-bottom: 1rem;
   display: grid;
   grid-template-columns: 1fr 1fr 6fr;
@@ -66,6 +68,8 @@
 
 .card__body {
   font-size: 0.9rem;
+  height: 18vh;
+  /* width: 40vw; */
 }
 
 .card__title {
@@ -74,7 +78,7 @@
   font-size: 1.3rem;
   font-weight: bold;
   /* color: var(--color-secondary-variant); */
-  color: var(--color-white);
+  color: var(--color-primary-text);
   transition: var(--transition);
   cursor: pointer;
 }
@@ -108,9 +112,9 @@
   padding: 0.2rem 0.2rem 0.2rem 0.2rem;
   margin: 1rem 0.5rem 0.5rem 0rem;
   font-size: .8rem;
-  color: var(--color-snow);
-  border: 1px solid var(--color-grey);
-  background-color: var(--color-dimgrey);
+  color: var(--color-primary-text-variant);
+  border: 1px solid var(--color-secondary-text);
+  background-color: var(--color-secondary-text-variant);
   border-radius: 2px;
   opacity: 0.7;
   transition: opacity 0.4s;
@@ -119,7 +123,7 @@
 
 .card__action {
   text-decoration: none;
-  color: var(--color-secondary);
+  color: var(--color-secondary-text);
   transition: var(--transition);
 }
 

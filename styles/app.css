@@ -8,5 +8,5 @@
     float: right;
     margin-right: 0.5rem;
     margin-top: 6px;
-    z-index: 100;
+    z-index: 1000;
 }

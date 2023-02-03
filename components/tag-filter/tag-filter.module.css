@@ -6,7 +6,7 @@
 
 .filters__header {
   font-size: 22px;
-  color: var(--color-secondary-variant);
+  color: var(--color-secondary-text);
 }
 
 .filters__tags {
@@ -27,7 +27,7 @@
 
 .filters__tags .tag .global-tag {
   font-size: 5.1rem;
-  color: var(--color-primary-variant);
+  color: var(--color-primary-text-variant);
   cursor: pointer;
 }
 

@@ -132,7 +132,7 @@
   margin-top: 15px;
   margin-bottom: 15px;
   line-height: 1.1;
-  color: var(--color-white);
+  color: var(--color-primary-text);
 }
 
 .markdown h1 {
@@ -320,7 +320,7 @@
   height: 4px;
   padding: 0;
   margin: 16px 0;
-  background-color: var(--color-silver);
+  background-color: var(--color-secondary-variant);
   border: 0 none;
 }
 
@@ -360,8 +360,8 @@
 
 .markdown blockquote {
   padding: 0 15px;
-  color: var(--color-lightgrey);
-  border-left: 4px solid var(--color-silver);
+  color: var(--color-secondary-text);
+  border-left: 4px solid var(--color-secondary-text-variant);
 }
 
 .markdown blockquote > :first-child {
@@ -387,16 +387,16 @@
 .markdown table th,
 .markdown table td {
   padding: 6px 13px;
-  border: 1px solid var(--color-lightgrey);
+  border: 1px solid var(--color-secondary-text);
 }
 
 .markdown table tr {
-  background-color: var(--color-white);
-  border-top: 1px solid #ccc;
+  background-color: var(--color-secondary-variant);
+  border-top: 1px solid var(--color-secondary-text);
 }
 
 .markdown table tr:nth-child(2n) {
-  background-color: var(--color-lightgrey);
+  background-color: var(--color-primary-text-variant);
 }
 
 .markdown img {
@@ -423,7 +423,7 @@
 
 
 .markdown pre {
-  border: 1px solid var(--color-grey);
+  border: 1px solid var(--color-secondary-text);
   /* background-color: var(--color-secondary); */
   padding: 0rem 0.4rem;
   margin: 1rem 0;
