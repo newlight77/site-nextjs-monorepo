@@ -5,10 +5,12 @@ import Card from '../../components/card/card.component';
 import Layout from '../../components/layout/layout.component';
 import { BlogPost } from '../../models/blog.post';
 import { MetaTags, PageType, RobotsContent } from '../../models/tags';
-import { ContentfulService } from '../../service/contentful.service';
+import { ContentfulService } from '../../lib/domain/contentful.service';
 
 import MarkdownComponents from '../../components/markdown/markdown-syntax-highlighter';
+import { contentfulAdapter } from '../../lib/spi/contentful-adapter';
 
+const contentfulService = new ContentfulService(contentfulAdapter);
 
 type Props = {
   article: BlogPost;
@@ -57,16 +59,9 @@ const PostPage: NextPage<Props, any> = (props: Props) => {
 };
 
 PostPage.getInitialProps = async ({ query }: NextPageContext) => {
-  const contentfulService = new ContentfulService();
   const article: any = await contentfulService.getPostBySlug(query.slug);
-
   const tags = article.tags ? article.tags.map((tag: any) => tag.sys.id) : [];
-
-  const suggestedArticles = await contentfulService.fetchSuggestions(
-    tags,
-    article.slug
-  );
-
+  const suggestedArticles = await contentfulService.getSuggestions(tags, 2, article.slug);
   return { article, suggestedArticles };
 };
 

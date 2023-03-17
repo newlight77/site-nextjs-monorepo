@@ -27,3 +27,16 @@ export type PostsResult = {
     skip: number;
     limit: number;
 };
+
+export type BlogPostsPaginatedFilter = {
+    limit?: number, 
+    skip?: number, 
+    tag?: string
+}
+
+export type BlogPostsPaginated = {
+    entries: BlogPost[], 
+    total: number, 
+    limit: number | undefined, 
+    skip: number | undefined
+}

@@ -7,14 +7,17 @@ import Layout from '../../components/layout/layout.component';
 import Card from '../../components/card/card.component';
 import Paginator from '../../components/paginator/paginator.component';
 import { defaultMetaTags } from '../../models/tags';
-import { ContentfulService } from '../../service/contentful.service';
+import { ContentfulService } from '../../lib/domain/contentful.service';
 import TagFilters from '../../components/tag-filter/tag-filter.component';
 import { PostsFilter, PostsResult } from '../../models/blog.post';
+import { contentfulAdapter } from '../../lib/spi/contentful-adapter';
 
 const MAX_PER_PAGE = 15;
 
 const cards = (entries: any[]) =>
   entries.map((entry, index) => <Card info={entry} key={index} />);
+
+const contentfulService = new ContentfulService(contentfulAdapter);
 
 const PostsPage: NextPage<PostsFilter, any> = (filter: PostsFilter) => {
   const router = useRouter();
@@ -31,7 +34,7 @@ const PostsPage: NextPage<PostsFilter, any> = (filter: PostsFilter) => {
   const [postsResult, setResults] = useState(initResults);
 
   useEffect(() => {
-    getBlogPostEntries(new ContentfulService(), postsFilter).then((results => setResults(results)));
+    getBlogPostEntries(postsFilter).then((results => setResults(results)));
     void router.push({ pathname: '/', query: { page: postsFilter.page, tag: postsFilter.tag } });
   }, [postsFilter]);
 
@@ -72,15 +75,15 @@ const getRange = (total: number, limit: number) => {
   return calculateRange(rangeLimit);
 }
 
-const getBlogPostEntries = async( service: ContentfulService, filter: PostsFilter ): Promise<PostsResult> => {
+const getBlogPostEntries = async( filter: PostsFilter ): Promise<PostsResult> => {
   const { entries, total, skip, limit }: any = 
-  await service.getBlogPostEntries({
+  await contentfulService.getBlogPosts({
     tag: filter.tag,
     skip: filter.skip,
     limit: filter.limit
   });
 
-  const { tags } = await service.getAllTags();
+  const tags = await contentfulService.getAllTags();
 
   return { entries, tags, total, page: filter.page, skip, limit };
 }

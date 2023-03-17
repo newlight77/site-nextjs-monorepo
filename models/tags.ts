@@ -1,3 +1,8 @@
+export type Tag = {
+    id: string,
+    name: string
+}
+
 export enum PageType {
     website = 'website',
     article = 'article'
