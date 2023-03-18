@@ -22,19 +22,16 @@ class NotionAdapter implements NotionSpi {
   constructor(private notionApi: NotionAPI) {}
 
   getPage = async (pageId?: string): Promise<ExtendedRecordMap | undefined> => {
-    console.log('pageId', pageId);
+    // console.log('NotionAdapter pageId', pageId);
     const recordMap = this.notionApi.getPage(pageId ? pageId : rootNotionPageId);
-    console.log('recordMap', recordMap);
-
-    // const database = this.notionApi.getCollectionData(blogsDatabaseId, blogsDatabaseViewId, {});
-    // console.log('database', database);
+    console.log('NotionAdapter recordMap', (await recordMap));
 
     return recordMap;
   }
 
   search = (params: SearchParams): Promise<SearchResults | undefined> => {
     const results = this.notionApi.search(params);
-    console.log('results', results);
+    console.log('NotionAdapter results', results);
     return results;
   }
 
