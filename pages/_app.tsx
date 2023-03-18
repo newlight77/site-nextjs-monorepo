@@ -13,11 +13,11 @@ import Header from '../components/header/header.component';
 import { GA_TRACKING_ID, trackPageView } from '../utils/gtag';
 import Footer from '../components/footer/footer.component';
 import { NextPage } from 'next';
-import { ThemeProvider } from '../components/theme-dark-mode/ThemeContext';
-import ThemeToggle from '../components/theme-dark-mode/ThemeToggle';
+// import { ThemeProvider } from '../components/theme-dark-mode/ThemeContext';
+// import ThemeToggle from '../components/theme-dark-mode/ThemeToggle';
 import ThemeSelector from '../components/theme-selector/ThemeSelector';
 
-type Page<P = {}> = NextPage<P> & {
+type Page<P = object> = NextPage<P> & {
   getLayout?: (page: ReactNode) => ReactNode;
 };
 

@@ -5,6 +5,7 @@ import styles from './tag-filter.module.css';
 type Props = {
   tags: { id: string; name: string }[];
   selectedTagId: string;
+  // eslint-disable-next-line @typescript-eslint/ban-types
   updatePage: Function;
 };
 

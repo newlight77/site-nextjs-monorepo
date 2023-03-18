@@ -1,3 +1,4 @@
+/* eslint-disable react/react-in-jsx-scope */
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter'
 import tsx from 'react-syntax-highlighter/dist/cjs/languages/prism/tsx'
 import typescript from 'react-syntax-highlighter/dist/cjs/languages/prism/typescript'
@@ -25,7 +26,7 @@ type CodeBlock = {
 const syntaxTheme = oneDark;
 
 const MarkdownComponents: object = {
-  code({ node, inline, className, ...props }: CodeBlock) {
+  code({ node, className, ...props }: CodeBlock) {
     const match = /language-(\w+)/.exec(className || '')
     const hasMeta = node?.data?.meta
 
@@ -53,6 +54,7 @@ const MarkdownComponents: object = {
         wrapLines={hasMeta ? true : false}
         useInlineStyles={true}
         lineProps={applyHighlights}
+        // eslint-disable-next-line react/no-children-prop
         children={node.children}
         {...props}
       />

@@ -22,7 +22,7 @@ const contentfulService = new ContentfulService(contentfulAdapter);
 const PostsPage: NextPage<PostsFilter, any> = (filter: PostsFilter) => {
   const router = useRouter();
 
-  let initResults: PostsResult = {
+  const initResults: PostsResult = {
     entries: [],
     tags: [],
     total: 0,
@@ -87,6 +87,7 @@ const getBlogPostEntries = async( filter: PostsFilter ): Promise<PostsResult> =>
 
   return { entries, tags, total, page: filter.page, skip, limit };
 }
+
 
 export const toFilter = async (tag: string, page: number): Promise<PostsFilter> => {
   return {

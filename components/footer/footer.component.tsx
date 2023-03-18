@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 
 import styles from './footer.module.css';
 
-const pjson = require('../../package.json')
+import pjson from '../../package.json';
 
 const Footer: FunctionComponent = () => {
   const year = new Date().getFullYear()
@@ -13,7 +13,7 @@ const Footer: FunctionComponent = () => {
         <a
           className={styles.link}
           href="https://www.oneprofile.io/newlight77"
-          target="_blank"
+          target="_blank" rel="noreferrer"
         >
           oneprofile.io
         </a>

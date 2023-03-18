@@ -13,10 +13,10 @@ type Props = {
 };
 
 const Card: FunctionComponent<Props> = ({ info }) => {
-  const cardBGStyles = {
-    backgroundImage: `url(${info.heroImage})`,
-    background: `linear-gradient(45deg, rgba(18, 40, 76, 0.22), rgba(39, 173, 213, 0.22), rgba(79, 192, 176, 0.22)), url(${info.heroImage}) no-repeat`
-  };
+  // const cardBGStyles = {
+  //   backgroundImage: `url(${info.heroImage})`,
+  //   background: `linear-gradient(45deg, rgba(18, 40, 76, 0.22), rgba(39, 173, 213, 0.22), rgba(79, 192, 176, 0.22)), url(${info.heroImage}) no-repeat`
+  // };
 
   const newDate = (x: Date) => {
     if (x === undefined) { return new Date(); }
@@ -26,7 +26,7 @@ const Card: FunctionComponent<Props> = ({ info }) => {
   const publishedAt = format(newDate(info.publishedAt), 'yyyy-MM-dd');
 
   const handleTagChosen = (tag: any) => {
-
+    console.log('tag chosen', tag);
   };
 
   const renderTag = (tag: any, index: number) => (

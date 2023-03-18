@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
 
@@ -20,7 +21,7 @@ const config_rewrites = {
     return [
       {
         source: '/api/notion/:path*',
-        destination: 'https://api.notion.com/v1/:path*',
+        destination: 'https://api.notion.com/:path*',
       },
     ];
   },

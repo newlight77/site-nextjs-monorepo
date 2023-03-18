@@ -1,18 +1,18 @@
 import React, { useEffect, MouseEvent } from 'react';
 import styles from './theme.module.css';
 
-const THEMES = [
-  'deepskyblue',
-  'darkindigoblue',
-  'lightseagreen',
-  'darkseagreen',
-  'peachpuff',
-  'salmon',
-  'orchid',
-  'blueviolet',
-  'lemonchiffon',
-  'gold',
-];
+// const THEMES = [
+//   'deepskyblue',
+//   'darkindigoblue',
+//   'lightseagreen',
+//   'darkseagreen',
+//   'peachpuff',
+//   'salmon',
+//   'orchid',
+//   'blueviolet',
+//   'lemonchiffon',
+//   'gold',
+// ];
 
 const ThemeSelector = () => {
 
