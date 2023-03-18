@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { notionService } from '../../lib/domain/notion.service';
+import { notionApiService, notionClientService } from '../../lib/domain/notion.service';
 
 const getPage = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST') {
@@ -8,8 +8,11 @@ const getPage = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const pageId: string | undefined = req.body.pageId ? req.body.pageId : undefined
   // console.log('<<< lambda page')
-  const page = await notionService.getPage(pageId);
-  // console.log('>>> lambda page', page)
+  const page = await notionApiService.getPage(pageId);
+  console.log('>>> notion-page notionApiService', page)
+
+  const page2 = await notionClientService.getPage(pageId);
+  console.log('>>> notion-page notionClientService', page2)
 
   res.setHeader(
     'Cache-Control',

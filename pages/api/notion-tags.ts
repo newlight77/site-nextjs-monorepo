@@ -1,16 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { NotionService } from '../../lib/domain/notion.service';
-import { notionApiAdapter } from '../../lib/spi/notion-api-adapter';
+import { notionClientService } from '../../lib/domain/notion.service';
 
 const getTags = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST') {
     return res.status(405).send({ error: 'method not allowed' })
   }
 
-  const notionService = new NotionService(notionApiAdapter);
-
   console.log('<<< lambda notion-tags')
-  const tags = await notionService.getAllTags();
+  const tags = await notionClientService.getAllTags();
   console.log('>>> lambda notion-tags', tags)
 
   res.setHeader(

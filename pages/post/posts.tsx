@@ -11,7 +11,7 @@ import { ContentfulService } from '../../lib/domain/contentful.service';
 import TagFilters from '../../components/tag-filter/tag-filter.component';
 import { PostsFilter, PostsResult } from '../../models/blog.post';
 import { contentfulAdapter } from '../../lib/spi/contentful-adapter';
-import { ssrClient } from 'pages/ssr-client';
+import { ssrClient } from 'pages/api/ssr-client';
 
 const MAX_PER_PAGE = 15;
 

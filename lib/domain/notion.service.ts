@@ -1,17 +1,18 @@
-import { ExtendedRecordMap, SearchParams, SearchResults } from 'notion-types'
+import { SearchParams, SearchResults } from 'notion-types'
 import { BlogPost, BlogPostsPaginated, BlogPostsPaginatedFilter } from '../../models/blog.post';
 import { Tag } from '../../models/tags';
 import { notionApiAdapter } from '../spi/notion-api-adapter';
+import { notionClientAdapter } from '../spi/notion-client-adapter';
 
 export interface NotionSpi {
-    getPage(pageId?: string): Promise<ExtendedRecordMap | undefined>;
-    search(params: SearchParams): Promise<SearchResults | undefined>;
+    getPage(pageId?: string): Promise<any | undefined>;
+    search(params: SearchParams): Promise<any | undefined>;
 }
 
 export class NotionService {
     constructor(private spi: NotionSpi) { }
 
-    async getPage(pageId?: string): Promise<ExtendedRecordMap | undefined> {
+    async getPage(pageId?: string): Promise<any | undefined> {
         try {
             const page = await this.spi.getPage(pageId);
             // console.log('service page', page);
@@ -82,4 +83,5 @@ export class NotionService {
     }
 }
 
-export const notionService = new NotionService(notionApiAdapter)
+export const notionApiService = new NotionService(notionApiAdapter)
+export const notionClientService = new NotionService(notionClientAdapter)

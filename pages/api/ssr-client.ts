@@ -11,7 +11,7 @@ const getPage = async (pageId?: string) => {
     });
 
     if (!pageResult.ok) {
-        console.log('pageResult', pageResult.json());
+        console.log('ssr-client getPage', pageResult.json());
     }
 
     return pageResult;
