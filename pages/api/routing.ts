@@ -9,5 +9,5 @@ export const apiHost = isDev ? host : `https://${process.env.VERCEL_URL || proce
 export const apiBaseUrl = `/api`
 
 export const api = {
-  // searchNotion: `${apiBaseUrl}/contentful`,
+  searchNotion: `${apiBaseUrl}/notion-search`,
 }

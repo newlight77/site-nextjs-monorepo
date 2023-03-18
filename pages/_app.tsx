@@ -25,6 +25,7 @@ type Props = AppProps & {
   Component: Page;
 };
 
+
 const App = ({ Component, pageProps }: Props) => {
   const router = useRouter();
 
