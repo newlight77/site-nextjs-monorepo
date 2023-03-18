@@ -3,21 +3,37 @@ import { BlogPost, BlogPostsPaginated, BlogPostsPaginatedFilter } from '../../mo
 import { Tag } from '../../models/tags';
 import { notionApiAdapter } from '../spi/notion-api-adapter';
 
-// const rootNotionSpaceId = process.env.ROOT_NOTION_SPACE_ID || '';
-const rootNotionPageId = process.env.ROOT_NOTION_PAGE_ID || '0887029a91fb4f0b9b9032932069c9bd';
-// const blogsDatabaseId = process.env.BLOGS_DB_ID || '39d392b168454d1a8373a5e5472bdcd2';
-
 export interface NotionSpi {
-    getPage(pageId: string): Promise<ExtendedRecordMap | undefined>;
+    getPage(pageId?: string): Promise<ExtendedRecordMap | undefined>;
     search(params: SearchParams): Promise<SearchResults | undefined>;
 }
 
 export class NotionService {
     constructor(private spi: NotionSpi) { }
 
+    async getPage(pageId?: string): Promise<ExtendedRecordMap | undefined> {
+        try {
+            const page = await this.spi.getPage(pageId);
+            console.log('page', page);
+            return page;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async search(params: SearchParams): Promise<SearchResults | undefined> {
+        try {
+            const results = await this.spi.search(params);
+            console.log('results', results);
+            return results;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     async getAllTags(): Promise<Tag[]> {
         try {
-            const page = await this.spi.getPage(rootNotionPageId);
+            const page = await this.spi.getPage();
             console.log('page', page);
             return [];
         } catch (error) {
@@ -35,7 +51,7 @@ export class NotionService {
     ): Promise<BlogPostsPaginated | undefined> {
         console.log('limit skip tag', limit, skip, tag);
         try {
-            const page = await this.spi.getPage(rootNotionPageId);
+            const page = await this.spi.getPage();
             console.log('page', page);
             return;
         } catch (error) {
@@ -46,7 +62,7 @@ export class NotionService {
     async getPostBySlug(slug: string | string[] | undefined): Promise<BlogPost | undefined> {
         console.log('slug', slug);
         try {
-            const page = await this.spi.getPage(rootNotionPageId);
+            const page = await this.spi.getPage();
             console.log('page', page);
             return ;
         } catch (error) {
@@ -57,7 +73,7 @@ export class NotionService {
     async getSuggestions(tags: string[], max: number, currentArticleSlug: string): Promise<BlogPost[] | undefined> {
         console.log('tags max currentArticleSlug', tags, max, currentArticleSlug);
         try {
-            const page = await this.spi.getPage(rootNotionPageId);
+            const page = await this.spi.getPage();
             console.log('page', page);
             return;
         } catch (e) {

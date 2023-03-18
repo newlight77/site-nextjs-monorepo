@@ -32,10 +32,7 @@ class ContentfulAdapter implements ContentfulSpi {
     { limit, skip, tag }: BlogPostsPaginatedFilter = { limit: 5, skip: 0, tag: '' }
   ): Promise<BlogPostsPaginated> {
     const contents = await this.fetPosts(limit, skip, tag);
-    console.log('contents', contents);
-
     const entries = mapToBlogPosts(contents.items);
-    console.log('entries', entries);
     const total = contents.total;
 
     return { entries, total, limit, skip };
@@ -158,11 +155,8 @@ const mapToBlogPost = (item: Item, tags: any, author: Author) => {
 
 const mapToBlogPosts = (entries: any): BlogPost[] => {
   return entries.map((item: Item) => {
-    console.log('item', item);
     const author: Author = mapToAuthor(item);
-    console.log('author', author);
     const tags = mapToTags(item.fields.tags);
-    console.log('tags', tags);
     return mapToBlogPost(item, tags, author);
   });
 }

@@ -11,6 +11,7 @@ import { ContentfulService } from '../../lib/domain/contentful.service';
 import TagFilters from '../../components/tag-filter/tag-filter.component';
 import { PostsFilter, PostsResult } from '../../models/blog.post';
 import { contentfulAdapter } from '../../lib/spi/contentful-adapter';
+import { api, apiHost } from 'pages/api/routing';
 
 const MAX_PER_PAGE = 15;
 
@@ -84,6 +85,18 @@ const getBlogPostEntries = async( filter: PostsFilter ): Promise<PostsResult> =>
   });
 
   const tags = await contentfulService.getAllTags();
+
+  const pageResult = await fetch(`${apiHost}${api.notionPage}`, {
+    method: 'POST',
+    body: JSON.stringify({pageId: undefined}),
+    headers: {
+      'content-type': 'application/json'
+    }
+  });
+
+  if (!pageResult.ok) {
+    // console.log('pageResult', pageResult.json());
+  }
 
   return { entries, tags, total, page: filter.page, skip, limit };
 }

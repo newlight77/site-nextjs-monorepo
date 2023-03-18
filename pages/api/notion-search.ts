@@ -9,9 +9,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const searchParams: SearchParams = req.body
 
-  console.log('<<< lambda search-notion', searchParams)
+  console.log('<<< lambda notion-search', searchParams)
   const results = await notionApiAdapter.search(searchParams)
-  console.log('>>> lambda search-notion', results)
+  console.log('>>> lambda notion-searcj', results)
 
   res.setHeader(
     'Cache-Control',
