@@ -10,6 +10,6 @@ export const apiBaseUrl = `/api`
 
 export const api = {
   notionTags: `${apiBaseUrl}/notion-tags`,
-  notionPage: `${apiBaseUrl}/notion-page`,
+  notionPosts: `${apiBaseUrl}/notion-posts`,
   notionSearch: `${apiBaseUrl}/notion-search`,
 }

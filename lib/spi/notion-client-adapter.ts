@@ -18,21 +18,21 @@ class NotionClientAdapter implements NotionSpi {
   constructor(private client: Client) {}
 
   getPage = async (pageId?: string): Promise<GetPageResponse | undefined > => {
-    console.log('NotionClientAdapter getPage pageId auth', pageId, accessToken);
-    const response = await this.client.pages.retrieve({ page_id: pageId ? pageId : rootPageId });
-    // console.log('NotionClientAdapter getPage response', response);
-    return response;
+    console.log('-----    NotionClientAdapter getPage pageId auth', pageId, accessToken);
+    const page = await this.client.pages.retrieve({ page_id: pageId ? pageId : rootPageId });
+    // console.log('NotionClientAdapter getPage page', page);
+    return page;
   }
 
   getDatabaseMeta = async (databaseId?: string): Promise<QueryDatabaseResponse | undefined > => {
-    console.log('NotionClientAdapter getPage pageId auth', databaseId, accessToken);
-    const response = await this.client.databases.query({ database_id: databaseId ? databaseId : rootDatabaseId });
-    // console.log('NotionClientAdapter getPage response', response);
-    return response;
+    console.log('-----    NotionClientAdapter getDatabaseMeta databaseId auth', databaseId, accessToken);
+    const database = await this.client.databases.query({ database_id: databaseId ? databaseId : rootDatabaseId });
+    // console.log('NotionClientAdapter getDatabaseMeta database', database);
+    return database;
   }
 
   getDatabase = async (databaseId?: string): Promise<QueryDatabaseResponse | undefined > => {
-    console.log('NotionClientAdapter getPage pageId auth', databaseId, accessToken);
+    console.log('-----    NotionClientAdapter getDatabase databaseId auth', databaseId, accessToken);
     const filter = {
       property: 'isPublic',
       checkbox: {
@@ -46,13 +46,23 @@ class NotionClientAdapter implements NotionSpi {
         direction: 'descending'
     }];
 
-    const response = await this.client.databases.query({
+    const database = await this.client.databases.query({
       database_id: databaseId ? databaseId: rootDatabaseId,
       filter, sorts
     });
 
-    // console.log('NotionClientAdapter getPage response', response);
-    return response;
+    console.log('-----    NotionClientAdapter getDatabase database', database);
+    console.log('-----    NotionClientAdapter getDatabase database.results', database.results);
+    console.log('-----    NotionClientAdapter getDatabase database.page', database.page);
+
+    Object.entries(database.results[0].properties['Tags'].multi_select[0]).forEach(([propertyName, propertyValue]) => {
+      console.log(`${propertyName}: ${propertyValue}`);
+    });
+
+
+
+    // console.log('NotionClientAdapter getDatabase database', database);
+    return database;
   }
 
   getBlocks = async (blockId: string): Promise<PartialBlockObjectResponse[] | undefined> => {
@@ -76,7 +86,7 @@ class NotionClientAdapter implements NotionSpi {
 
   search = async (params: any): Promise<SearchResponse | undefined> => { 
     const results = await this.client.search({});
-    console.log('NotionClientAdapter search params results', params, results);
+    console.log('-----    NotionClientAdapter search params results', params, results);
     return results;
   }
 }

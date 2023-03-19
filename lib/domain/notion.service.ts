@@ -13,30 +13,10 @@ export interface NotionSpi {
 export class NotionService {
     constructor(private spi: NotionSpi) { }
 
-    async getPage(pageId?: string): Promise<any | undefined> {
-        try {
-            const page = await this.spi.getPage(pageId);
-            console.log('NotionService getPage page', page);
-
-            const databaseMeta = await this.spi.getDatabaseMeta();
-            console.log('NotionService getPage databaseMeta', databaseMeta);
-
-            const database = await this.spi.getDatabase();
-            console.log('NotionService getPage database', database);
-
-            // const blocks = await this.spi.getBlocks();
-            // console.log('NotionService getPage blocks', blocks);
-
-            return page;
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
     async search(params: any): Promise<any | undefined> {
         try {
             const results = await this.spi.search(params);
-            console.log('NotionService search results', results);
+            console.log('======    NotionService search results', results);
             return results;
         } catch (error) {
             console.log(error);
@@ -45,8 +25,9 @@ export class NotionService {
 
     async getAllTags(): Promise<Tag[]> {
         try {
-            const page = await this.spi.getPage();
-            console.log('NotionService getAllTags page', page);
+            const database = await this.spi.getDatabase();
+            console.log('======    NotionService getAllTags database', database);
+
             return [];
         } catch (error) {
             console.log(error);
@@ -61,10 +42,11 @@ export class NotionService {
             tag: ''
         }
     ): Promise<BlogPostsPaginated | undefined> {
-        console.log('limit skip tag', limit, skip, tag);
+        console.log('======    NotionService getBlogPosts limit skip tag', limit, skip, tag);
         try {
-            const page = await this.spi.getPage();
-            console.log('NotionService getBlogPosts page', page);
+            const database = await this.spi.getDatabase();
+            console.log('======    NotionService getBlogPosts database', database);
+            
             return;
         } catch (error) {
             console.log(error);
@@ -72,10 +54,8 @@ export class NotionService {
     }
 
     async getPostBySlug(slug: string | string[] | undefined): Promise<BlogPost | undefined> {
-        console.log('slug', slug);
+        console.log('======    NotionService getPostBySlug slug', slug);
         try {
-            const page = await this.spi.getPage();
-            console.log('NotionService getPostBySlug page', page);
             return ;
         } catch (error) {
             console.error(error);
@@ -83,10 +63,8 @@ export class NotionService {
     }
 
     async getSuggestions(tags: string[], max: number, currentArticleSlug: string): Promise<BlogPost[] | undefined> {
-        console.log('tags max currentArticleSlug', tags, max, currentArticleSlug);
+        console.log('======    NotionService getSuggestions tags max currentArticleSlug', tags, max, currentArticleSlug);
         try {
-            const page = await this.spi.getPage();
-            console.log('NotionService getSuggestions page', page);
             return;
         } catch (e) {
             console.error(e);
