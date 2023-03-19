@@ -4,7 +4,7 @@ import styles from './card.module.css';
 import { BlogPost } from '../../models/blog.post';
 import { format } from 'date-fns';
 
-export const getNavigationLink = (slug: any): string => `/post/${slug}`;
+export const getNavigationLink = (id: any): string => `/post/${id}`;
 
 export const getHref = (): string => `/post/[slug]`;
 
@@ -44,7 +44,7 @@ const Card: FunctionComponent<Props> = ({ info }) => {
   return (
     <div className={styles.card}>
       {/* <div className={styles.card__header} style={cardBGStyles} /> */}
-      <Link href={getHref()} as={getNavigationLink(info.slug)}>
+      <Link href={getHref()} as={getNavigationLink(info.id)}>
         <div className={styles.card__image}>
             <img src={info.heroImage} alt={info.title} />
         </div>
@@ -54,7 +54,7 @@ const Card: FunctionComponent<Props> = ({ info }) => {
           <div className={styles.card__author}>{info.author.name}</div>
           <div className={styles.card__publishedAt}>{'   '} {publishedAt}</div>
         </div>
-        <Link href={getHref()} as={getNavigationLink(info.slug)}>
+        <Link href={getHref()} as={getNavigationLink(info.id)}>
           <div className={styles.card__body}>
             <h3 className={styles.card__title}>{info.title}</h3>
             <p className={styles.card__text}>{info.description.substring(0, 150)}</p>

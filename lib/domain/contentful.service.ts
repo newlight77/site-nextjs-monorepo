@@ -9,7 +9,7 @@ export const CONTENT_TYPE_TAGS = 'tag'
 export interface ContentfulSpi {
   fetchAllTags(): Promise<Tag[]>;
   fetchBlogPosts(filter: BlogPostsPaginatedFilter): Promise<BlogPostsPaginated>;
-  fetchPostBySlug(slug: string | string[] | undefined): Promise<BlogPost | undefined>;
+  fetchPostById(id: string | string[] | undefined): Promise<BlogPost | undefined>;
   fetchSuggestions(tags: string[], max: number, currentArticleSlug: string): Promise<BlogPost[] | undefined>;
 }
 
@@ -41,9 +41,9 @@ export class ContentfulService {
     }
   }
 
-  async getPostBySlug(slug: string | string[] | undefined): Promise<BlogPost | undefined> {
+  async getPostById(id: string | string[] | undefined): Promise<BlogPost | undefined> {
     try {
-      return await this.spi.fetchPostBySlug(slug)
+      return await this.spi.fetchPostById(id)
     } catch (error) {
       console.error(error);
     }

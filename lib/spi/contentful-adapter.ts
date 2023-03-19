@@ -38,9 +38,9 @@ class ContentfulAdapter implements ContentfulSpi {
     return { entries, total };
   }
 
-  async fetchPostBySlug(slug: string | string[] | undefined): Promise<BlogPost | undefined> {
+  async fetchPostById(id: string | string[] | undefined): Promise<BlogPost | undefined> {
     try {
-      const content: any = await this.fetchBySlug(slug);
+      const content: any = await this.fetchById(id);
       const item: Item = content.items[0];
       const author: Author = mapToAuthor(item);
       return mapToBlogPost(item, item.fields.tags, author);
@@ -66,10 +66,10 @@ class ContentfulAdapter implements ContentfulSpi {
     return mapToBlogPosts(entries);
   }
 
-  private async fetchBySlug(slug: any): Promise<any> {
+  private async fetchById(id: any): Promise<any> {
     return await this.client.getEntries({
       content_type: CONTENT_TYPE_BLOGPOST,
-      'fields.slug': slug
+      'fields.id': id
     });
   }
 

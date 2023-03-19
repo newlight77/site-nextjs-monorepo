@@ -55,7 +55,7 @@ const PostPage: NextPage<Props, any> = (props: Props) => {
 };
 
 PostPage.getInitialProps = async ({ query }: NextPageContext) => {
-  const article: any = await contentfulService.getPostBySlug(query.slug);
+  const article: any = await contentfulService.getPostById(query.id);
   const tags = article.tags ? article.tags.map((tag: any) => tag.sys.id) : [];
   const suggestedArticles = await contentfulService.getSuggestions(tags, 2, article.slug);
   return { article, suggestedArticles };
