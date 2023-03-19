@@ -11,9 +11,9 @@
   },
 
   "scripts": {
-    "dev": "source .env && next dev",
+    "dev": "source .env && NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
-    "start": "source .env && next start",
+    "start": "source .env && NODE_ENV=production next start",
     "export": "source .env && next build && next export",
     "deps": "run-s deps:*",
     "deps:update": "[ -z $GITHUB_ACTIONS ] && yarn add notion-client notion-types notion-utils || echo 'Skipping deps:update on CI'",

@@ -2,7 +2,14 @@ import { BlogPost, BlogPostsPaginated, BlogPostsPaginatedFilter } from '../../mo
 import { Tag } from '../../models/tags';
 import { notionClientAdapter } from '../spi/notion-client-adapter';
 
+const log = (message?: any, ...optionalParams: any[]) => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const colorfulParams = require('util').inspect(optionalParams, { colors: true, depth: 5 })
+    console.log(message, colorfulParams);
+};
+
 export interface NotionSpi {
+    getUsers(): Promise<any | undefined>;
     getDatabaseMeta(databaseId?: string): Promise<any | undefined>;
     getDatabase(databaseId?: string): Promise<any | undefined>;
     getPage(pageId?: string): Promise<any | undefined>;
@@ -16,21 +23,22 @@ export class NotionService {
     async search(params: any): Promise<any | undefined> {
         try {
             const results = await this.spi.search(params);
-            console.log('======    NotionService search results', results);
+            log('======    NotionService search results', results);
             return results;
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
 
     async getAllTags(): Promise<Tag[]> {
         try {
-            const database = await this.spi.getDatabase();
-            console.log('======    NotionService getAllTags database', database);
+            const dbMeta = await this.spi.getDatabaseMeta();
+            log('======    NotionService getAllTags dbMeta', dbMeta);
+            log('======    NotionClientAdapter getDatabaseMeta database', dbMeta.title[0]['plain_text']);
 
             return [];
         } catch (error) {
-            console.log(error);
+            console.error(error);
             return [];
         }
     }
@@ -42,19 +50,19 @@ export class NotionService {
             tag: ''
         }
     ): Promise<BlogPostsPaginated | undefined> {
-        console.log('======    NotionService getBlogPosts limit skip tag', limit, skip, tag);
+        log('======    NotionService getBlogPosts limit skip tag', limit, skip, tag);
         try {
             const database = await this.spi.getDatabase();
-            console.log('======    NotionService getBlogPosts database', database);
+            log('======    NotionService getBlogPosts database', database);
             
             return;
         } catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
 
     async getPostBySlug(slug: string | string[] | undefined): Promise<BlogPost | undefined> {
-        console.log('======    NotionService getPostBySlug slug', slug);
+        log('======    NotionService getPostBySlug slug', slug);
         try {
             return ;
         } catch (error) {
@@ -63,7 +71,7 @@ export class NotionService {
     }
 
     async getSuggestions(tags: string[], max: number, currentArticleSlug: string): Promise<BlogPost[] | undefined> {
-        console.log('======    NotionService getSuggestions tags max currentArticleSlug', tags, max, currentArticleSlug);
+        log('======    NotionService getSuggestions tags max currentArticleSlug', tags, max, currentArticleSlug);
         try {
             return;
         } catch (e) {

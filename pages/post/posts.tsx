@@ -84,16 +84,16 @@ const getBlogPostEntries = async( filter: PostsFilter ): Promise<PostsResult> =>
     limit: filter.limit
   });
 
-  ssrClient.getBlogPosts({
-    tag: filter.tag,
-    skip: filter.skip,
-    limit: filter.limit
-  });
+  // ssrClient.getBlogPosts({
+  //   tag: filter.tag,
+  //   skip: filter.skip,
+  //   limit: filter.limit
+  // });
 
 
   const tags = await contentfulService.getAllTags();
 
-  // ssrClient.getAllTags();
+  ssrClient.getAllTags();
 
   return { entries, tags, total, page: filter.page, skip, limit };
 }

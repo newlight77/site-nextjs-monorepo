@@ -27,6 +27,12 @@ const config_rewrites = {
   },
 };
 
+const config_log = {
+  removeConsole: {
+    exclude: ["error", "warn", "info"],
+  },
+};
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const config_static_assets = {
     staticPageGenerationTimeout: 300,
@@ -52,5 +58,5 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 
 module.exports = withBundleAnalyzer(
-  {...config_webpack, ...config_rewrites, ...config_static_assets}
+  {...config_webpack, ...config_rewrites, ...config_log, ...config_static_assets}
 )
