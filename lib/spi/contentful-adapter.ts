@@ -132,7 +132,8 @@ const mapToAuthor = (item: Item): Author => {
 const mapToTags = (items: Entry<unknown>[]): Tag[] => {
   return items.map((item: Item) => ({
       id: item.sys.id,
-      name: item.fields.name
+      name: item.fields.name,
+      color: 'grey'
     })
   );
 }

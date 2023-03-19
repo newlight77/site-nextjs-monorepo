@@ -17,6 +17,8 @@ export interface NotionSpi {
     search(params: any): Promise<any | undefined>;
 }
 
+type Property = [ propertyName: string, propertyValue: any ];
+
 export class NotionService {
     constructor(private spi: NotionSpi) { }
 
@@ -33,10 +35,8 @@ export class NotionService {
     async getAllTags(): Promise<Tag[]> {
         try {
             const dbMeta = await this.spi.getDatabaseMeta();
-            log('======    NotionService getAllTags dbMeta', dbMeta);
+            // log('======    NotionService getAllTags dbMeta', dbMeta);
 
-
-            type Property = [ propertyName: string, propertyValue: any ];
 
             const tags = Object.entries(dbMeta.properties)
             .filter(([propertyName, ]: Property) => propertyName === 'Tags')
@@ -44,7 +44,7 @@ export class NotionService {
                 return propertyValue.multi_select.options
             });
 
-            log('======    NotionClientAdapter getAllTags tags', tags);
+            // log('======    NotionClientAdapter getAllTags tags', tags);
 
             return tags;
         } catch (error) {
@@ -55,7 +55,7 @@ export class NotionService {
 
     async getBlogPosts(
         { limit, skip, tag }: BlogPostsPaginatedFilter = {
-            limit: 5,
+            limit: 15,
             skip: 0,
             tag: ''
         }
@@ -64,8 +64,31 @@ export class NotionService {
         try {
             const database = await this.spi.getDatabase();
             log('======    NotionService getBlogPosts database', database);
-            
-            return;
+
+            const posts: BlogPost[] = Object.entries(database.results)
+            .flatMap(([  , propertyValue]: Property) => {
+                log('======    NotionClientAdapter getBlogPost propertyName propertyValue', propertyValue )
+                return { 
+                    id: propertyValue.id,
+                    slug: propertyValue.properties.Slug.rich_text[0].plain_text,
+                    body: undefined,
+                    title: propertyValue.properties.Name.title[0].plain_text,
+                    description: propertyValue.properties.Description.rich_text,
+                    tags: propertyValue.properties.Tags.multi_select,
+                    heroImage: propertyValue.properties.Picture.files[0].file.url,
+                    author: propertyValue.properties.Author.people[0].name,
+                    publishedAt: propertyValue.properties.Created.created_time
+                }
+            });
+
+            log('======    NotionClientAdapter getBlogPosts posts', posts);
+
+            return {
+                entries: posts,
+                total: posts.length,
+                limit: 15,
+                skip: database.results.next_cursor
+            };
         } catch (error) {
             console.error(error);
         }

@@ -18,7 +18,7 @@ const log = (message?: any, ...optionalParams: any[]) => {};
 
 const client = new Client({
   auth: accessToken,
-  logLevel: LogLevel.DEBUG,
+  logLevel: LogLevel.WARN,
 });
 
 class NotionClientAdapter implements NotionSpi {
@@ -58,7 +58,7 @@ class NotionClientAdapter implements NotionSpi {
     const filter = {
       property: 'isPublic',
       checkbox: {
-        equals: false,
+        equals: true,
       },
     };
 
