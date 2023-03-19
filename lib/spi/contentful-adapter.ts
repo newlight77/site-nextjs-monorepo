@@ -38,7 +38,7 @@ class ContentfulAdapter implements ContentfulSpi {
     return { entries, total };
   }
 
-  async fetchPostById(id: string | string[] | undefined): Promise<BlogPost | undefined> {
+  async fetchPostById(id: string): Promise<BlogPost | undefined> {
     try {
       const content: any = await this.fetchById(id);
       const item: Item = content.items[0];
@@ -66,7 +66,7 @@ class ContentfulAdapter implements ContentfulSpi {
     return mapToBlogPosts(entries);
   }
 
-  private async fetchById(id: any): Promise<any> {
+  private async fetchById(id: string): Promise<any> {
     return await this.client.getEntries({
       content_type: CONTENT_TYPE_BLOGPOST,
       'fields.id': id

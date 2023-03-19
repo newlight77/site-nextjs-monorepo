@@ -1,6 +1,23 @@
-import { BlogPostsPaginated, PostsFilter } from 'models/blog.post';
+import { BlogPost, BlogPostsPaginated, PostsFilter } from 'models/blog.post';
 import { api, apiHost } from 'pages/api/routing';
 
+
+const getPostById = async (id?: string): Promise<BlogPost> => {
+    const post:BlogPost = await fetch(`${apiHost}${api.notionPostById}`, {
+        method: 'POST',
+        body: JSON.stringify({ id }),
+        headers: {
+            'content-type': 'application/json'
+        }
+    })
+    .then((res) => {
+        if (!res.ok) return toError(res, post);
+        return res;
+    })
+    .then((res) => res.json());
+
+    return post;
+}
 
 const getBlogPosts = async ({ limit, skip, tag }: PostsFilter): Promise<BlogPostsPaginated> => {
     const results:any = await fetch(`${apiHost}${api.notionPosts}`, {
@@ -52,6 +69,23 @@ const search = async (params: any) => {
     return results;
 }
 
+const getSuggestions = async ({ limit, skip, tag }: PostsFilter): Promise<BlogPostsPaginated> => {
+    const results:any = await fetch(`${apiHost}${api.notionPosts}`, {
+        method: 'POST',
+        body: JSON.stringify({ limit, skip, tag }),
+        headers: {
+            'content-type': 'application/json'
+        }
+    })
+    .then((res) => {
+        if (!res.ok) return toError(res, results);
+        return res;
+    })
+    .then((res) => res.json());
+
+    return results;
+}
+
 function toError(res: Response, results: any) {
     // convert non-2xx HTTP responses into errors
     const error: any = new Error(res.statusText);
@@ -61,7 +95,9 @@ function toError(res: Response, results: any) {
 }
 
 export const ssrClient = {
+    getPostById,
     getBlogPosts,
     getAllTags,
-    search
+    search,
+    getSuggestions
 }

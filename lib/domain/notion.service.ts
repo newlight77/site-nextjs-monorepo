@@ -89,14 +89,30 @@ export class NotionService {
         }
     }
 
-    async getPostBySlug(slug: string | string[] | undefined): Promise<BlogPost | undefined> {
-        log('======    NotionService getPostBySlug slug', slug);
+    async getPostById(id: string): Promise<BlogPost | undefined> {
+        log('======    NotionService getPostBySlug slug', id);
         try {
+            const page = await this.spi.getPage();
+            log('======    NotionService getBlogPosts page', page);
 
-            const database = await this.spi.getDatabase();
-            log('======    NotionService getBlogPosts database', database);
+            const post = {
+                id: page.id,
+                // slug: page.;
+                // body: any;
+                // title: string;
+                // description: string;
+                // tags: {
+                //     id: string;
+                //     name: string;
+                // }[];
+                // heroImage: any;
+                // author: Author;
+                // publishedAt: Date;
+            };
 
-            return ;
+            log('======    NotionService getBlogPosts post', post);
+
+            return;
         } catch (error) {
             console.error(error);
         }

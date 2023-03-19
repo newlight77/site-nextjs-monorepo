@@ -7,6 +7,7 @@ import { BlogPost } from '../../models/blog.post';
 import { MetaTags, PageType, RobotsContent } from '../../models/tags';
 import MarkdownComponents from '../../components/markdown/markdown-syntax-highlighter';
 import { contentfulService } from '@/lib/domain/contentful.service';
+import { ssrClient } from 'pages/api/ssr-client';
 
 type Props = {
   article: BlogPost;
@@ -55,9 +56,13 @@ const PostPage: NextPage<Props, any> = (props: Props) => {
 };
 
 PostPage.getInitialProps = async ({ query }: NextPageContext) => {
-  const article: any = await contentfulService.getPostById(query.id);
+  const id: string = typeof query.id === "string" ? query.id : '';
+  const service = id.length != 22 ? contentfulService: ssrClient;
+  console.log('service tags', await service.getAllTags());
+
+  const article: any = await service.getPostById(id);
   const tags = article.tags ? article.tags.map((tag: any) => tag.sys.id) : [];
-  const suggestedArticles = await contentfulService.getSuggestions(tags, 2, article.slug);
+  const suggestedArticles = await service.getSuggestions(tags, 2, article.slug);
   return { article, suggestedArticles };
 };
 
