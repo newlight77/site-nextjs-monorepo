@@ -42,7 +42,7 @@ class ContentfulAdapter implements ContentfulSpi {
     try {
       const content: any = await this.fetchBySlug(slug);
       const item: Item = content.items[0];
-      const author: Author = mapToAuthor(item.fields);
+      const author: Author = mapToAuthor(item);
       return mapToBlogPost(item, item.fields.tags, author);
     } catch (error) {
       console.error(error);
