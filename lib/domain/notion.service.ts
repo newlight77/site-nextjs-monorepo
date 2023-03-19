@@ -1,7 +1,5 @@
-import { SearchParams, SearchResults } from 'notion-types'
 import { BlogPost, BlogPostsPaginated, BlogPostsPaginatedFilter } from '../../models/blog.post';
 import { Tag } from '../../models/tags';
-import { notionApiAdapter } from '../spi/notion-api-adapter';
 import { notionClientAdapter } from '../spi/notion-client-adapter';
 
 export interface NotionSpi {
@@ -9,7 +7,7 @@ export interface NotionSpi {
     getDatabase(databaseId?: string): Promise<any | undefined>;
     getPage(pageId?: string): Promise<any | undefined>;
     getBlocks(blockId: string): Promise<any[] | undefined>;
-    search(params: SearchParams): Promise<any | undefined>;
+    search(params: any): Promise<any | undefined>;
 }
 
 export class NotionService {
@@ -35,7 +33,7 @@ export class NotionService {
         }
     }
 
-    async search(params: SearchParams): Promise<SearchResults | undefined> {
+    async search(params: any): Promise<any | undefined> {
         try {
             const results = await this.spi.search(params);
             console.log('NotionService search results', results);
@@ -96,5 +94,4 @@ export class NotionService {
     }
 }
 
-export const notionApiService = new NotionService(notionApiAdapter)
 export const notionClientService = new NotionService(notionClientAdapter)

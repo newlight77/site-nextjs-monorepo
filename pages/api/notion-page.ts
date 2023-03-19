@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-// import { notionApiService } from '../../lib/domain/notion.service';
 import { notionClientService } from '../../lib/domain/notion.service';
 
 const getPage = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,9 +8,6 @@ const getPage = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const pageId: string | undefined = req.body.pageId ? req.body.pageId : undefined
   console.log('<<< lambda page pageId', pageId)
-
-  // const page = await notionApiService.getPage(pageId);
-  // console.log('>>> notion-page notionApiService', page)
 
   const page = await notionClientService.getPage(pageId);
   // console.log('>>> notion-page notionClientService', page)

@@ -1,16 +1,15 @@
+import { notionClientAdapter } from '@/lib/spi/notion-client-adapter'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { SearchParams } from 'notion-types'
-import { notionApiAdapter } from '../../lib/spi/notion-api-adapter'
 
 const search = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST') {
     return res.status(405).send({ error: 'method not allowed' })
   }
 
-  const searchParams: SearchParams = req.body
+  const searchParams: any = req.body
 
   console.log('<<< lambda notion-search', searchParams)
-  const results = await notionApiAdapter.search(searchParams)
+  const results = await notionClientAdapter.search(searchParams)
   console.log('>>> lambda notion-searcj', results)
 
   res.setHeader(

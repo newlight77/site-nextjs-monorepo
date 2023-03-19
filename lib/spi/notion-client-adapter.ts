@@ -1,4 +1,3 @@
-import { SearchParams } from 'notion-types';
 import { Client, LogLevel } from '@notionhq/client';
 
 import { NotionSpi } from '../domain/notion.service';
@@ -75,7 +74,7 @@ class NotionClientAdapter implements NotionSpi {
     return blocks;
   };
 
-  search = async (params: SearchParams): Promise<SearchResponse | undefined> => { 
+  search = async (params: any): Promise<SearchResponse | undefined> => { 
     const results = await this.client.search({});
     console.log('NotionClientAdapter search params results', params, results);
     return results;
