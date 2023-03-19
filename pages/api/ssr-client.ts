@@ -3,50 +3,61 @@ import { api, apiHost } from 'pages/api/routing';
 
 
 const getBlogPosts = async ({ limit, skip, tag }: PostsFilter) => {
-    const results = await fetch(`${apiHost}${api.notionPosts}`, {
+    const results:any = await fetch(`${apiHost}${api.notionPosts}`, {
         method: 'POST',
         body: JSON.stringify({ limit, skip, tag }),
         headers: {
             'content-type': 'application/json'
         }
-    });
-
-    if (!results.ok) {
-        console.log('ssr-client getBlogPosts', results.json());
-    }
+    })
+    .then((res) => {
+        if (!res.ok) return toError(res, results);
+        return res;
+    })
+    .then((res) => res.json());
 
     return results;
 }
 
 const getAllTags = async () => {
-    const results = await fetch(`${apiHost}${api.notionTags}`, {
+    const results: any = await fetch(`${apiHost}${api.notionTags}`, {
         method: 'POST',
         headers: {
             'content-type': 'application/json'
         }
-    });
-
-    if (!results.ok) {
-        console.log('ssr-client getAllTags', results.json());
-    }
+    })
+    .then((res) => {
+        if (!res.ok) return toError(res, results);
+        return res;
+    })
+    .then((res) => res.json());
 
     return results;
 }
 
 const search = async (params: any) => {
-    const results = await fetch(`${apiHost}${api.notionTags}`, {
+    const results: any = await fetch(`${apiHost}${api.notionTags}`, {
         method: 'POST',
         body: JSON.stringify(params),
         headers: {
             'content-type': 'application/json'
         }
-    });
-
-    if (!results.ok) {
-        console.log('ssr-client search', results.json());
-    }
+    })
+    .then((res) => {
+        if (!res.ok) return toError(res, results);
+        return res;
+    })
+    .then((res) => res.json());
 
     return results;
+}
+
+function toError(res: Response, results: any) {
+    // convert non-2xx HTTP responses into errors
+    const error: any = new Error(res.statusText);
+    error.response = res;
+    console.log('ssr-client search', error, results.json());
+    return Promise.reject(error);
 }
 
 export const ssrClient = {

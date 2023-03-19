@@ -37,13 +37,11 @@ export class NotionService {
             const dbMeta = await this.spi.getDatabaseMeta();
             // log('======    NotionService getAllTags dbMeta', dbMeta);
 
-
             const tags = Object.entries(dbMeta.properties)
             .filter(([propertyName, ]: Property) => propertyName === 'Tags')
             .flatMap(([ , propertyValue]: Property) => {
                 return propertyValue.multi_select.options
             });
-
             // log('======    NotionClientAdapter getAllTags tags', tags);
 
             return tags;
@@ -66,21 +64,20 @@ export class NotionService {
             log('======    NotionService getBlogPosts database', database);
 
             const posts: BlogPost[] = Object.entries(database.results)
-            .flatMap(([  , propertyValue]: Property) => {
+            .flatMap(([ , propertyValue]: Property) => {
                 log('======    NotionClientAdapter getBlogPost propertyName propertyValue', propertyValue )
                 return { 
                     id: propertyValue.id,
                     slug: propertyValue.properties.Slug.rich_text[0].plain_text,
                     body: undefined,
                     title: propertyValue.properties.Name.title[0].plain_text,
-                    description: propertyValue.properties.Description.rich_text,
+                    description: propertyValue.properties.Description.rich_text[0].plain_text,
                     tags: propertyValue.properties.Tags.multi_select,
                     heroImage: propertyValue.properties.Picture.files[0].file.url,
                     author: propertyValue.properties.Author.people[0].name,
                     publishedAt: propertyValue.properties.Created.created_time
                 }
             });
-
             log('======    NotionClientAdapter getBlogPosts posts', posts);
 
             return {

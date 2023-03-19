@@ -7,11 +7,11 @@ import Layout from '../../components/layout/layout.component';
 import Card from '../../components/card/card.component';
 import Paginator from '../../components/paginator/paginator.component';
 import { defaultMetaTags } from '../../models/tags';
-import { ContentfulService } from '../../lib/domain/contentful.service';
 import TagFilters from '../../components/tag-filter/tag-filter.component';
 import { PostsFilter, PostsResult } from '../../models/blog.post';
+import { ContentfulService } from '../../lib/domain/contentful.service';
 import { contentfulAdapter } from '../../lib/spi/contentful-adapter';
-import { ssrClient } from 'pages/api/ssr-client';
+// import { ssrClient } from 'pages/api/ssr-client';
 
 const MAX_PER_PAGE = 15;
 
@@ -78,21 +78,20 @@ const getRange = (total: number, limit: number) => {
 
 const getBlogPostEntries = async( filter: PostsFilter ): Promise<PostsResult> => {
   const { entries, total, skip, limit }: any = 
-  await contentfulService.getBlogPosts({
-    tag: filter.tag,
-    skip: filter.skip,
-    limit: filter.limit
-  });
+    await contentfulService.getBlogPosts({
+      tag: filter.tag,
+      skip: filter.skip,
+      limit: filter.limit
+    });
+    // await ssrClient.getBlogPosts({
+    //   tag: filter.tag,
+    //   skip: filter.skip,
+    //   limit: filter.limit
+    // });
 
-  ssrClient.getBlogPosts({
-    tag: filter.tag,
-    skip: filter.skip,
-    limit: filter.limit
-  });
-
-  const tags = await contentfulService.getAllTags();
-
-  ssrClient.getAllTags();
+  const tags =
+    await contentfulService.getAllTags();
+    // await ssrClient.getAllTags();
 
   return { entries, tags, total, page: filter.page, skip, limit };
 }
