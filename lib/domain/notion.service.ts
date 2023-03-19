@@ -34,9 +34,19 @@ export class NotionService {
         try {
             const dbMeta = await this.spi.getDatabaseMeta();
             log('======    NotionService getAllTags dbMeta', dbMeta);
-            log('======    NotionClientAdapter getDatabaseMeta database', dbMeta.title[0]['plain_text']);
 
-            return [];
+
+            type Property = [ propertyName: string, propertyValue: any ];
+
+            const tags = Object.entries(dbMeta.properties)
+            .filter(([propertyName, ]: Property) => propertyName === 'Tags')
+            .flatMap(([ , propertyValue]: Property) => {
+                return propertyValue.multi_select.options
+            });
+
+            log('======    NotionClientAdapter getAllTags tags', tags);
+
+            return tags;
         } catch (error) {
             console.error(error);
             return [];

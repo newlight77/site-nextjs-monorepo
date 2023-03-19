@@ -1,6 +1,7 @@
 export type Tag = {
     id: string,
-    name: string
+    name: string,
+    color: string,
 }
 
 export enum PageType {
