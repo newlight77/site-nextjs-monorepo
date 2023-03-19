@@ -14,7 +14,9 @@ const getPage = async (req: NextApiRequest, res: NextApiResponse) => {
   // console.log('>>> notion-page notionApiService', page)
 
   const page = await notionClientService.getPage(pageId);
-  console.log('>>> notion-page notionClientService', page)
+  // console.log('>>> notion-page notionClientService', page)
+
+  console.log('>>> notion-page notionClientService')
 
   res.setHeader(
     'Cache-Control',

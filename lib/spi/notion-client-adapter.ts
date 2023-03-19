@@ -13,6 +13,7 @@ const client = new Client({
   logLevel: LogLevel.DEBUG,
 });
 
+
 class NotionClientAdapter implements NotionSpi {
 
   constructor(private client: Client) {}
@@ -26,28 +27,31 @@ class NotionClientAdapter implements NotionSpi {
 
   getDatabaseMeta = async (databaseId?: string): Promise<QueryDatabaseResponse | undefined > => {
     console.log('NotionClientAdapter getPage pageId auth', databaseId, accessToken);
-    const response = await this.client.databases.query({
-      database_id: databaseId ? databaseId: rootDatabaseId,
-      filter: {
-        property: 'Published',
-        checkbox: {
-          equals: true,
-        },
-      },
-      sorts: [
-        {
-          property: 'Created',
-          direction: 'descending',
-        },
-      ],
-    });
+    const response = await this.client.databases.query({ database_id: databaseId ? databaseId : rootDatabaseId });
     // console.log('NotionClientAdapter getPage response', response);
     return response;
   }
 
   getDatabase = async (databaseId?: string): Promise<QueryDatabaseResponse | undefined > => {
     console.log('NotionClientAdapter getPage pageId auth', databaseId, accessToken);
-    const response = await this.client.databases.query({ database_id: databaseId ? databaseId : rootDatabaseId });
+    const filter = {
+      property: 'isPublic',
+      checkbox: {
+        equals: false,
+      },
+    };
+
+    type direction = "descending" | "ascending"
+    const sorts: [{ property: string, direction: direction }] = [{
+        property: 'Name',
+        direction: 'descending'
+    }];
+
+    const response = await this.client.databases.query({
+      database_id: databaseId ? databaseId: rootDatabaseId,
+      filter, sorts
+    });
+
     // console.log('NotionClientAdapter getPage response', response);
     return response;
   }

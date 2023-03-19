@@ -18,7 +18,17 @@ export class NotionService {
     async getPage(pageId?: string): Promise<any | undefined> {
         try {
             const page = await this.spi.getPage(pageId);
-            // console.log('service page', page);
+            console.log('NotionService getPage page', page);
+
+            const databaseMeta = await this.spi.getDatabaseMeta();
+            console.log('NotionService getPage databaseMeta', databaseMeta);
+
+            const database = await this.spi.getDatabase();
+            console.log('NotionService getPage database', database);
+
+            // const blocks = await this.spi.getBlocks();
+            // console.log('NotionService getPage blocks', blocks);
+
             return page;
         } catch (error) {
             console.log(error);
@@ -28,7 +38,7 @@ export class NotionService {
     async search(params: SearchParams): Promise<SearchResults | undefined> {
         try {
             const results = await this.spi.search(params);
-            console.log('service results', results);
+            console.log('NotionService search results', results);
             return results;
         } catch (error) {
             console.log(error);
@@ -38,7 +48,7 @@ export class NotionService {
     async getAllTags(): Promise<Tag[]> {
         try {
             const page = await this.spi.getPage();
-            console.log('service page', page);
+            console.log('NotionService getAllTags page', page);
             return [];
         } catch (error) {
             console.log(error);
@@ -56,7 +66,7 @@ export class NotionService {
         console.log('limit skip tag', limit, skip, tag);
         try {
             const page = await this.spi.getPage();
-            console.log('service page', page);
+            console.log('NotionService getBlogPosts page', page);
             return;
         } catch (error) {
             console.log(error);
@@ -67,7 +77,7 @@ export class NotionService {
         console.log('slug', slug);
         try {
             const page = await this.spi.getPage();
-            console.log('service page', page);
+            console.log('NotionService getPostBySlug page', page);
             return ;
         } catch (error) {
             console.error(error);
@@ -78,7 +88,7 @@ export class NotionService {
         console.log('tags max currentArticleSlug', tags, max, currentArticleSlug);
         try {
             const page = await this.spi.getPage();
-            console.log('service page', page);
+            console.log('NotionService getSuggestions page', page);
             return;
         } catch (e) {
             console.error(e);
