@@ -5,7 +5,10 @@ import { notionApiAdapter } from '../spi/notion-api-adapter';
 import { notionClientAdapter } from '../spi/notion-client-adapter';
 
 export interface NotionSpi {
+    getDatabaseMeta(databaseId?: string): Promise<any | undefined>;
+    getDatabase(databaseId?: string): Promise<any | undefined>;
     getPage(pageId?: string): Promise<any | undefined>;
+    getBlocks(blockId: string): Promise<any[] | undefined>;
     search(params: SearchParams): Promise<any | undefined>;
 }
 

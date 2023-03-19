@@ -10,6 +10,18 @@ const notionApi = new NotionAPI({});
 class NotionApiAdapter implements NotionSpi {
 
   constructor(private notionApi: NotionAPI) {}
+  getDatabaseMeta(databaseId?: string): Promise<any> {
+    console.log('NotionApiAdapter getDatabaseMeta databaseId', databaseId);
+    throw new Error('Method not implemented.');
+  }
+  getDatabase(databaseId?: string | undefined): Promise<any> {
+    console.log('NotionApiAdapter getDatabase databaseId', databaseId);
+    throw new Error('Method not implemented.');
+  }
+  getBlocks(blockId: string): Promise<any[] | undefined> {
+    console.log('NotionApiAdapter getBlocks blockId', blockId);
+    throw new Error('Method not implemented.');
+  }
 
   getPage = async (pageId?: string): Promise<ExtendedRecordMap | undefined> => {
     // console.log('NotionAdapter pageId', pageId);
