@@ -1,5 +1,6 @@
 import { BlogPost, BlogPostsPaginated, BlogPostsPaginatedFilter } from '../../models/blog.post'
 import { Tag } from '../../models/tags';
+import { contentfulAdapter } from '../../lib/spi/contentful-adapter';
 
 export const CONTENT_TYPE_BLOGPOST = 'blogPost'
 export const CONTENT_TYPE_PERSON = 'author'
@@ -31,11 +32,12 @@ export class ContentfulService {
       skip: 0,
       tag: ''
     }
-  ): Promise<BlogPostsPaginated | undefined> {
+  ): Promise<BlogPostsPaginated> {
     try {
       return await this.spi.fetchBlogPosts({ limit, skip, tag });
     } catch (error) {
       console.log(error);
+      return { entries: [], total: 0};
     }
   }
 
@@ -52,6 +54,9 @@ export class ContentfulService {
       return await this.spi.fetchSuggestions(tags, max, currentArticleSlug)
     } catch (e) {
       console.error(e);
+      return [];
     }
   }
 }
+
+export const contentfulService = new ContentfulService(contentfulAdapter)

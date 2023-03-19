@@ -1,8 +1,8 @@
-import { PostsFilter } from 'models/blog.post';
+import { BlogPostsPaginated, PostsFilter } from 'models/blog.post';
 import { api, apiHost } from 'pages/api/routing';
 
 
-const getBlogPosts = async ({ limit, skip, tag }: PostsFilter) => {
+const getBlogPosts = async ({ limit, skip, tag }: PostsFilter): Promise<BlogPostsPaginated> => {
     const results:any = await fetch(`${apiHost}${api.notionPosts}`, {
         method: 'POST',
         body: JSON.stringify({ limit, skip, tag }),

@@ -65,7 +65,7 @@ export class NotionService {
 
             const posts: BlogPost[] = Object.entries(database.results)
             .flatMap(([ , propertyValue]: Property) => {
-                log('======    NotionClientAdapter getBlogPost propertyName propertyValue', propertyValue )
+                // log('======    NotionClientAdapter getBlogPost propertyName propertyValue', propertyValue )
                 return { 
                     id: propertyValue.id,
                     slug: propertyValue.properties.Slug.rich_text[0].plain_text,
@@ -78,13 +78,11 @@ export class NotionService {
                     publishedAt: propertyValue.properties.Created.created_time
                 }
             });
-            log('======    NotionClientAdapter getBlogPosts posts', posts);
+            // log('======    NotionClientAdapter getBlogPosts posts', posts);
 
             return {
                 entries: posts,
                 total: posts.length,
-                limit: 15,
-                skip: database.results.next_cursor
             };
         } catch (error) {
             console.error(error);
@@ -94,6 +92,10 @@ export class NotionService {
     async getPostBySlug(slug: string | string[] | undefined): Promise<BlogPost | undefined> {
         log('======    NotionService getPostBySlug slug', slug);
         try {
+
+            const database = await this.spi.getDatabase();
+            log('======    NotionService getBlogPosts database', database);
+
             return ;
         } catch (error) {
             console.error(error);

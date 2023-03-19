@@ -5,12 +5,8 @@ import Card from '../../components/card/card.component';
 import Layout from '../../components/layout/layout.component';
 import { BlogPost } from '../../models/blog.post';
 import { MetaTags, PageType, RobotsContent } from '../../models/tags';
-import { ContentfulService } from '../../lib/domain/contentful.service';
-
 import MarkdownComponents from '../../components/markdown/markdown-syntax-highlighter';
-import { contentfulAdapter } from '../../lib/spi/contentful-adapter';
-
-const contentfulService = new ContentfulService(contentfulAdapter);
+import { contentfulService } from '@/lib/domain/contentful.service';
 
 type Props = {
   article: BlogPost;

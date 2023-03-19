@@ -9,16 +9,14 @@ import Paginator from '../../components/paginator/paginator.component';
 import { defaultMetaTags } from '../../models/tags';
 import TagFilters from '../../components/tag-filter/tag-filter.component';
 import { PostsFilter, PostsResult } from '../../models/blog.post';
-import { ContentfulService } from '../../lib/domain/contentful.service';
-import { contentfulAdapter } from '../../lib/spi/contentful-adapter';
-// import { ssrClient } from 'pages/api/ssr-client';
+import { ssrClient } from 'pages/api/ssr-client';
+import { contentfulService } from '@/lib/domain/contentful.service';
 
-const MAX_PER_PAGE = 15;
+const MAX_PER_PAGE = 10;
 
 const cards = (entries: any[]) =>
   entries.map((entry, index) => <Card info={entry} key={index} />);
 
-const contentfulService = new ContentfulService(contentfulAdapter);
 
 const PostsPage: NextPage<PostsFilter, any> = (filter: PostsFilter) => {
   const router = useRouter();
@@ -27,8 +25,6 @@ const PostsPage: NextPage<PostsFilter, any> = (filter: PostsFilter) => {
     entries: [],
     tags: [],
     total: 0,
-    skip: 0,
-    limit: 0
   };
 
   const [postsFilter, setFilter] = useState(filter);
@@ -47,7 +43,7 @@ const PostsPage: NextPage<PostsFilter, any> = (filter: PostsFilter) => {
     setFilter({tag: postsFilter.tag, page: page, skip: (page - 1) * MAX_PER_PAGE, limit: postsFilter.limit});
   };
 
-  const range = getRange(postsResult.total, postsResult.limit);
+  const range = getRange(postsResult.total, filter.limit);
 
   return (
     <Layout metaTags={defaultMetaTags}>
@@ -77,23 +73,34 @@ const getRange = (total: number, limit: number) => {
 }
 
 const getBlogPostEntries = async( filter: PostsFilter ): Promise<PostsResult> => {
-  const { entries, total, skip, limit }: any = 
-    await contentfulService.getBlogPosts({
+  const posts = await contentfulService.getBlogPosts({
       tag: filter.tag,
       skip: filter.skip,
       limit: filter.limit
     });
-    // await ssrClient.getBlogPosts({
-    //   tag: filter.tag,
-    //   skip: filter.skip,
-    //   limit: filter.limit
-    // });
+  const tags = await contentfulService.getAllTags();
 
-  const tags =
-    await contentfulService.getAllTags();
-    // await ssrClient.getAllTags();
+  if (posts.entries.length < filter.limit) {
+    const notionPosts = await ssrClient.getBlogPosts({
+        tag: filter.tag,
+        skip: filter.skip,
+        limit: filter.limit
+      });
+    posts.entries.push(...notionPosts.entries);
+    // const posts = [...contentfulPosts.entries, ...notionPost.entries];
 
-  return { entries, tags, total, page: filter.page, skip, limit };
+    const notionTags = await ssrClient.getAllTags();
+    tags.push(...notionTags);
+    // const tags = [ ...contentfulTags, ...notionTags ];
+  }
+
+  console.log('======    Posts.tsx getAllTags posts', posts);
+  console.log('======    Posts.tsx getAllTags tags', tags);
+
+  const results = { entries : posts.entries, tags, total: posts.total };
+  console.log('======    Posts.tsx getAllTags results', results);
+
+  return results;
 }
 
 export const toFilter = async (tag: string, page: number): Promise<PostsFilter> => {

@@ -23,9 +23,6 @@ export type PostsResult = {
     entries: BlogPost[];
     tags: { id: string; name: string }[];
     total: number;
-    page?: number;
-    skip: number;
-    limit: number;
 };
 
 export type BlogPostsPaginatedFilter = {
@@ -37,6 +34,4 @@ export type BlogPostsPaginatedFilter = {
 export type BlogPostsPaginated = {
     entries: BlogPost[], 
     total: number, 
-    limit: number | undefined, 
-    skip: number | undefined
 }

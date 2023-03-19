@@ -35,7 +35,7 @@ class ContentfulAdapter implements ContentfulSpi {
     const entries = mapToBlogPosts(contents.items);
     const total = contents.total;
 
-    return { entries, total, limit, skip };
+    return { entries, total };
   }
 
   async fetchPostBySlug(slug: string | string[] | undefined): Promise<BlogPost | undefined> {
@@ -138,7 +138,7 @@ const mapToTags = (items: Entry<unknown>[]): Tag[] => {
   );
 }
 
-const mapToBlogPost = (item: Item, tags: any, author: Author) => {
+const mapToBlogPost = (item: Item, tags: any, author: Author): BlogPost => {
   return {
     id: item.sys.id,
     slug: item.fields.slug,
