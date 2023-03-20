@@ -40,7 +40,9 @@ class ContentfulAdapter implements ContentfulSpi {
 
   async fetchPostById(id: string): Promise<BlogPost | undefined> {
     try {
+      console.log('fetchPostById, id', id)
       const content: any = await this.fetchById(id);
+      console.log('fetchPostById, content', content)
       const item: Item = content.items[0];
       const author: Author = mapToAuthor(item);
       return mapToBlogPost(item, item.fields.tags, author);
@@ -49,14 +51,14 @@ class ContentfulAdapter implements ContentfulSpi {
     }
   }
 
-  async fetchSuggestions(tags: string[], max: number, currentArticleSlug: string): Promise<BlogPost[] | undefined> {
+  async fetchSuggestions(tags: string[], max: number, currentArticleId: string): Promise<BlogPost[] | undefined> {
     let entries = [];
 
-    const suggestionsByTags = await this.fetchSuggestionsByTags(max, tags, currentArticleSlug);
+    const suggestionsByTags = await this.fetchSuggestionsByTags(max, tags, currentArticleId);
 
     entries = suggestionsByTags.items;
     if (suggestionsByTags.total < max) {
-      const slugsToExclude = this.excludeSlugs(suggestionsByTags, currentArticleSlug);
+      const slugsToExclude = this.excludeSlugs(suggestionsByTags, currentArticleId);
       const limit = max - suggestionsByTags.total;
       const randomSuggestions = await this.fetchMoreRandomSuggestions(slugsToExclude, limit);
 
@@ -69,7 +71,7 @@ class ContentfulAdapter implements ContentfulSpi {
   private async fetchById(id: string): Promise<any> {
     return await this.client.getEntries({
       content_type: CONTENT_TYPE_BLOGPOST,
-      'fields.id': id
+      'fields.id[e]': id
     });
   }
 
@@ -84,13 +86,13 @@ class ContentfulAdapter implements ContentfulSpi {
     });
   }
 
-  private async fetchSuggestionsByTags(limit: number, tags: string[], currentArticleSlug: string) {
+  private async fetchSuggestionsByTags(limit: number, tags: string[], currentArticleId: string) {
     const initialOptions = {
       content_type: CONTENT_TYPE_BLOGPOST,
       limit,
       // find at least one matching tag, else undefined properties are not copied
       'fields.tags.sys.id[in]': tags.length ? tags.join(',') : undefined,
-      'fields.slug[ne]': currentArticleSlug // exclude current article
+      'fields.id[ne]': currentArticleId // exclude current article
     };
     const suggestionsByTags = await this.client.getEntries(initialOptions);
     return suggestionsByTags;

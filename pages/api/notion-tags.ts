@@ -1,14 +1,23 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { notionClientService } from '../../lib/domain/notion.service';
 
+const log = (message?: any, ...optionalParams: any[]) => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const colorfulParams = require('util').inspect(optionalParams, { colors: true, depth: 5 })
+console.log(`------    notion-tags ${message}`, colorfulParams);
+};
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+// const log = (message?: any, ...optionalParams: any[]) => {};
+
 const getTags = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST') {
     return res.status(405).send({ error: 'method not allowed' })
   }
 
-  console.log('<<< lambda notion-tags')
+  log('<<< getTags')
   const tags = await notionClientService.getAllTags();
-  console.log('>>> lambda notion-tags', tags)
+  log('>>> getTags tags', tags)
 
   res.setHeader(
     'Cache-Control',

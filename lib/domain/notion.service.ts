@@ -2,49 +2,32 @@ import { BlogPost, BlogPostsPaginated, BlogPostsPaginatedFilter } from '../../mo
 import { Tag } from '../../models/tags';
 import { notionClientAdapter } from '../spi/notion-client-adapter';
 
-const log = (message?: any, ...optionalParams: any[]) => {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const colorfulParams = require('util').inspect(optionalParams, { colors: true, depth: 5 })
-    console.log(message, colorfulParams);
-};
+// const log = (message?: any, ...optionalParams: any[]) => {
+//     // eslint-disable-next-line @typescript-eslint/no-var-requires
+//     const colorfulParams = require('util').inspect(optionalParams, { colors: true, depth: 5 })
+//     console.log(`------    NotionService  ${message}`, colorfulParams);
+// };
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+const log = (message?: any, ...optionalParams: any[]) => {};
 
 export interface NotionSpi {
-    getUsers(): Promise<any | undefined>;
-    getDatabaseMeta(databaseId?: string): Promise<any | undefined>;
-    getDatabase(databaseId?: string): Promise<any | undefined>;
-    getPage(pageId?: string): Promise<any | undefined>;
-    getBlocks(blockId: string): Promise<any[] | undefined>;
-    search(params: any): Promise<any | undefined>;
+    fetchAllTags(): Promise<Tag[]>;
+    fetchBlogPosts(filter: BlogPostsPaginatedFilter): Promise<BlogPostsPaginated>;
+    fetchPostById(id: string): Promise<BlogPost | undefined>;
+    fetchSuggestions(tags: string[], currentArticleId: string, max: number): Promise<BlogPost[] | undefined>;
+    search(params: any): Promise<any | undefined>;    
+    fetchUsers(): Promise<any | undefined>;
 }
-
-type Property = [ propertyName: string, propertyValue: any ];
 
 export class NotionService {
     constructor(private spi: NotionSpi) { }
 
-    async search(params: any): Promise<any | undefined> {
-        try {
-            const results = await this.spi.search(params);
-            log('======    NotionService search results', results);
-            return results;
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
     async getAllTags(): Promise<Tag[]> {
         try {
-            const dbMeta = await this.spi.getDatabaseMeta();
-            // log('======    NotionService getAllTags dbMeta', dbMeta);
-
-            const tags = Object.entries(dbMeta.properties)
-            .filter(([propertyName, ]: Property) => propertyName === 'Tags')
-            .flatMap(([ , propertyValue]: Property) => {
-                return propertyValue.multi_select.options
-            });
-            // log('======    NotionClientAdapter getAllTags tags', tags);
-
-            return tags;
+            const tags = await this.spi.fetchAllTags();
+            log('getAllTags tags', tags);
+            return tags
         } catch (error) {
             console.error(error);
             return [];
@@ -58,74 +41,49 @@ export class NotionService {
             tag: ''
         }
     ): Promise<BlogPostsPaginated | undefined> {
-        log('======    NotionService getBlogPosts limit skip tag', limit, skip, tag);
+        log('getBlogPosts limit skip tag', limit, skip, tag);
         try {
-            const database = await this.spi.getDatabase();
-            log('======    NotionService getBlogPosts database', database);
-
-            const posts: BlogPost[] = Object.entries(database.results)
-            .flatMap(([ , propertyValue]: Property) => {
-                // log('======    NotionClientAdapter getBlogPost propertyName propertyValue', propertyValue )
-                return { 
-                    id: propertyValue.id,
-                    slug: propertyValue.properties.Slug.rich_text[0].plain_text,
-                    body: undefined,
-                    title: propertyValue.properties.Name.title[0].plain_text,
-                    description: propertyValue.properties.Description.rich_text[0].plain_text,
-                    tags: propertyValue.properties.Tags.multi_select,
-                    heroImage: propertyValue.properties.Picture.files[0].file.url,
-                    author: propertyValue.properties.Author.people[0].name,
-                    publishedAt: propertyValue.properties.Created.created_time
-                }
-            });
-            // log('======    NotionClientAdapter getBlogPosts posts', posts);
-
-            return {
-                entries: posts,
-                total: posts.length,
-            };
+            const posts = await this.spi.fetchBlogPosts({ limit, skip, tag });
+            log('getBlogPosts posts', posts);
+            return posts;
         } catch (error) {
             console.error(error);
         }
     }
 
     async getPostById(id: string): Promise<BlogPost | undefined> {
-        log('======    NotionService getPostBySlug slug', id);
+        log('getPostById id', id);
         try {
-            const page = await this.spi.getPage();
-            log('======    NotionService getBlogPosts page', page);
-
-            const post = {
-                id: page.id,
-                // slug: page.;
-                // body: any;
-                // title: string;
-                // description: string;
-                // tags: {
-                //     id: string;
-                //     name: string;
-                // }[];
-                // heroImage: any;
-                // author: Author;
-                // publishedAt: Date;
-            };
-
-            log('======    NotionService getBlogPosts post', post);
-
-            return;
+            const post = await this.spi.fetchPostById(id);
+            log('getBlogPostById post', post);
+            return post;
         } catch (error) {
             console.error(error);
         }
     }
 
-    async getSuggestions(tags: string[], max: number, currentArticleSlug: string): Promise<BlogPost[] | undefined> {
-        log('======    NotionService getSuggestions tags max currentArticleSlug', tags, max, currentArticleSlug);
+    async getSuggestions(tags: string[], currentArticleId: string, max = 2): Promise<BlogPost[] | undefined> {
+        log('getSuggestions tags currentArticleId max', tags, currentArticleId, max);
         try {
-            return;
+            const suggestions = await this.spi.fetchSuggestions(tags, currentArticleId, max);
+            log('getSuggestions suggestions', suggestions);
+
+            return suggestions;
         } catch (e) {
             console.error(e);
         }
     }
+
+    async search(params: any): Promise<any | undefined> {
+        try {
+            const results = await this.spi.search(params);
+            log('search results', results);
+            return results;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
 }
 
 export const notionClientService = new NotionService(notionClientAdapter)
