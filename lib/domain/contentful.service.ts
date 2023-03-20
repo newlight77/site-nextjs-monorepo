@@ -10,7 +10,7 @@ export interface ContentfulSpi {
   fetchAllTags(): Promise<Tag[]>;
   fetchBlogPosts(filter: BlogPostsPaginatedFilter): Promise<BlogPostsPaginated>;
   fetchPostById(id: string): Promise<BlogPost | undefined>;
-  fetchSuggestions(tags: string[], max: number, currentArticleId: string): Promise<BlogPost[] | undefined>;
+  fetchSuggestions(tags: string[], currentArticleId: string, max: number): Promise<BlogPost[] | undefined>;
 }
 
 export class ContentfulService {
@@ -49,9 +49,9 @@ export class ContentfulService {
     }
   }
 
-  async getSuggestions(tags: string[], max: number, currentArticleId: string): Promise<BlogPost[] | undefined> {
+  async getSuggestions(tags: string[], currentArticleId: string, max: number): Promise<BlogPost[] | undefined> {
     try {
-      return await this.spi.fetchSuggestions(tags, max, currentArticleId)
+      return await this.spi.fetchSuggestions(tags, currentArticleId, max)
     } catch (e) {
       console.error(e);
       return [];

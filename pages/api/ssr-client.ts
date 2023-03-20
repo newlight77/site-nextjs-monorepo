@@ -69,10 +69,10 @@ const search = async (params: any) => {
     return results;
 }
 
-const getSuggestions = async ({ limit, skip, tag }: PostsFilter): Promise<BlogPostsPaginated> => {
+const getSuggestions = async (tags: string[], currentArticleId: string, max: number): Promise<BlogPostsPaginated> => {
     const results:any = await fetch(`${apiHost}${api.notionPosts}`, {
         method: 'POST',
-        body: JSON.stringify({ limit, skip, tag }),
+        body: JSON.stringify({ tags, currentArticleId, max }),
         headers: {
             'content-type': 'application/json'
         }

@@ -51,10 +51,10 @@ class ContentfulAdapter implements ContentfulSpi {
     }
   }
 
-  async fetchSuggestions(tags: string[], max: number, currentArticleId: string): Promise<BlogPost[] | undefined> {
+  async fetchSuggestions(tags: string[],  currentArticleId: string, max: number): Promise<BlogPost[] | undefined> {
     let entries = [];
 
-    const suggestionsByTags = await this.fetchSuggestionsByTags(max, tags, currentArticleId);
+    const suggestionsByTags = await this.fetchSuggestionsByTags(tags, currentArticleId, max);
 
     entries = suggestionsByTags.items;
     if (suggestionsByTags.total < max) {
@@ -71,7 +71,7 @@ class ContentfulAdapter implements ContentfulSpi {
   private async fetchById(id: string): Promise<any> {
     return await this.client.getEntries({
       content_type: CONTENT_TYPE_BLOGPOST,
-      'fields.id[e]': id
+      'fields.slug': id
     });
   }
 
@@ -86,7 +86,7 @@ class ContentfulAdapter implements ContentfulSpi {
     });
   }
 
-  private async fetchSuggestionsByTags(limit: number, tags: string[], currentArticleId: string) {
+  private async fetchSuggestionsByTags(tags: string[], currentArticleId: string, limit: number) {
     const initialOptions = {
       content_type: CONTENT_TYPE_BLOGPOST,
       limit,
@@ -140,7 +140,7 @@ const mapToTags = (items: Entry<unknown>[]): Tag[] => {
   );
 }
 
-const mapToBlogPost = (item: Item, tags: any, author: Author): BlogPost => {
+const mapToBlogPost = (item: Item, tags: Tag[], author: Author): BlogPost => {
   return {
     id: item.sys.id,
     slug: item.fields.slug,

@@ -15,12 +15,12 @@ const getSuggestions = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(405).send({ error: 'method not allowed' })
   }
 
-  const limit: number | undefined = req.body.limit ? req.body.limit : undefined
-  const skip: number | undefined = req.body.skip ? req.body.skip : undefined
-  const tag: string | undefined = req.body.tag ? req.body.tag : undefined
-  log('<<< getSuggestions filter', { limit, skip, tag })
+  const tags: string[] = req.body.tags ? req.body.tags : undefined;
+  const currentArticleId: string = req.body.currentArticleId ? req.body.currentArticleId : undefined
+  const max: number | undefined = req.body.max ? req.body.max : undefined
+  log('<<< getSuggestions filter', { tags, currentArticleId, max })
 
-  const posts = await notionClientService.getBlogPosts({ limit, skip, tag });
+  const posts = await notionClientService.getSuggestions(tags, currentArticleId, max);
 
   log('>>> getSuggestions posts', posts)
 
