@@ -2,14 +2,13 @@
   "name": "site-oneprofile",
   "version": "1.0.0",
   "private": true,
-    "description": "Oneprofile Blog with Next.js and Contentful / Notion.",
+  "description": "Oneprofile Blog with Next.js and Contentful / Notion.",
   "author": "Kong To <newlight77@gmail.com>",
   "repository": "oneprofile/site-nextjs",
   "license": "MIT",
   "engines": {
     "node": ">=16"
   },
-
   "scripts": {
     "dev": "source .env && NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
