@@ -1,5 +1,4 @@
 import React, { Fragment, FunctionComponent } from 'react';
-import Head from 'next/head';
 import { MetaTags } from '../../models/tags';
 
 type Props = {
@@ -9,7 +8,7 @@ type Props = {
 const Meta: FunctionComponent<Props> = ({ tags }) => {
   return (
     <Fragment>
-      <Head>
+      <header>
         <title key="title">{tags.title}</title>
 
         <meta name="description" key="description" content={tags.description} />
@@ -89,7 +88,7 @@ const Meta: FunctionComponent<Props> = ({ tags }) => {
 
         {/* The URL of the canonical tags */}
         <link rel="canonical" key="canonical" href={tags.canonical} />
-      </Head>
+      </header>
     </Fragment>
   );
 };

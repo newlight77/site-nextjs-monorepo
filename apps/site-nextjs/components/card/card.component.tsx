@@ -1,10 +1,8 @@
 import React, { FunctionComponent } from 'react';
-import Link from 'next/link';
 import styles from './card.module.css';
 import { BlogPost } from '../../models/blog.post';
 import { format } from 'date-fns';
 
-export const getNavigationLink = (id: any, slug: string): string => `/post/${id}?slug=${slug}`;
 
 export const getHref = (): string => `/post/[slug]`;
 
@@ -41,25 +39,27 @@ const Card: FunctionComponent<Props> = ({ info }) => {
 
   );
 
+  const getNavigationLink = (): string => `/post/${info.id}?slug=${info.slug}`;
+
   return (
     <div className={styles.card}>
       {/* <div className={styles.card__header} style={cardBGStyles} /> */}
-      <Link href={getHref()} as={getNavigationLink(info.id, info.slug)}>
+      <a href={getNavigationLink()}>
         <div className={styles.card__image}>
             <img src={info.heroImage} alt={info.title} />
         </div>
-      </Link>
+      </a>
       <div className={styles.card__container}>
         <div className={styles.card__header}>
           <div className={styles.card__author}>{info.author.name}</div>
           <div className={styles.card__publishedAt}>{'   '} {publishedAt}</div>
         </div>
-        <Link href={getHref()} as={getNavigationLink(info.id, info.slug)}>
+        <a href={getNavigationLink()}>
           <div className={styles.card__body}>
             <h3 className={styles.card__title}>{info.title}</h3>
             <p className={styles.card__text}>{info.description.substring(0, 150)}</p>
           </div>
-        </Link>
+        </a>
         <div className={styles.card__tags}>
           {/* <p className={styles.card__tags_title}>tags: </p> */}
           {info.tags.map(renderTag)}
