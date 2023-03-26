@@ -28,7 +28,7 @@
     "@types/react": "^17.0.13",
     "@types/react-dom": "^17.0.8",
     "eslint": "^8.25.0",
-    "eslint-config-custom": "workspace:*",
+    "eslint-config-custom-next": "workspace:*",
     "jest": "^26.6.3",
     "jest-presets": "workspace:*",
     "react": "^18.2.0",

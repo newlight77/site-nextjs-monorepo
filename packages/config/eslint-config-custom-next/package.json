@@ -1,5 +1,5 @@
 {
-  "name": "eslint-config-custom",
+  "name": "eslint-config-custom-next",
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
@@ -11,6 +11,8 @@
     "eslint": "^8.25.0",
     "eslint-config-next": "latest",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-react": "^7.31.10",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-config-turbo": "latest"
   },
   "publishConfig": {
