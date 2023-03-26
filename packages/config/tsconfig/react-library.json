@@ -1,11 +1,24 @@
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
   "display": "React Library",
-  "extends": "./base.json",
   "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports" : true,
+    "baseUrl": ".",
+    "experimentalDecorators": true,
     "jsx": "react-jsx",
-    "lib": ["ES2015"],
-    "module": "ESNext",
-    "target": "es6"
-  }
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "esnext",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "paths": {
+      "react": [ "./node_modules/@types/react" ],
+      "@/components/*": ["components/*"],
+      "@/lib/*": ["lib/*"],
+      "@/styles/*": ["styles/*"]
+    },
+    "target": "es2016",
+    "typeRoots": ["./node_modules/@types"]
+  },
+  "extends": "./base.json",
+  "include": ["**/*.ts", "**/*.tsx"]
 }
