@@ -2,5 +2,7 @@ packages:
   - "apps/*"
   - "packages/config/*"
   - "packages/domain/model/*"
+  - "packages/domain/service/*"
+  - "packages/spi/*"
   - "packages/ui/*"
   - "packages/util/*"
