@@ -10,11 +10,11 @@
     "node": ">=16"
   },
   "scripts": {
-    "dev": "source .env && NODE_OPTIONS='--inspect' next dev",
+    "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "clean": "rm -rf .next",
-    "start": "source .env && NODE_ENV=production next start",
-    "export": "source .env && next build && next export",
+    "start": "NODE_ENV=production next start",
+    "export": "next build && next export",
     "deps": "run-s deps:*",
     "deps:update": "[ -z $GITHUB_ACTIONS ] && yarn add notion-client notion-types notion-utils || echo 'Skipping deps:update on CI'",
     "deps:link": "[ -z $GITHUB_ACTIONS ] && yarn link notion-client notion-types notion-utils || echo 'Skipping deps:link on CI'",
@@ -25,7 +25,7 @@
     "test:lint": "eslint '**/*.{ts,tsx}'",
     "test:prettier": "prettier '**/*.{js,jsx,ts,tsx}' --check",
     "postexport": "node utils/post-export.js",
-    "populate:contentful": "source .env && contentful space migration --space-id $CONTENTFUL_SPACE_ID --management-token $CONTENTFUL_MANAGEMENT_TOKEN utils/migrate.contentful.js --yes"
+    "populate:contentful": "contentful space migration --space-id $CONTENTFUL_SPACE_ID --management-token $CONTENTFUL_MANAGEMENT_TOKEN utils/migrate.contentful.js --yes"
   },
   "jest": {
     "preset": "jest-presets/jest/node"

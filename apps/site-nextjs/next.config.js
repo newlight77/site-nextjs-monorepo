@@ -2,15 +2,22 @@
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
 
+const envDefaultFile = path.join(__dirname, '.env.default');
+const envFile = path.join(__dirname, '.env');
+
 const config_webpack = {
   webpack: config => {
     config.plugins = config.plugins || [];
     config.plugins = [
       ...config.plugins,
       new Dotenv({
-        path: path.join(__dirname, '.env'),
+        path: envDefaultFile,
         systemvars: true
-      })
+      }),
+      envFile ? new Dotenv({
+        path: envFile,
+        systemvars: true
+      }) : console.error('missing .env file')
     ];
     return config;
   },
