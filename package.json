@@ -1,8 +1,9 @@
 {
   "private": true,
   "scripts": {
+    "setup": "pnpm install",
     "build": "turbo run build",
-    "clean": "turbo run clean",
+    "clean": "turbo run clean & find . -name 'node_modules' -exec rm -fr {} \\;",
     "dev": "turbo run dev --no-cache  --continue",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
