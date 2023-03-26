@@ -1,4 +1,3 @@
-import '../styles/globals.css'
 import '../styles/styles.css';
 import '../styles/app.css';
 import '../styles/posts.css';
