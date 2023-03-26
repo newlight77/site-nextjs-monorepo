@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { notionClientService } from '../../lib/domain/notion.service';
+import { notionService } from '@/lib/content-service.provider';
 
 const log = (message?: any, ...optionalParams: any[]) => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -16,7 +16,7 @@ const getTags = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   log('<<< getTags')
-  const tags = await notionClientService.getAllTags();
+  const tags = await notionService.getAllTags();
   log('>>> getTags tags', tags)
 
   res.setHeader(

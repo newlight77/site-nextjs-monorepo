@@ -19,6 +19,10 @@ importers:
       '@types/react': ^18.0.21
       '@types/react-syntax-highlighter': ^15.5.6
       autoprefixer: ^10.4.0
+      blog-content-contentful-adapter: workspace:*
+      blog-content-notion-adapter: workspace:*
+      blog-content-service: workspace:*
+      blog-model: workspace:*
       contentful: ^9.1.28
       contentful-cli: ^1.12.35
       contentful-migration: ^4.9.0
@@ -46,6 +50,10 @@ importers:
       ui: workspace:*
     dependencies:
       '@notionhq/client': registry.npmjs.org/@notionhq/client/2.2.3
+      blog-content-contentful-adapter: link:../../packages/spi/blog-content-contentful-adapter
+      blog-content-notion-adapter: link:../../packages/spi/blog-content-notipn-adapter
+      blog-content-service: link:../../packages/domain/service/blog-content-service
+      blog-model: link:../../packages/domain/model/blog-model
       contentful: registry.npmjs.org/contentful/9.3.5
       date-fns: registry.npmjs.org/date-fns/2.29.3
       dotenv-webpack: registry.npmjs.org/dotenv-webpack/7.1.1_webpack@5.76.3

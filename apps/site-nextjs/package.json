@@ -33,6 +33,10 @@
   "dependencies": {
     "@notionhq/client": "^2.2.3",
     "contentful": "^9.1.28",
+    "blog-model": "workspace:*",
+    "blog-content-service": "workspace:*",
+    "blog-content-contentful-adapter": "workspace:*",
+    "blog-content-notion-adapter": "workspace:*",
     "date-fns": "^2.29.3",
     "dotenv-webpack": "^7.1.0",
     "github-markdown-css": "^5.1.0",

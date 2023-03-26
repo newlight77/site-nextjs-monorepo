@@ -1,4 +1,4 @@
-import { notionClientAdapter } from '@/lib/spi/notion-client-adapter'
+import { blogContentNotionAdapter } from 'blog-content-notion-adapter';
 import { NextApiRequest, NextApiResponse } from 'next'
 
 const log = (message?: any, ...optionalParams: any[]) => {
@@ -18,7 +18,7 @@ const search = async (req: NextApiRequest, res: NextApiResponse) => {
   const searchParams: any = req.body
 
   log('<<< search searchParams', searchParams)
-  const results = await notionClientAdapter.search(searchParams)
+  const results = await blogContentNotionAdapter.search(searchParams)
   log('>>> search results', results)
 
   res.setHeader(

@@ -10,7 +10,8 @@ import { defaultMetaTags } from '../../models/tags';
 import TagFilters from '../../components/tag-filter/tag-filter.component';
 import { PostsFilter, PostsResult } from '../../models/blog.post';
 import { ssrClient } from 'pages/api/ssr-client';
-import { contentfulService } from '@/lib/domain/contentful.service';
+
+import { contentfulService } from '@/lib/content-service.provider';
 
 const MAX_PER_PAGE = 10;
 
@@ -79,6 +80,8 @@ const getBlogPostEntries = async( filter: PostsFilter ): Promise<PostsResult> =>
       limit: filter.limit
     });
   const tags = await contentfulService.getAllTags();
+  
+  if (posts === undefined) return { entries: [], tags, total: 0 };
 
   if (posts.entries.length < filter.limit) {
     const notionPosts = await ssrClient.getBlogPosts({

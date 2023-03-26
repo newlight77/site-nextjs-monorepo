@@ -6,7 +6,8 @@ import Layout from '../../components/layout/layout.component';
 import { BlogPost } from '../../models/blog.post';
 import { MetaTags, PageType, RobotsContent } from '../../models/tags';
 import MarkdownComponents from '../../components/markdown/markdown-syntax-highlighter';
-import { contentfulService } from '@/lib/domain/contentful.service';
+
+import { contentfulService } from '@/lib/content-service.provider';
 import { ssrClient } from 'pages/api/ssr-client';
 
 type Props = {
@@ -14,10 +15,12 @@ type Props = {
   suggestedArticles: BlogPost[];
 };
 
-const renderCards = (suggestions: any) =>
-  suggestions.map((suggestion: any, index: number) => (
+const renderCards = (suggestions: any) => {
+  if (suggestions === undefined) return;
+  return suggestions.map((suggestion: any, index: number) => (
     <Card key={index} info={suggestion} />
   ));
+}
 
 const PostPage: NextPage<Props, any> = (props: Props) => {
   const postMetaTags: MetaTags = {
@@ -63,10 +66,11 @@ PostPage.getInitialProps = async ({ query }: NextPageContext) => {
   if (isContentful(id)) {
     console.log('getInitialProps id slug', id, slug);
     const article: any = await contentfulService.getPostById(slug);
-    console.log('getInitialProps article', article);
-    const tags = article.tags ? article.tags.map((tag: any) => tag.id) : [];
+    console.log('getInitialProps article.tags', article.tags);
+    const tags = article.tags ? article.tags.map((tag: any) => tag.sys.id) : [];
     console.log('getInitialProps tags', tags);
     const suggestedArticles = await contentfulService.getSuggestions(tags, article.id, 2);
+    console.log('getInitialProps suggestedArticles', suggestedArticles);
     return { article, suggestedArticles };
   } else {
     console.log('getInitialProps id slug', id, slug);
@@ -75,6 +79,7 @@ PostPage.getInitialProps = async ({ query }: NextPageContext) => {
     const tags = article.tags ? article.tags.map((tag: any) => tag.id) : [];
     console.log('getInitialProps tags', tags);
     const suggestedArticles = await contentfulService.getSuggestions(tags, article.id, 2);
+    console.log('getInitialProps suggestedArticles', suggestedArticles);
     return { article, suggestedArticles };
 
   }

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { notionClientService } from '../../lib/domain/notion.service';
+import { notionService } from '@/lib/content-service.provider';
 
 const log = (message?: any, ...optionalParams: any[]) => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -20,7 +20,7 @@ const getBlogPosts = async (req: NextApiRequest, res: NextApiResponse) => {
   const tag: string | undefined = req.body.tag ? req.body.tag : undefined
   log('<<< getPosts filter', { limit, skip, tag })
 
-  const posts = await notionClientService.getBlogPosts({ limit, skip, tag });
+  const posts = await notionService.getBlogPosts({ limit, skip, tag });
 
   log('>>> getPosts posts', posts)
 
