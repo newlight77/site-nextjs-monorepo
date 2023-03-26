@@ -6,9 +6,11 @@ import Layout from '../../components/layout/layout.component';
 import { BlogPost } from '../../models/blog.post';
 import { MetaTags, PageType, RobotsContent } from '../../models/tags';
 import MarkdownComponents from '../../components/markdown/markdown-syntax-highlighter';
-
 import { contentfulService } from '@/lib/content-service.provider';
 import { ssrClient } from 'pages/api/ssr-client';
+import { logger } from "logger";
+
+logger.log = logger.log_;
 
 type Props = {
   article: BlogPost;
@@ -59,39 +61,39 @@ const PostPage: NextPage<Props, any> = (props: Props) => {
 };
 
 PostPage.getInitialProps = async ({ query }: NextPageContext) => {
-  console.log('query.id', query);
+  logger.log('query.id', query);
   const id: string = typeof query.id === "string" ? query.id : '';
   const slug: string = typeof query.slug === "string" ? query.slug : '';
 
   if (isContentful(id)) {
-    console.log('getInitialProps id slug', id, slug);
+    logger.log('getInitialProps id slug', id, slug);
     const article: any = await contentfulService.getPostById(slug);
-    console.log('getInitialProps article.tags', article.tags);
+    logger.log('getInitialProps article.tags', article.tags);
     const tags = article.tags ? article.tags.map((tag: any) => tag.sys.id) : [];
-    console.log('getInitialProps tags', tags);
+    logger.log('getInitialProps tags', tags);
     const suggestedArticles = await contentfulService.getSuggestions(tags, article.id, 2);
-    console.log('getInitialProps suggestedArticles', suggestedArticles);
+    logger.log('getInitialProps suggestedArticles', suggestedArticles);
     return { article, suggestedArticles };
   } else {
-    console.log('getInitialProps id slug', id, slug);
+    logger.log('getInitialProps id slug', id, slug);
     const article: any = await ssrClient.getPostById(id);
-    console.log('getInitialProps article', article);
+    logger.log('getInitialProps article', article);
     const tags = article.tags ? article.tags.map((tag: any) => tag.id) : [];
-    console.log('getInitialProps tags', tags);
+    logger.log('getInitialProps tags', tags);
     const suggestedArticles = await contentfulService.getSuggestions(tags, article.id, 2);
-    console.log('getInitialProps suggestedArticles', suggestedArticles);
+    logger.log('getInitialProps suggestedArticles', suggestedArticles);
     return { article, suggestedArticles };
 
   }
   
   // const service = id.length == 22 ? contentfulService: ssrClient;
-  // console.log('getInitialProps id slug', id, slug);
+  // logger.log('getInitialProps id slug', id, slug);
 
   // const article: any = await service.getPostById(slug);
-  // console.log('getInitialProps article', article);
+  // logger.log('getInitialProps article', article);
 
   // const tags = article.tags ? article.tags.map((tag: any) => tag.id) : [];
-  // console.log('getInitialProps tags', tags);
+  // logger.log('getInitialProps tags', tags);
   // const suggestedArticles = await service.getSuggestions(tags, 2, article.id);
   // return { article, suggestedArticles };
 };

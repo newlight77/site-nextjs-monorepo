@@ -15,6 +15,9 @@ import { NextPage } from 'next';
 // import { ThemeProvider } from '../components/theme-dark-mode/ThemeContext';
 // import ThemeToggle from '../components/theme-dark-mode/ThemeToggle';
 import ThemeSelector from '../components/theme-selector/ThemeSelector';
+import { logger } from "logger";
+
+logger.log = logger.log_;
 
 type Page<P = object> = NextPage<P> & {
   getLayout?: (page: ReactNode) => ReactNode;

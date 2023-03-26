@@ -23,16 +23,11 @@ const Card: FunctionComponent<Props> = ({ info }) => {
 
   const publishedAt = format(newDate(info.publishedAt), 'yyyy-MM-dd');
 
-  const handleTagChosen = (tag: any) => {
-    console.log('tag chosen', tag);
-  };
-
   const renderTag = (tag: any, index: number) => (
     // <div className={styles.card__tag} key={index}>{tag}</div>
     <div
       className={`${styles.card__tag}`}
       key={index}
-      onClick={() => handleTagChosen(tag.id)}
     >
       {tag.name}
     </div>

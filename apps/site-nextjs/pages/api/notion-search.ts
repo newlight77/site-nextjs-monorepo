@@ -1,14 +1,9 @@
 import { blogContentNotionAdapter } from 'blog-content-notion-adapter';
 import { NextApiRequest, NextApiResponse } from 'next'
+import { logger } from "logger";
 
-const log = (message?: any, ...optionalParams: any[]) => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const colorfulParams = require('util').inspect(optionalParams, { colors: true, depth: 5 })
-console.log(`------    notion-search ${message}`, colorfulParams);
-};
+logger.log = logger.log_;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-// const log = (message?: any, ...optionalParams: any[]) => {};
 
 const search = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST') {
@@ -17,9 +12,9 @@ const search = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const searchParams: any = req.body
 
-  log('<<< search searchParams', searchParams)
+  logger.log('<<< search searchParams', searchParams)
   const results = await blogContentNotionAdapter.search(searchParams)
-  log('>>> search results', results)
+  logger.log('>>> search results', results)
 
   res.setHeader(
     'Cache-Control',

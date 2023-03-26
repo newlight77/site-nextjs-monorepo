@@ -10,8 +10,10 @@ import { defaultMetaTags } from '../../models/tags';
 import TagFilters from '../../components/tag-filter/tag-filter.component';
 import { PostsFilter, PostsResult } from '../../models/blog.post';
 import { ssrClient } from 'pages/api/ssr-client';
-
 import { contentfulService } from '@/lib/content-service.provider';
+import { logger } from "logger";
+
+logger.log = logger.log_;
 
 const MAX_PER_PAGE = 10;
 
@@ -97,11 +99,11 @@ const getBlogPostEntries = async( filter: PostsFilter ): Promise<PostsResult> =>
     // const tags = [ ...contentfulTags, ...notionTags ];
   }
 
-  console.log('======    Posts.tsx getAllTags posts', posts);
-  console.log('======    Posts.tsx getAllTags tags', tags);
+  logger.log('======    Posts.tsx getAllTags posts', posts);
+  logger.log('======    Posts.tsx getAllTags tags', tags);
 
   const results = { entries : posts.entries, tags, total: posts.total };
-  console.log('======    Posts.tsx getAllTags results', results);
+  logger.log('======    Posts.tsx getAllTags results', results);
 
   return results;
 }

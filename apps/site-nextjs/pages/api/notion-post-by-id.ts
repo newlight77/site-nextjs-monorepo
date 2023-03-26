@@ -1,14 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { notionService } from '@/lib/content-service.provider';
+import { logger } from "logger";
 
-const log = (message?: any, ...optionalParams: any[]) => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const colorfulParams = require('util').inspect(optionalParams, { colors: true, depth: 5 })
-console.log(`------    notion-post-by-id ${message}`, colorfulParams);
-};
+logger.log = logger.log_;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-// const log = (message?: any, ...optionalParams: any[]) => {};
 
 const getBlogPostById = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST') {
@@ -16,11 +11,11 @@ const getBlogPostById = async (req: NextApiRequest, res: NextApiResponse) => {
   }
 
   const id: string = req.body.id
-  log('<<< getBlogPostById id', id)
+  logger.log('<<< getBlogPostById id', id)
 
   const post = await notionService.getPostById(id);
 
-  log('>>> getBlogPostById id post', id, post)
+  logger.log('>>> getBlogPostById id post', id, post)
 
   res.setHeader(
     'Cache-Control',

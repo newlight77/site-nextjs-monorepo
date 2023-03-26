@@ -1,14 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { notionService } from '@/lib/content-service.provider';
+import { logger } from "logger";
 
-const log = (message?: any, ...optionalParams: any[]) => {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const colorfulParams = require('util').inspect(optionalParams, { colors: true, depth: 5 })
-console.log(`------    notion-suggestions ${message}`, colorfulParams);
-};
+logger.log = logger.log_;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-// const log = (message?: any, ...optionalParams: any[]) => {};
 
 const getSuggestions = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'POST') {
@@ -18,11 +13,11 @@ const getSuggestions = async (req: NextApiRequest, res: NextApiResponse) => {
   const tags: string[] = req.body.tags ? req.body.tags : undefined;
   const currentArticleId: string = req.body.currentArticleId ? req.body.currentArticleId : undefined
   const max: number | undefined = req.body.max ? req.body.max : undefined
-  log('<<< getSuggestions filter', { tags, currentArticleId, max })
+  logger.log('<<< getSuggestions filter', { tags, currentArticleId, max })
 
   const posts = await notionService.getSuggestions(tags, currentArticleId, max);
 
-  log('>>> getSuggestions posts', posts)
+  logger.log('>>> getSuggestions posts', posts)
 
   res.setHeader(
     'Cache-Control',

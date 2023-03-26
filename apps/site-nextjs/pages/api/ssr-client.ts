@@ -1,5 +1,8 @@
 import { BlogPost, BlogPostsPaginated, PostsFilter } from 'models/blog.post';
 import { api, apiHost } from 'pages/api/routing';
+import { logger } from "logger";
+
+logger.log = logger.log_;
 
 
 const getPostById = async (id?: string): Promise<BlogPost> => {
@@ -90,7 +93,7 @@ function toError(res: Response, results: any) {
     // convert non-2xx HTTP responses into errors
     const error: any = new Error(res.statusText);
     error.response = res;
-    console.log('ssr-client search', error, results.json());
+    logger.log('ssr-client search', error, results.json());
     return Promise.reject(error);
 }
 
