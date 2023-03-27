@@ -11,6 +11,6 @@ interface TitleProps extends ComponentProps {
   label: string;
 }
 
-export const Title = ({ format: Head = 'h1', label, ...props }: TitleProps) => {
-  return <Head {...props}>{label}</Head>;
+export const Title = ({ format: head = 'h1', label, ...props }: TitleProps) => {
+  return (<head {...props}>{label}</head>);
 };

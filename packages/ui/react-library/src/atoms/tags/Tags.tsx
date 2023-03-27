@@ -2,8 +2,13 @@ import React from 'react';
 import './tags.module.css';
 import { Tag } from 'blog-model';
 
-export const Tags = ({tags, removeTag}: {tags: Tag[], removeTag: Function}) => {
-  (
+type TagsProps = {
+  tags: Tag[],
+  removeTag: Function
+}
+
+export const Tags: React.FC<TagsProps> = ({tags, removeTag}: TagsProps) => {
+  return (
     <div className="search__tags">
       {
         tags.map((tag, index) => {
@@ -24,4 +29,4 @@ export const Tags = ({tags, removeTag}: {tags: Tag[], removeTag: Function}) => {
       }
     </div>
   );
-}
+};

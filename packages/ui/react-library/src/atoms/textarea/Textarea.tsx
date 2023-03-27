@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import './textarea.module.css';
 
-interface TextareaProps {
+type TextareaProps = {
   type?: string;
   className?: string;
   children?: ReactNode;
@@ -12,6 +12,6 @@ interface TextareaProps {
   placeholder?: string;
 }
 
-export const Textarea = ({ children, ...props }: TextareaProps) => {
+export const Textarea: React.FC<TextareaProps> = ({ children, ...props }: TextareaProps) => {
   return <textarea {...props}>{children}</textarea>;
 };

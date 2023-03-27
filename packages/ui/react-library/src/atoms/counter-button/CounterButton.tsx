@@ -1,7 +1,7 @@
 import * as React from "react";
 import './CounterButton.module.css';
 
-export const CounterButton = () => {
+export const CounterButton: React.FC = () => {
   const [count, setCount] = React.useState(0);
   return (
     <div className="counter-button">

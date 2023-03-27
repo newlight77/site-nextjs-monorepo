@@ -1,13 +1,11 @@
 import * as React from "react";
 
-export const TabLink = ({
-  children,
-  href,
-  ...other
-}: {
+type TabLinkProps = {
   children: React.ReactNode;
   href: string;
-}) => {
+}
+
+export const TabLink: React.FC<TabLinkProps> = ({children, href, ...other}: TabLinkProps) => {
   return (
     <a target="_blank" rel="noreferrer" href={href} {...other}>
       {children}
