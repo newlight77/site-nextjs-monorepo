@@ -1,4 +1,4 @@
-import { BlogPost, BlogPostsPaginated, PostsFilter } from 'models/blog.post';
+import { BlogPost, BlogPostsPaginated, PostsFilter } from 'blog-model';
 import { api, apiHost } from 'pages/api/routing';
 import { logger } from "logger";
 

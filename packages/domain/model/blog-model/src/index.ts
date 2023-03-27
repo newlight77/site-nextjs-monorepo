@@ -4,5 +4,5 @@ export type { BlogPost,
     BlogPostsPaginatedFilter,
     PostsFilter, PostsResult
 } from './domain/blog.post';
-export type { MetaTags, PageType, Tag } from "./domain/tags";
-export { defaultMetaTags } from "./domain/tags";
+export type { MetaTags, Tag } from "./domain/tags";
+export { RobotsContent, PageType, defaultMetaTags } from "./domain/tags";

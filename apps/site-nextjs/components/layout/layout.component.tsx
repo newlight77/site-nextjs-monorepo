@@ -1,5 +1,5 @@
 import React, { FunctionComponent, Fragment, ReactNode } from 'react';
-import { MetaTags } from '../../models/tags';
+import { MetaTags } from 'blog-model';
 import Meta from '../meta';
 
 import styles from './layout.module.css';

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import styles from './card.module.css';
-import { BlogPost } from '../../models/blog.post';
+import { BlogPost } from 'blog-model';
 import { format } from 'date-fns';
 
 

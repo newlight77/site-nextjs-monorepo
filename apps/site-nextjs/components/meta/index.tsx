@@ -1,5 +1,5 @@
 import React, { Fragment, FunctionComponent } from 'react';
-import { MetaTags } from '../../models/tags';
+import { MetaTags } from 'blog-model';
 
 type Props = {
   tags: MetaTags;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { NextPage } from 'next';
-import { PostsFilter } from '../models/blog.post';
+import { PostsFilter } from 'blog-model';
 import PostsPage, { toFilter } from './post/posts';
 
 
