@@ -15,12 +15,14 @@
     "clean": "rm -rf dist",
     "dev": "tsup src/index.tsx --format esm,cjs --watch --dts --external react",
     "lint": "eslint \"src/**/*.ts*\"",
-    "test": "jest"
+    "test": "jest --passWithNoTests"
   },
   "jest": {
     "preset": "jest-presets/jest/node"
   },
   "dependencies": {
+    "blog-model": "workspace:*",
+    "date-fns": "^2.29.3",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {

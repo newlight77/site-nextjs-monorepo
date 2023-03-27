@@ -22,8 +22,9 @@
     "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
     "test": "run-p test:*",
-    "test:lint": "eslint '**/*.{ts,tsx}'",
-    "test:prettier": "prettier '**/*.{js,jsx,ts,tsx}' --check",
+    "test:jest": "jest --passWithNoTests",
+    "lint": "eslint '**/*.{ts,tsx}'",
+    "prettier": "prettier '**/*.{js,jsx,ts,tsx}' --check",
     "postexport": "node utils/post-export.js",
     "populate:contentful": "contentful space migration --space-id $CONTENTFUL_SPACE_ID --management-token $CONTENTFUL_MANAGEMENT_TOKEN utils/migrate.contentful.js --yes"
   },
