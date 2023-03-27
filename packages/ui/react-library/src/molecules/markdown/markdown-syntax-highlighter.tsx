@@ -8,6 +8,7 @@ import markdown from 'react-syntax-highlighter/dist/cjs/languages/prism/markdown
 import json from 'react-syntax-highlighter/dist/cjs/languages/prism/json'
 import { oneDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import rangeParser from 'parse-numeric-range'
+import React from 'react'
 
 SyntaxHighlighter.registerLanguage('tsx', tsx)
 SyntaxHighlighter.registerLanguage('typescript', typescript)

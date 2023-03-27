@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import './title.module.css';
 
 interface ComponentProps extends React.HTMLAttributes<HTMLOrSVGElement> {
@@ -11,6 +11,6 @@ interface TitleProps extends ComponentProps {
   label: string;
 }
 
-export const Title = ({ format: head = 'h1', label, ...props }: TitleProps) => {
-  return (<head {...props}>{label}</head>);
+export const Title = ({ format: Header = 'h1', label, ...props }: TitleProps) => {
+  return (<Header {...props}>{label}</Header>);
 };

@@ -4,7 +4,7 @@ import { Tag } from 'blog-model';
 
 type TagsProps = {
   tags: Tag[],
-  removeTag: Function
+  removeTag: any
 }
 
 export const Tags: React.FC<TagsProps> = ({tags, removeTag}: TagsProps) => {
@@ -22,7 +22,7 @@ export const Tags: React.FC<TagsProps> = ({tags, removeTag}: TagsProps) => {
               key={index}
               className="search__tags__tag"
             >
-              {tag}
+              {tag.name}
             </div>
           );
         })
