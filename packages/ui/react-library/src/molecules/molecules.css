@@ -1,0 +1,8 @@
+@import './card/card.module.css';
+@import "./footer/footer.module.css";
+@import "./header/header.module.css";
+@import "./layout/layout.module.css";
+@import "./paginator/paginator.module.css";
+@import "./tag-filter/tag-filter.module.css";
+@import "./theme-provider-darkmode/theme.module.css";
+@import "./theme-selector/theme.module.css";

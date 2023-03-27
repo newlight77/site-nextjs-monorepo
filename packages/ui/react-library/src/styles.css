@@ -1,2 +1,3 @@
 /* Atomic Design */
 @import './atoms/atoms.css';
+@import './molecules/molecules.css';
