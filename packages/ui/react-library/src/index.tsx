@@ -1,3 +1,11 @@
-export { NewTabLink } from "./atoms/NewTabLink";
-export { CounterButton } from "./atoms/CounterButton";
-
+export {
+  Button,
+  CounterButton,
+  Input,
+  Tags,
+  Label,
+  Logo,
+  TabLink,
+  Textarea,
+  Title,
+} from './atoms';

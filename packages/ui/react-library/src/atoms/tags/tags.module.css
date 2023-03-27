@@ -1,0 +1,28 @@
+.search__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  &__tag {
+    display: flex;
+    border-radius: 10px;
+    gap: 7px;
+    align-items: center;
+    color: black;
+    text-align: center;
+    background-color: rgb(104, 186, 178, 0.2);
+    padding: 0 5px;
+
+    &__cross {
+      opacity: 0.3;
+    }
+
+    &:hover {
+      cursor: pointer;
+
+      .search__tags__tag__cross {
+        opacity: 1;
+      }
+    }
+  }
+}

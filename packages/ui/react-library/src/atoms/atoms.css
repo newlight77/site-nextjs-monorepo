@@ -1,0 +1,7 @@
+@import './button/Button.module.css';
+@import "./input/Input.module.css";
+@import "./label/Label.module.css";
+@import "./logo/Logo.module.css";
+@import "./tags/tags.module.css";
+@import "./textarea/textarea.module.css";
+@import "./title/title.module.css";

@@ -1,0 +1,22 @@
+button {
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 7px;
+    border: none;
+    padding: 10px;
+    font-size: clamp(0.1rem, 10vw, 1rem);
+    background: #17243E;
+    color: rgb(207, 207, 207);
+    max-width: 30%;
+    transition: 0.2s;
+
+    &:hover {
+        background-color: #7D7987;
+    }
+}
+
+.addButton {
+    position: absolute;
+    left: 78vw;
+    top: 23vh;
+}
