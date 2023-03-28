@@ -16,7 +16,6 @@ export  {
   Footer,
   Header,
   Layout,
-  MarkdownSyntaxHighlighter,
   Meta,
   Paginator,
   TagFilters,

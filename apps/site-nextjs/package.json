@@ -32,13 +32,10 @@
     "preset": "jest-presets/jest/node"
   },
   "dependencies": {
-    "@notionhq/client": "^2.2.3",
-    "contentful": "^9.1.28",
     "blog-model": "workspace:*",
     "blog-content-service": "workspace:*",
     "blog-content-contentful-adapter": "workspace:*",
     "blog-content-notion-adapter": "workspace:*",
-    "date-fns": "^2.29.3",
     "dotenv-webpack": "^7.1.0",
     "github-markdown-css": "^5.1.0",
     "logger": "workspace:*",
@@ -48,7 +45,7 @@
     "react-dom": "^18.2.0",
     "react-markdown": "^8.0.5",
     "react-syntax-highlighter": "^15.5.0",
-    "ui": "workspace:*"
+    "react-library": "workspace:*"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^12.3.1",
@@ -64,10 +61,7 @@
     "jest": "^26.6.3",
     "jest-presets": "workspace:*",
     "npm-run-all": "^4.1.5",
-    "postcss": "^8.4.5",
     "prettier": "^2.7.1",
-    "prettier-plugin-tailwindcss": "^0.1.1",
-    "tailwindcss": "^3.0.7",
     "tsconfig": "workspace:*",
     "typescript": "^4.8.4"
   },

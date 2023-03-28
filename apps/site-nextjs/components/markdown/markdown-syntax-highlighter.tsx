@@ -25,7 +25,7 @@ type CodeBlock = {
 
 const syntaxTheme = oneDark;
 
-const MarkdownComponents: object = {
+export const MarkdownSyntaxHighlighter: object = {
   code({ node, className, ...props }: CodeBlock) {
     const match = /language-(\w+)/.exec(className || '')
     const hasMeta = node?.data?.meta
@@ -63,5 +63,3 @@ const MarkdownComponents: object = {
     )
   },
 }
-
-export default MarkdownComponents;

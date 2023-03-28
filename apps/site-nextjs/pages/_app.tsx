@@ -1,4 +1,5 @@
 import '../styles/styles.css';
+import 'react-library/dist/index.css';
 import '../styles/app.css';
 import '../styles/posts.css';
 import '../styles/post.css';
@@ -8,14 +9,19 @@ import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router';
 import React, { ReactNode, useEffect } from 'react';
 import Script from 'next/script';
-import Header from '../components/header/header.component';
+import { Header } from 'react-library';
 import { GA_TRACKING_ID, trackPageView } from '../utils/gtag';
-import Footer from '../components/footer/footer.component';
+import { Footer } from 'react-library';
 import { NextPage } from 'next';
 // import { ThemeProvider } from '../components/theme-dark-mode/ThemeContext';
 // import ThemeToggle from '../components/theme-dark-mode/ThemeToggle';
-import ThemeSelector from '../components/theme-selector/ThemeSelector';
+import { ThemeSelector } from 'react-library';
 import { logger } from "logger";
+import pjson from '../package.json';
+
+const version = {
+  version: pjson.version
+};
 
 logger.log = logger.log_;
 
@@ -80,7 +86,7 @@ const App = ({ Component, pageProps }: Props) => {
         </div>
         <Header />
         <Component {...pageProps} />
-        <Footer />
+        <Footer { ...version } />
       </div>
     </>
   );

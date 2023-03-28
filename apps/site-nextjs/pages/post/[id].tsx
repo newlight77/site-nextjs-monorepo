@@ -1,11 +1,11 @@
 import { NextPage, NextPageContext } from 'next';
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import Card from '../../components/card/card.component';
-import Layout from '../../components/layout/layout.component';
+import {Card} from 'react-library';
+import {Layout} from 'react-library';
 import { BlogPost } from 'blog-model';
 import { MetaTags, PageType, RobotsContent } from 'blog-model';
-import MarkdownComponents from '../../components/markdown/markdown-syntax-highlighter';
+import { MarkdownSyntaxHighlighter } from '@/components/markdown/markdown-syntax-highlighter';
 import { contentfulService } from '@/lib/content-service.provider';
 import { ssrClient } from 'pages/api/ssr-client';
 import { logger } from "logger";
@@ -48,7 +48,7 @@ const PostPage: NextPage<Props, any> = (props: Props) => {
       </div>
       <div className="post__body">
         {/* <ReactMarkdown className="markdown" children={props.article.body} /> */}
-        <ReactMarkdown className="markdown" components={MarkdownComponents}>
+        <ReactMarkdown className="markdown" components={MarkdownSyntaxHighlighter}>
           {props.article.body}
         </ReactMarkdown>
       </div>

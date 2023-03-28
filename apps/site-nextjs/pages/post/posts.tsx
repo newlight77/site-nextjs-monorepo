@@ -3,11 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 
-import Layout from '../../components/layout/layout.component';
-import Card from '../../components/card/card.component';
-import Paginator from '../../components/paginator/paginator.component';
+import {Layout} from 'react-library';
+import {Card} from 'react-library';
+import {Paginator} from 'react-library';
 import { defaultMetaTags } from 'blog-model';
-import TagFilters from '../../components/tag-filter/tag-filter.component';
+import {TagFilters} from 'react-library';
 import { PostsFilter, PostsResult } from 'blog-model';
 import { ssrClient } from 'pages/api/ssr-client';
 import { contentfulService } from '@/lib/content-service.provider';
