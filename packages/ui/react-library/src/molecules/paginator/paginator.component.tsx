@@ -1,6 +1,5 @@
 import React, { FunctionComponent, Fragment, useState, useEffect } from 'react';
-
-import styles from './paginator.module.css';
+import './paginator.module.css';
 
 type Props = {
   skip: number;
@@ -46,7 +45,7 @@ export const Paginator: FunctionComponent<Props> = ({
 
   const renderPageIndicators = (num: number, index: number) => (
     <span
-      className={`${styles.paginator__page_number} ${num === page ? styles.paginator__page_number__selected : ''}`}
+      className={`paginator__page_number ${num === page ? 'paginator__page_number__selected' : ''}`}
       key={index}
       onClick={() => moveToPage(num)}
     >
@@ -56,10 +55,10 @@ export const Paginator: FunctionComponent<Props> = ({
 
   return (
     <Fragment>
-      <div className={styles.paginator}>
+      <div className="paginator">
         {range.length > 1 ? (
-          <button className={styles.paginator__button} onClick={moveToNextPage}>
-            <span className={`${styles.paginator__button_indicator} left`}>
+          <button className="paginator__button" onClick={moveToNextPage}>
+            <span className="paginator__button_indicator left">
               {'<'}
             </span>{' '}
             {/* <span className={styles.paginator__button_label}> Previous </span> */}
@@ -70,11 +69,11 @@ export const Paginator: FunctionComponent<Props> = ({
 
         {range.length > 1 ? (
           <button
-            className={styles.paginator__button}
+            className="paginator__button"
             onClick={moveToPreviousPage}
           >
             {/* <span className={styles.paginator__button_label}> Next</span>{' '} */}
-            <span className={`${styles.paginator__button_indicator} right`}>
+            <span className="paginator__button_indicator right">
               {'>'}
             </span>
           </button>

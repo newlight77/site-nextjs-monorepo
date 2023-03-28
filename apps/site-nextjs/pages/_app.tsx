@@ -1,9 +1,4 @@
 import '../styles/styles.css';
-import 'react-library/dist/index.css';
-import '../styles/app.css';
-import '../styles/posts.css';
-import '../styles/post.css';
-import '../styles/markdown.css';
 
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router';

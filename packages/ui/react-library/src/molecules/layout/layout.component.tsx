@@ -1,8 +1,7 @@
 import React, { FunctionComponent, Fragment, ReactNode } from 'react';
 import { MetaTags } from 'blog-model';
 import { Meta } from '../meta/meta.component';
-
-import styles from './layout.module.css';
+import './layout.module.css';
 
 type Props = {
   metaTags: MetaTags;
@@ -13,7 +12,7 @@ export const Layout: FunctionComponent<Props> = ({ metaTags, children }) => {
   return (
     <Fragment>
       <Meta tags={metaTags} />
-      <div className={styles.layout}>
+      <div className="layout">
         <main>{children}</main>
       </div>
     </Fragment>

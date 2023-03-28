@@ -1,6 +1,6 @@
-import styles from './theme.module.css';
 import { ThemeContext } from './ThemeContext';
 import React, { MouseEvent } from 'react';
+import './theme.module.css';
 
 export const ThemeToggle = () => {
   const { darkMode, toogleDarkMode } = React.useContext(ThemeContext);
@@ -11,7 +11,7 @@ export const ThemeToggle = () => {
   };
 
   return (
-    <div className={styles.darkmode__toggle}>
+    <div className="darkmode__toggle">
       <button onClick={handleOnClick}>{darkMode ? '🌙' : '🌞'}</button>
     </div>
   );

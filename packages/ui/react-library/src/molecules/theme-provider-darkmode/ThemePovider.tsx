@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import styles from './theme.module.css';
 import { ThemeContext, ThemeContextType } from './ThemeContext';
 import { ThemeToggle } from './ThemeToggle';
+import './theme.module.css';
 
 const defaultThemeState: ThemeContextType = {
   darkMode: true,
@@ -13,10 +13,10 @@ const defaultThemeState: ThemeContextType = {
 const changeDarkMode = (darkMode: boolean) => {
   switch (darkMode) {
     case true:
-      document.body.classList.add(styles.darkmode__content);
+      document.body.classList.add("darkmode__content");
       break;
     default:
-      document.body.classList.remove(styles.darkmode__content);
+      document.body.classList.remove("darkmode__content");
       break;
   }
 };

@@ -1,5 +1,5 @@
 import React, { useEffect, MouseEvent } from 'react';
-import styles from './theme.module.css';
+import './theme.module.css';
 
 // const THEMES = [
 //   'deepskyblue',
@@ -55,7 +55,7 @@ export const ThemeSelector = () => {
   }
 
   return (
-    <div className={styles.darkmode__toggle}>
+    <div className="darkmode__toggle">
       <button onClick={handleOnClick}>{getThemeIcon(theme)}</button>
     </div>
   );
