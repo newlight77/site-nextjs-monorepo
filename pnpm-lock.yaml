@@ -4,11 +4,13 @@ importers:
 
   .:
     specifiers:
+      npm-run-all: ^4.1.5
       prettier: ^2.7.1
       turbo: latest
     devDependencies:
+      npm-run-all: registry.npmjs.org/npm-run-all/4.1.5
       prettier: registry.npmjs.org/prettier/2.8.7
-      turbo: registry.npmjs.org/turbo/1.8.6
+      turbo: registry.npmjs.org/turbo/1.8.7
 
   apps/site-nextjs:
     specifiers:
@@ -91,7 +93,7 @@ importers:
       eslint: registry.npmjs.org/eslint/8.36.0
       eslint-config-next: registry.npmjs.org/eslint-config-next/13.2.4_vgl77cfdswitgr47lm5swmv43m
       eslint-config-prettier: registry.npmjs.org/eslint-config-prettier/8.8.0_eslint@8.36.0
-      eslint-config-turbo: registry.npmjs.org/eslint-config-turbo/1.8.6_eslint@8.36.0
+      eslint-config-turbo: registry.npmjs.org/eslint-config-turbo/1.8.7_eslint@8.36.0
 
   packages/config/eslint-config-custom-next:
     specifiers:
@@ -111,7 +113,7 @@ importers:
       eslint: registry.npmjs.org/eslint/8.36.0
       eslint-config-next: registry.npmjs.org/eslint-config-next/13.2.4_vgl77cfdswitgr47lm5swmv43m
       eslint-config-prettier: registry.npmjs.org/eslint-config-prettier/8.8.0_eslint@8.36.0
-      eslint-config-turbo: registry.npmjs.org/eslint-config-turbo/1.8.6_eslint@8.36.0
+      eslint-config-turbo: registry.npmjs.org/eslint-config-turbo/1.8.7_eslint@8.36.0
       eslint-plugin-react: registry.npmjs.org/eslint-plugin-react/7.32.2_eslint@8.36.0
       eslint-plugin-react-hooks: registry.npmjs.org/eslint-plugin-react-hooks/4.6.0_eslint@8.36.0
 
@@ -131,7 +133,7 @@ importers:
       '@typescript-eslint/parser': registry.npmjs.org/@typescript-eslint/parser/5.56.0_vgl77cfdswitgr47lm5swmv43m
       eslint: registry.npmjs.org/eslint/8.36.0
       eslint-config-prettier: registry.npmjs.org/eslint-config-prettier/8.8.0_eslint@8.36.0
-      eslint-config-turbo: registry.npmjs.org/eslint-config-turbo/1.8.6_eslint@8.36.0
+      eslint-config-turbo: registry.npmjs.org/eslint-config-turbo/1.8.7_eslint@8.36.0
       eslint-plugin-react: registry.npmjs.org/eslint-plugin-react/7.32.2_eslint@8.36.0
       eslint-plugin-react-hooks: registry.npmjs.org/eslint-plugin-react-hooks/4.6.0_eslint@8.36.0
 
@@ -139,7 +141,7 @@ importers:
     specifiers:
       eslint-config-turbo: latest
     dependencies:
-      eslint-config-turbo: registry.npmjs.org/eslint-config-turbo/1.8.6_eslint@8.36.0
+      eslint-config-turbo: registry.npmjs.org/eslint-config-turbo/1.8.7_eslint@8.36.0
 
   packages/config/jest-presets:
     specifiers:
@@ -264,6 +266,7 @@ importers:
       eslint-config-custom-next: workspace:*
       jest: ^26.6.3
       jest-presets: workspace:*
+      npm-run-all: ^4.1.5
       react: ^18.2.0
       react-dom: ^18.2.0
       tsconfig: workspace:*
@@ -282,6 +285,7 @@ importers:
       eslint-config-custom-next: link:../../config/eslint-config-custom-next
       jest: registry.npmjs.org/jest/26.6.3
       jest-presets: link:../../config/jest-presets
+      npm-run-all: registry.npmjs.org/npm-run-all/4.1.5
       react: registry.npmjs.org/react/18.2.0
       tsconfig: link:../../config/tsconfig
       tsup: registry.npmjs.org/tsup/6.7.0_uujdqti2krmttzhqvubwnsmcci
@@ -296,6 +300,7 @@ importers:
       eslint-config-custom: workspace:*
       jest: ^26.6.3
       jest-presets: workspace:*
+      npm-run-all: ^4.1.5
       tsconfig: workspace:*
       typescript: ^4.8.3
     devDependencies:
@@ -305,6 +310,7 @@ importers:
       eslint-config-custom: link:../../config/eslint-config-custom
       jest: registry.npmjs.org/jest/26.6.3
       jest-presets: link:../../config/jest-presets
+      npm-run-all: registry.npmjs.org/npm-run-all/4.1.5
       tsconfig: link:../../config/tsconfig
       typescript: registry.npmjs.org/typescript/4.9.5
 
@@ -4556,16 +4562,16 @@ packages:
       eslint: registry.npmjs.org/eslint/8.36.0
     dev: false
 
-  registry.npmjs.org/eslint-config-turbo/1.8.6_eslint@8.36.0:
-    resolution: {integrity: sha512-LSMqrHmFeQcYRuBnzrzw+B2bJ3+o8wxPkRwfK0Y+SSLsq2F/niRJ2kqB8j4uOSCfxybHHpFEB2CgUpQiiyfeoQ==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/eslint-config-turbo/-/eslint-config-turbo-1.8.6.tgz}
-    id: registry.npmjs.org/eslint-config-turbo/1.8.6
+  registry.npmjs.org/eslint-config-turbo/1.8.7_eslint@8.36.0:
+    resolution: {integrity: sha512-kqK63y8e/cV2DJMbC5tPyfJgV+LxQxfik19qC+wtuiicb+3yRdjTbv+M5z+UCPHpCVWi33x9FxuOXn83jAlOkw==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/eslint-config-turbo/-/eslint-config-turbo-1.8.7.tgz}
+    id: registry.npmjs.org/eslint-config-turbo/1.8.7
     name: eslint-config-turbo
-    version: 1.8.6
+    version: 1.8.7
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
       eslint: registry.npmjs.org/eslint/8.36.0
-      eslint-plugin-turbo: registry.npmjs.org/eslint-plugin-turbo/1.8.6_eslint@8.36.0
+      eslint-plugin-turbo: registry.npmjs.org/eslint-plugin-turbo/1.8.7_eslint@8.36.0
     dev: false
 
   registry.npmjs.org/eslint-import-resolver-node/0.3.7:
@@ -4738,11 +4744,11 @@ packages:
       string.prototype.matchall: registry.npmjs.org/string.prototype.matchall/4.0.8
     dev: false
 
-  registry.npmjs.org/eslint-plugin-turbo/1.8.6_eslint@8.36.0:
-    resolution: {integrity: sha512-LieXzur+4XtIsLst8GdupTMhvGn2ebFetG3AVErh2jHBy1EobPHbatjcdNZQMy5EsdG35axQVB8KFF3jo4u+OQ==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/eslint-plugin-turbo/-/eslint-plugin-turbo-1.8.6.tgz}
-    id: registry.npmjs.org/eslint-plugin-turbo/1.8.6
+  registry.npmjs.org/eslint-plugin-turbo/1.8.7_eslint@8.36.0:
+    resolution: {integrity: sha512-6pkvcU+aynbC7gtSiV8rUAVtxWQsn74HdOt6STBWGLBw1fZy4O6hkU77Xi6gh8gtdvTrYMEP+nBl8ZV0erRZbg==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/eslint-plugin-turbo/-/eslint-plugin-turbo-1.8.7.tgz}
+    id: registry.npmjs.org/eslint-plugin-turbo/1.8.7
     name: eslint-plugin-turbo
-    version: 1.8.6
+    version: 1.8.7
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
@@ -10776,79 +10782,79 @@ packages:
       typescript: registry.npmjs.org/typescript/4.9.5
     dev: false
 
-  registry.npmjs.org/turbo-darwin-64/1.8.6:
-    resolution: {integrity: sha512-VlXkQR0TEBAEyBRsvAXBax+fj1EdPKPliwBaCnRLiDUcA/8wYlKte/Kk6ubmj9E0n7U/B4keCxxHiJZqW/5Rqg==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/turbo-darwin-64/-/turbo-darwin-64-1.8.6.tgz}
+  registry.npmjs.org/turbo-darwin-64/1.8.7:
+    resolution: {integrity: sha512-QOa7SI1sv8IH9biO4qThmyz0w2WNlQMJ8CmJ9NmyujlqQYdcP3r2JJY6GlJkUk2PdX9YV3mBVrOePicBy3gcjA==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/turbo-darwin-64/-/turbo-darwin-64-1.8.7.tgz}
     name: turbo-darwin-64
-    version: 1.8.6
+    version: 1.8.7
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  registry.npmjs.org/turbo-darwin-arm64/1.8.6:
-    resolution: {integrity: sha512-w4L2QLj90ex68UXxTPoqtZPl8mWzc6a1RtPjQhoxAWtZf9T2WXi813dCzYEbVUVC09/DOW/VxZRN7sb2r0KP9A==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/turbo-darwin-arm64/-/turbo-darwin-arm64-1.8.6.tgz}
+  registry.npmjs.org/turbo-darwin-arm64/1.8.7:
+    resolution: {integrity: sha512-q2pvkuZBoP1iljSZC+vtIObkgFZeo9kDdOJvj+bloLIEkkksBWNGvgabVWBAzJyNnoUHCQVxKPIstEhfmzW3eA==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/turbo-darwin-arm64/-/turbo-darwin-arm64-1.8.7.tgz}
     name: turbo-darwin-arm64
-    version: 1.8.6
+    version: 1.8.7
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  registry.npmjs.org/turbo-linux-64/1.8.6:
-    resolution: {integrity: sha512-eV245jefIhMAZskqQKalFwreC5UEdQcuHcBiWcgUk0py76fbwB7+1HfH5cmeJlb3a1sB6f3H0HHmGPmb34feCA==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/turbo-linux-64/-/turbo-linux-64-1.8.6.tgz}
+  registry.npmjs.org/turbo-linux-64/1.8.7:
+    resolution: {integrity: sha512-xlNS6cFCLDcQeuHFINn+p4Z5H880v3/KSdYKiuIpxAwijhLq5ZTTpGQegNiOXrct3cotKUI7lWgDPn6Y2G/A8Q==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/turbo-linux-64/-/turbo-linux-64-1.8.7.tgz}
     name: turbo-linux-64
-    version: 1.8.6
+    version: 1.8.7
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  registry.npmjs.org/turbo-linux-arm64/1.8.6:
-    resolution: {integrity: sha512-Kiw3nyEvNU6Bpil4zE5FwhasPAOi59R4YdCmjJp0Sen6V9u+/Jij6SWwaoUdATORJLiYQBbhontWBH55B53VDw==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/turbo-linux-arm64/-/turbo-linux-arm64-1.8.6.tgz}
+  registry.npmjs.org/turbo-linux-arm64/1.8.7:
+    resolution: {integrity: sha512-lmQ09jHGOyMqmA66a/Hcm6Ox9ZqVFIIFFZHEiO1L4dRtl2PNCzzgp+DoNP1VEvVOgRTxy71MU5Z3APOLjmC05A==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/turbo-linux-arm64/-/turbo-linux-arm64-1.8.7.tgz}
     name: turbo-linux-arm64
-    version: 1.8.6
+    version: 1.8.7
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  registry.npmjs.org/turbo-windows-64/1.8.6:
-    resolution: {integrity: sha512-34BkAG9r4nE00xeMeVahaF82h8R6SO+IIOcD60fNr2p+Ch+YcQa+DbEWA/KUj3coUTIiNP5XnRCLRUYADdlxjQ==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/turbo-windows-64/-/turbo-windows-64-1.8.6.tgz}
+  registry.npmjs.org/turbo-windows-64/1.8.7:
+    resolution: {integrity: sha512-XcHNYAzCWESpqULDU0USXidfOXmkoLzYzTrUWhmXUdTNL4pcUysFn+CHKbiYU8nSBFcZacJnHQ/kEjduqRoJ9g==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/turbo-windows-64/-/turbo-windows-64-1.8.7.tgz}
     name: turbo-windows-64
-    version: 1.8.6
+    version: 1.8.7
     cpu: [x64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  registry.npmjs.org/turbo-windows-arm64/1.8.6:
-    resolution: {integrity: sha512-4jWUaI7Lmonp2I3x81GruiCYd0aQsG/xDOYhuv9+j2yIgB/UHJFz/P8PWp/nziwPtGpRd/AheDlPzzyd9lWoqw==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/turbo-windows-arm64/-/turbo-windows-arm64-1.8.6.tgz}
+  registry.npmjs.org/turbo-windows-arm64/1.8.7:
+    resolution: {integrity: sha512-Ly1mksTC94lrK3/MxKKBmyf4roVYoeo43Rj+kv9qtx20+2Fzf3Iclw8H5/eGucnOOoxeinfdz4tjzhAHdNRwfA==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/turbo-windows-arm64/-/turbo-windows-arm64-1.8.7.tgz}
     name: turbo-windows-arm64
-    version: 1.8.6
+    version: 1.8.7
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  registry.npmjs.org/turbo/1.8.6:
-    resolution: {integrity: sha512-6IOOaa8ytgjnSCTnp3LKAd2uGBZ/Kmx8ZPlI/YMWuKMUqvkXKLbh+w76ApMgMm+faUqti+QujVWovCu2kY6KuQ==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/turbo/-/turbo-1.8.6.tgz}
+  registry.npmjs.org/turbo/1.8.7:
+    resolution: {integrity: sha512-0EtA4OfLSPpcErAQBKArDueQ/EoYPiPlRAWidHV8l030aVFY3B05dDd3CcfTM41IFSSgqk9n4R8DgesC8fVrDA==, registry: https://registry.yarnpkg.com/, tarball: https://registry.npmjs.org/turbo/-/turbo-1.8.7.tgz}
     name: turbo
-    version: 1.8.6
+    version: 1.8.7
     hasBin: true
     requiresBuild: true
     optionalDependencies:
-      turbo-darwin-64: registry.npmjs.org/turbo-darwin-64/1.8.6
-      turbo-darwin-arm64: registry.npmjs.org/turbo-darwin-arm64/1.8.6
-      turbo-linux-64: registry.npmjs.org/turbo-linux-64/1.8.6
-      turbo-linux-arm64: registry.npmjs.org/turbo-linux-arm64/1.8.6
-      turbo-windows-64: registry.npmjs.org/turbo-windows-64/1.8.6
-      turbo-windows-arm64: registry.npmjs.org/turbo-windows-arm64/1.8.6
+      turbo-darwin-64: registry.npmjs.org/turbo-darwin-64/1.8.7
+      turbo-darwin-arm64: registry.npmjs.org/turbo-darwin-arm64/1.8.7
+      turbo-linux-64: registry.npmjs.org/turbo-linux-64/1.8.7
+      turbo-linux-arm64: registry.npmjs.org/turbo-linux-arm64/1.8.7
+      turbo-windows-64: registry.npmjs.org/turbo-windows-64/1.8.7
+      turbo-windows-arm64: registry.npmjs.org/turbo-windows-arm64/1.8.7
     dev: true
 
   registry.npmjs.org/type-check/0.3.2:
