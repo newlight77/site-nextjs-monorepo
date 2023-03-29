@@ -7,7 +7,9 @@
     "dev": "turbo run dev --no-cache  --continue",
     "format": "prettier '**/*.{js,jsx,ts,tsx,md}' --write",
     "lint": "turbo run lint",
-    "test": "turbo run test"
+    "test": "run-p test:*",
+    "test:lint": "turbo run lint",
+    "test:test": "turbo run test"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^3.3.1",
