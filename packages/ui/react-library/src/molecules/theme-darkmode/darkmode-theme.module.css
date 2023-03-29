@@ -1,9 +1,9 @@
-.darkmode__content {
+.darkmode-theme__content {
   background: hsl(0, 0%, 0%);
   color: #fff;
 }
 
-.darkmode__toggle {
+.darkmode-theme__toggle {
   display: flex;
   align-items: right;
   gap: 4px;
@@ -11,7 +11,7 @@
   /* background: var(--color-bg); */
 }
 
-.darkmode__toggle button {
+.darkmode-theme__toggle button {
   /* background: var(--color-bg); */
   text-align: right;
   font-size: 24px;

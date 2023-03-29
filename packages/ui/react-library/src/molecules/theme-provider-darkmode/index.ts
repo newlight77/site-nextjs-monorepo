@@ -1,2 +1,0 @@
-// import and export all atoms here
-export { DarkmodeThemeProvider } from './ThemePovider';

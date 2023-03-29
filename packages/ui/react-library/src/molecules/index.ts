@@ -6,5 +6,5 @@ export { Layout } from './layout/layout.component';
 export { Meta } from './meta/meta.component';
 export { Paginator } from './paginator/paginator.component';
 export { TagFilters } from "./tag-filter/tag-filter.component";
-export { DarkmodeThemeProvider } from "./theme-provider-darkmode/ThemePovider";
-export { ThemeSelector } from "./theme-selector/ThemeSelector";
+export { DarkmodeThemeProvider } from "./theme-darkmode/darkmode-theme.provider";
+export { ThemeSelector } from "./theme-selector/theme-selector";

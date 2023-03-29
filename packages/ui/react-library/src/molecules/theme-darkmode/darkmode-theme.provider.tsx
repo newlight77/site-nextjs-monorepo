@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { ThemeContext, ThemeContextType } from './ThemeContext';
-import { ThemeToggle } from './ThemeToggle';
-import './theme.module.css';
+import { DarkmodeThemeContext, DarkmodeContextType } from './darkmode-theme.context';
+import { DarkmodeThemeToggle } from './darkmode-theme-toggle';
+import './darkmode-theme.module.css';
 
-const defaultThemeState: ThemeContextType = {
+const defaultThemeState: DarkmodeContextType = {
   darkMode: true,
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   toogleDarkMode: () => () => {},
@@ -13,10 +13,10 @@ const defaultThemeState: ThemeContextType = {
 const changeDarkMode = (darkMode: boolean) => {
   switch (darkMode) {
     case true:
-      document.body.classList.add("darkmode__content");
+      document.body.classList.add("darkmode-theme__content");
       break;
     default:
-      document.body.classList.remove("darkmode__content");
+      document.body.classList.remove("darkmode-theme__content");
       break;
   }
 };
@@ -33,8 +33,8 @@ export const DarkmodeThemeProvider = () => {
   }, [darkMode]);
 
   return (
-    <ThemeContext.Provider value={{ darkMode: darkMode, toogleDarkMode: toogleDark }}>
-      <ThemeToggle />
-    </ThemeContext.Provider>
+    <DarkmodeThemeContext.Provider value={{ darkMode: darkMode, toogleDarkMode: toogleDark }}>
+      <DarkmodeThemeToggle />
+    </DarkmodeThemeContext.Provider>
   );
 };

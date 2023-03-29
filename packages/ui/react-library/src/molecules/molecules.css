@@ -4,5 +4,5 @@
 @import "./layout/layout.module.css";
 @import "./paginator/paginator.module.css";
 @import "./tag-filter/tag-filter.module.css";
-@import "./theme-provider-darkmode/theme.module.css";
-@import "./theme-selector/theme.module.css";
+@import "./theme-darkmode/darkmode-theme.module.css";
+@import "./theme-selector/theme-selector.module.css";
