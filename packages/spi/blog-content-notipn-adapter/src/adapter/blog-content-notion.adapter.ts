@@ -3,9 +3,10 @@ import { ListBlockChildrenResponse, PartialBlockObjectResponse, QueryDatabaseRes
 import { BlogPost, BlogPostsPaginated, BlogPostsPaginatedFilter } from 'blog-model';
 import { Tag } from 'blog-model';
 import { BlogContentSpi } from 'blog-content-service';
-import { logger } from "logger";
+import { newLogger } from "logger";
 
-logger.log = logger.log_;
+const logger = newLogger();
+logger.log = logger.noOp;
 
 
 const accessToken = process.env.NOTION_INTEGRATION_TOKEN || 'secret_7V4rGuSckUhQV0DzAaVKE5mVNZ2nm8xKJzEyenXQfvD';

@@ -1,8 +1,9 @@
 import { blogContentNotionAdapter } from 'blog-content-notion-adapter';
 import { NextApiRequest, NextApiResponse } from 'next'
-import { logger } from "logger";
+import { newLogger } from "logger";
 
-logger.log = logger.log_;
+const logger = newLogger();
+logger.log = logger.noOp;
 
 
 const search = async (req: NextApiRequest, res: NextApiResponse) => {

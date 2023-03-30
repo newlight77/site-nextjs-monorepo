@@ -8,9 +8,10 @@ import { MetaTags, PageType, RobotsContent } from 'blog-model';
 import { MarkdownSyntaxHighlighter } from '@/components/markdown/markdown-syntax-highlighter';
 import { contentfulService } from '@/lib/content-service.provider';
 import { ssrClient } from 'pages/api/ssr-client';
-import { logger } from "logger";
+import { newLogger } from "logger";
 
-logger.log = logger.log_;
+const logger = newLogger();
+logger.log = logger.noOp;
 
 type Props = {
   article: BlogPost;

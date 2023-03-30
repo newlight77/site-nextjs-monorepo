@@ -11,14 +11,11 @@ import { NextPage } from 'next';
 // import { ThemeProvider } from '../components/theme-dark-mode/ThemeContext';
 // import ThemeToggle from '../components/theme-dark-mode/ThemeToggle';
 import { ThemeSelector } from 'react-library';
-import { logger } from "logger";
 import pjson from '../package.json';
 
 const version = {
   version: pjson.version
 };
-
-logger.log = logger.log_;
 
 type Page<P = object> = NextPage<P> & {
   getLayout?: (page: ReactNode) => ReactNode;

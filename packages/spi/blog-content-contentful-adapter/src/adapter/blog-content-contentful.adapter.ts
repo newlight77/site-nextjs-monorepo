@@ -3,9 +3,10 @@ import { Author } from 'blog-model';
 import { BlogPost, BlogPostsPaginated, BlogPostsPaginatedFilter } from 'blog-model';
 import { Tag } from 'blog-model';
 import { BlogContentSpi } from 'blog-content-service';
-import { logger } from "logger";
+import { newLogger } from "logger";
 
-logger.log = logger.log_;
+const logger = newLogger();
+logger.log = logger.noOp;
 
 const spaceId = process.env.CONTENTFUL_SPACE_ID || ''
 const accessToken = process.env.CONTENTFUL_ACCESS_TOKEN || ''

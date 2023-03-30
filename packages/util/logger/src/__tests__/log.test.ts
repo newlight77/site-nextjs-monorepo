@@ -1,4 +1,6 @@
-import { logger } from "..";
+import { newLogger } from "..";
+
+const logger = newLogger();
 
 jest.spyOn(global.console, "log");
 

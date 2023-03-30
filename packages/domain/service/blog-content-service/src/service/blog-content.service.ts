@@ -1,8 +1,9 @@
 import { BlogPost, BlogPostsPaginated, BlogPostsPaginatedFilter } from 'blog-model';
 import { Tag } from 'blog-model';
-import { logger } from "logger";
+import { newLogger } from "logger";
 
-logger.log = logger.log_;
+const logger = newLogger();
+logger.log = logger.noOp;
 
 export interface BlogContentSpi {
     fetchAllTags(): Promise<Tag[]>;

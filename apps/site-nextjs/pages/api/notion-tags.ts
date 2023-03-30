@@ -1,8 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { notionService } from '@/lib/content-service.provider';
-import { logger } from "logger";
+import { newLogger } from "logger";
 
-logger.log = logger.log_;
+const logger = newLogger();
+logger.log = logger.noOp;
 
 
 const getTags = async (req: NextApiRequest, res: NextApiResponse) => {

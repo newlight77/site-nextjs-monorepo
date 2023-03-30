@@ -1,8 +1,9 @@
 import { BlogPost, BlogPostsPaginated, PostsFilter } from 'blog-model';
 import { api, apiHost } from 'pages/api/routing';
-import { logger } from "logger";
+import { newLogger } from "logger";
 
-logger.log = logger.log_;
+const logger = newLogger();
+// logger.log = logger.noOp;
 
 
 const getPostById = async (id?: string): Promise<BlogPost> => {
@@ -18,6 +19,7 @@ const getPostById = async (id?: string): Promise<BlogPost> => {
         return res;
     })
     .then((res) => res.json());
+    logger.info('ssr-client getPostById post', post);
 
     return post;
 }
@@ -35,7 +37,7 @@ const getBlogPosts = async ({ limit, skip, tag }: PostsFilter): Promise<BlogPost
         return res;
     })
     .then((res) => res.json());
-
+    logger.info('ssr-client getBlogPosts results', results);
     return results;
 }
 
@@ -51,6 +53,7 @@ const getAllTags = async () => {
         return res;
     })
     .then((res) => res.json());
+    logger.info('ssr-client getAllTags results', results);
 
     return results;
 }
@@ -68,6 +71,7 @@ const search = async (params: any) => {
         return res;
     })
     .then((res) => res.json());
+    logger.info('ssr-client search results', results);
 
     return results;
 }
@@ -93,7 +97,7 @@ function toError(res: Response, results: any) {
     // convert non-2xx HTTP responses into errors
     const error: any = new Error(res.statusText);
     error.response = res;
-    logger.log('ssr-client search', error, results.json());
+    logger.error('ssr-client error', error, results.json());
     return Promise.reject(error);
 }
 

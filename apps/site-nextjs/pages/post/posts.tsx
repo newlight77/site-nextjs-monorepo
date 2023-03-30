@@ -11,9 +11,10 @@ import {TagFilters} from 'react-library';
 import { PostsFilter, PostsResult } from 'blog-model';
 import { ssrClient } from 'pages/api/ssr-client';
 import { contentfulService } from '@/lib/content-service.provider';
-import { logger } from "logger";
+import { newLogger } from "logger";
 
-logger.log = logger.log_;
+const logger = newLogger();
+logger.log = logger.noOp;
 
 const MAX_PER_PAGE = 10;
 
