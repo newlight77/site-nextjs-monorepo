@@ -1,5 +1,5 @@
 import { BlogPost, BlogPostsPaginated, PostsFilter } from 'blog-model';
-import { api, apiHost } from 'pages/api/routing';
+import { api } from 'pages/api/routing';
 import { newLogger } from "logger";
 
 const logger = newLogger();
@@ -7,7 +7,7 @@ const logger = newLogger();
 
 
 const getPostById = async (id?: string): Promise<BlogPost> => {
-    const post:BlogPost = await fetch(`${apiHost}${api.notionPostById}`, {
+    const post:BlogPost = await fetch(`${api.notionPostById}`, {
         method: 'POST',
         body: JSON.stringify({ id }),
         headers: {
@@ -25,7 +25,7 @@ const getPostById = async (id?: string): Promise<BlogPost> => {
 }
 
 const getBlogPosts = async ({ limit, skip, tag }: PostsFilter): Promise<BlogPostsPaginated> => {
-    const results:any = await fetch(`${apiHost}${api.notionPosts}`, {
+    const results:any = await fetch(`${api.notionPosts}`, {
         method: 'POST',
         body: JSON.stringify({ limit, skip, tag }),
         headers: {
@@ -42,7 +42,7 @@ const getBlogPosts = async ({ limit, skip, tag }: PostsFilter): Promise<BlogPost
 }
 
 const getAllTags = async () => {
-    const results: any = await fetch(`${apiHost}${api.notionTags}`, {
+    const results: any = await fetch(`${api.notionTags}`, {
         method: 'POST',
         headers: {
             'content-type': 'application/json'
@@ -59,7 +59,7 @@ const getAllTags = async () => {
 }
 
 const search = async (params: any) => {
-    const results: any = await fetch(`${apiHost}${api.notionTags}`, {
+    const results: any = await fetch(`${api.notionTags}`, {
         method: 'POST',
         body: JSON.stringify(params),
         headers: {
@@ -77,7 +77,7 @@ const search = async (params: any) => {
 }
 
 const getSuggestions = async (tags: string[], currentArticleId: string, max: number): Promise<BlogPostsPaginated> => {
-    const results:any = await fetch(`${apiHost}${api.notionPosts}`, {
+    const results:any = await fetch(`${api.notionPosts}`, {
         method: 'POST',
         body: JSON.stringify({ tags, currentArticleId, max }),
         headers: {

@@ -23,6 +23,23 @@ const config_webpack = {
   },
 };
 
+const allowCors = {
+  async headers() {
+    return [
+      {
+        // matching all API routes
+        source: "/api/:path*",
+        headers: [
+          { key: "Access-Control-Allow-Credentials", value: "true" },
+          { key: "Access-Control-Allow-Origin", value: "*" },
+          { key: "Access-Control-Allow-Methods", value: "GET,OPTIONS,PATCH,DELETE,POST,PUT" },
+          { key: "Access-Control-Allow-Headers", value: "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" },
+        ]
+      }
+    ]
+  }
+};
+
 const config_rewrites = {
   async rewrites() {
     return [
@@ -65,5 +82,5 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 
 module.exports = withBundleAnalyzer(
-  {...config_webpack, ...config_rewrites, ...config_log, ...config_static_assets}
+  {...config_webpack, ...allowCors, ...config_rewrites, ...config_log, ...config_static_assets}
 )
