@@ -27,7 +27,7 @@ const config_rewrites = {
   async rewrites() {
     return [
       {
-        source: '/api/notion/:path*',
+        source: '/api/:path*',
         destination: 'https://api.notion.com/:path*',
       },
     ];

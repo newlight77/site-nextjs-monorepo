@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next dev",
-    "build": "next build",
+    "build": "NODE_ENV=production next build",
     "clean": "rm -rf .next",
     "start": "NODE_ENV=production next start",
     "export": "next build && next export",
