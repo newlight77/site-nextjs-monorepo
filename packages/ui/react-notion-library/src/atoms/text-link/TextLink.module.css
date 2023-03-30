@@ -1,0 +1,49 @@
+.bold {
+    font-weight: bold;
+}
+
+.code {
+    font-family: monospace;
+    background-color: rgb(242, 242, 242);
+    padding: 2px 4px;
+    border-radius: 2px;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.strikethrough {
+    text-decoration: line-through;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.code {
+    font-family: 'monospace';
+    padding: 2px 4px;
+    border-radius: 2px;
+    color: green;
+}
+
+.red {
+    color: hsla(0, 94%, 61%, 0.459);
+    background-color: hsl(0, 10%, 25%);
+}
+
+.white {
+    color: rgba(255, 255, 255, 1);
+    background-color: hsl(0,0%,75%);
+}
+
+.green {
+    color: rgb(20, 165, 42);
+    background-color: hsl(0, 5%, 43%);
+}
+
+.yellow {
+    color: rgb(220, 227, 32);
+    background-color: hsl(0, 3%, 77%);
+}
