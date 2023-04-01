@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { Annotations, Text, TextLink } from './TextLink';
 
 const text: Text = {
-  content: "",
+  content: "my content as link",
   link: { url: "url" }
 };
 
@@ -23,18 +22,12 @@ const other: any = {
   href: null
 };
 
-describe('Button component testing', () => {
-  it('Should render a button with "Send" label', () => {
-    render(<TextLink id={'id'} text={text} annotations={annotations} {...other} />);
-    const element = screen.getByText('Send');
-    expect(element).toBeDefined();
-  });
+describe('TextLink component testing', () => {
+  it('Should render a text link with "Send" label', () => {
 
-  it('Should click on the button', () => {
-    const onClick = jest.fn(e => e.preventDefault());
     render(<TextLink id={'id'} text={text} annotations={annotations} {...other} />);
-    const button = screen.getByRole('button', { name: /Send/i });
-    userEvent.click(button);
-    expect(onClick).toHaveBeenCalledTimes(1);
+
+    const element = screen.getByText('my content as link');
+    expect(element).toBeDefined();
   });
 });

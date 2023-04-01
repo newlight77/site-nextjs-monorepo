@@ -84,7 +84,6 @@ add-deps-test-react:
 		@types/react-test-renderer \
 		@types/testing-library__jest-dom \
 		jest-environment-jsdom \
-		react-app-polyfill \
 		react-test-renderer \
 		--filter react-library \
 		--filter react-notion-library
