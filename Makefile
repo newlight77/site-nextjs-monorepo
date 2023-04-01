@@ -55,10 +55,17 @@ add-deps-notion:
 		--filter blog-content-notion-adapter
 
 
+add-deps-test-presets:
+	@pnpm add --save-dev \
+		babel-jest \
+		identity-obj-proxy \
+		ts-jest \
+		@graphql-tools/jest-transform \
+		--filter jest-presets \
+
 add-deps-test:
 	@pnpm add --save-dev \
 		jest \
-		ts-jest \
 		@types/jest \
 		@types/node \
 		--filter logger \

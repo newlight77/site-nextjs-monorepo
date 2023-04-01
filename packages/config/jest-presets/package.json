@@ -4,6 +4,9 @@
   "private": true,
   "license": "MIT",
   "dependencies": {
+    "@graphql-tools/jest-transform": "1.2",
+    "babel-jest": "29.3",
+    "identity-obj-proxy": "3.0",
     "ts-jest": "^26.5.0"
   }
 }
