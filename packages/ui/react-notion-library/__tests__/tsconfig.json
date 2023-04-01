@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "jsx": "react",
+    "noEmit": true,
+    "outDir": "../build",
+    "rootDir": "../",
+    "types": [ "@types/jest", "node", "jest" ],
+    "typeRoots": ["node_modules/@types"],
+  },
+  "exclude": ["dist", "build", "node_modules", "**/*.test.ts", "__tests__"],
+  "extends": "../tsconfig.json",
+  // "include": [".", "../."],
+  "include": ["../", "../typings.d.ts"],
+}
