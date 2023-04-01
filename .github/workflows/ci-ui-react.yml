@@ -1,0 +1,42 @@
+name: CI on UI React components
+
+on:
+  push:
+    paths: [
+      "/packages/ui/react-library/**/*.ts",
+      "/packages/ui/react-library/**/*.tsx",
+    ]
+    branches: [ master ]
+  pull_request:
+    paths: [
+      "/packages/ui/react-library/**/*.stories.ts",
+      "/packages/ui/react-library/**/*.stories.tsx",
+    ]
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: yarn setup
+
+    - name: Run the tests and generate coverage report
+      run: turbo run test --filter react-library
+
+    - name: Build
+      run: turbo run build --filter react-library

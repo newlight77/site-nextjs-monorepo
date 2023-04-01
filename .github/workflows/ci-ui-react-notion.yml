@@ -1,0 +1,42 @@
+name: CI on UI React Notion components
+
+on:
+  push:
+    paths: [
+      "/packages/ui/react-notion-library/**/*.ts",
+      "/packages/ui/react-notion-library/**/*.tsx",
+    ]
+    branches: [ master ]
+  pull_request:
+    paths: [
+      "/packages/ui/react-notion-library/**/*.stories.ts",
+      "/packages/ui/react-notion-library/**/*.stories.tsx",
+    ]
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: yarn setup
+
+    - name: Run the tests and generate coverage report
+      run: turbo run test --filter react-notion-library
+
+    - name: Build
+      run: turbo run build --filter react-notion-library
