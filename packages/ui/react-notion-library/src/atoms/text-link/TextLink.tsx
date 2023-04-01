@@ -44,7 +44,7 @@ export type Annotations = {
     | "red_background";
 };
 
-export const TextLink:  React.FC<TextProps> = ({ id, text, annotations, ...other }: TextProps ) => {
+export const TextLink:  React.FC<TextProps> = ({ id, text, annotations }: TextProps ) => {
 
   return (
     <span

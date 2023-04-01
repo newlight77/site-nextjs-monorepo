@@ -14,7 +14,7 @@ export const TextBlock = ({ text}: TextBlockProps) => {
 
   return text.map((value: any) => {
     return (
-      <TextLink {...value} />
+      <TextLink key={value.id} {...value} />
     )
   });
 };

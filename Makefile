@@ -87,4 +87,18 @@ add-deps-test-react:
 		react-test-renderer \
 		--filter react-library \
 		--filter react-notion-library
- 
+
+add-deps-storybook:
+	@pnpm add --save-dev \
+		@storybook/addon-actions \
+        @storybook/addon-docs \
+        @storybook/addon-essentials \
+        @storybook/addon-interactions \
+        @storybook/addon-links \
+        @storybook/builder-webpack5 \
+        @storybook/node-logger \
+        @storybook/preset-create-react-app \
+        @storybook/react \
+        @storybook/testing-library \
+		--filter react-library \
+		--filter react-notion-library
