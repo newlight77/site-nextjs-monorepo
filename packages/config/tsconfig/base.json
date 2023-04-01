@@ -1,6 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Default",
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports" : true,
@@ -31,5 +30,15 @@
     "strictNullChecks": true,
     "sourceMap": true
   },
-  "exclude": ["node_modules"]
+  "display": "Default",
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "compilerOptions": {
+      "esModuleInterop": true,
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "noEmit": true,
+      "allowSyntheticDefaultImports": true
+    }
+  }
 }
