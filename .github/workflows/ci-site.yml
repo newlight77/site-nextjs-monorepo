@@ -3,16 +3,18 @@ name: CI on Site nextjs
 on:
   push:
     paths: [
-      "/apps/site-nextjs/**/*.ts",
-      "/apps/site-nextjs/**/*.tsx",
+      "apps/site-nextjs/**/*.ts",
+      "apps/site-nextjs/**/*.tsx",
+      "apps/site-nextjs/**/package.json",
     ]
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
     paths: [
-      "/apps/site-nextjs/**/*.ts",
-      "/apps/site-nextjs/**/*.tsx",
+      "apps/site-nextjs/**/*.ts",
+      "apps/site-nextjs/**/*.tsx",
+      "apps/site-nextjs/**/package.json",
     ]
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -24,20 +26,31 @@ jobs:
         node-version: [16.x]
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
 
-    - name: Set up Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: "7.x"
 
-    - name: Install dependencies
-      run: yarn setup
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
 
-    - name: Run the tests and generate coverage report
-      run: turbo run test --filter site-nextjs
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-    - name: Build
-      run: turbo run build --filter site-nextjs
+      - name: Lint check
+        run: pnpm turbo run lint --filter site-nextjs
+
+      - name: Run the tests and generate coverage report
+        run: pnpm turbo run test --filter site-nextjs
+
+      - name: Build
+        run: pnpm turbo run build --filter site-nextjs
 
