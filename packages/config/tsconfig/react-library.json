@@ -1,23 +1,16 @@
 {
   "display": "React Library",
   "compilerOptions": {
-    "allowJs": true,
-    "allowSyntheticDefaultImports" : true,
-    "baseUrl": ".",
-    "experimentalDecorators": true,
-    "jsx": "react-jsx",
+    "jsx": "react",
     "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
     "noEmit": true,
-    "resolveJsonModule": true,
     "paths": {
       "react": [ "./node_modules/@types/react" ],
       "@/components/*": ["components/*"],
-      "@/lib/*": ["lib/*"],
       "@/styles/*": ["styles/*"]
     },
-    "target": "es2016",
-    "typeRoots": ["./node_modules/@types"]
+    "target": "es6"
   },
   "extends": "./base.json",
   "include": ["**/*.ts", "**/*.tsx"]
