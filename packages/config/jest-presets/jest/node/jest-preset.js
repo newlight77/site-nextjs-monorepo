@@ -1,8 +1,6 @@
 module.exports = {
-  roots: ["<rootDir>"],
-  transform: {
-    "^.+\\..(ts|tsx)?$": "ts-jest",
-  },
+  collectCoverageFrom: ['src/**/*.{ts,tsx,js,jsx}', '!src/**/*.d.ts'],
+  coverageDirectory: 'coverage',
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
   moduleNameMapper: {
     "\\.(css|scss)$": "identity-obj-proxy",
@@ -13,4 +11,9 @@ module.exports = {
     "<rootDir>/dist",
   ],
   preset: "ts-jest",
+  roots: ["<rootDir>"],
+  testEnvironment: "node",
+  transform: {
+    "^.+\\..(ts|tsx)?$": "ts-jest",
+  },
 };

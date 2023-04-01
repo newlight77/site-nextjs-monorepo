@@ -54,6 +54,21 @@ add-notion-deps-spi-notion:
 		@notionhq/client \
 		--filter blog-content-notion-adapter
 
+
+add-test-deps:
+	@pnpm add --save-dev \
+		jest \
+		ts-jest \
+		@types/jest \
+		@types/node \
+		--filter logger \
+		--filter blog-content-service \
+		--filter blog-content-contentful-adapter \
+		--filter blog-content-notipn-adapter \
+		--filter react-library \
+		--filter react-notion-library \
+		--filter site-nextjs
+
 add-test-deps-notion-library:
 	@pnpm add --save-dev \
 		@testing-library/react \
