@@ -1,9 +1,5 @@
 {
-  "compilerOptions": {
-    "jsx": "react",
-    "lib": ["dom", "ESNext"],
-  },
   "extends": "tsconfig/react-library.json",
   "include": [".", "typings.d.ts"],
-  "exclude": ["dist", "build", "node_modules"]
+  "exclude": ["dist", "build", "node_modules", "**/*.test.ts", "__tests__"]
 }

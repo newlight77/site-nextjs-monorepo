@@ -49,13 +49,13 @@ test-notion-adapter:
 
 
 
-add-notion-deps-spi-notion:
+add-deps-notion:
 	@pnpm add --save-dev \
 		@notionhq/client \
 		--filter blog-content-notion-adapter
 
 
-add-test-deps:
+add-deps-test:
 	@pnpm add --save-dev \
 		jest \
 		ts-jest \
@@ -69,26 +69,16 @@ add-test-deps:
 		--filter react-notion-library \
 		--filter site-nextjs
 
-add-test-deps-notion-library:
+add-deps-test-react:
 	@pnpm add --save-dev \
 		@testing-library/react \
 		@testing-library/jest-dom \
 		@testing-library/user-event \
 		@types/react-test-renderer \
 		@types/testing-library__jest-dom \
+		jest-environment-jsdom \
+		react-app-polyfill \
 		react-test-renderer \
-		jest \
-		jest-environment-jsdom \
-		@types/jest \
-		@types/node \
+		--filter react-library \
 		--filter react-notion-library
-
-add-test-deps-react-library:
-	@pnpm add --save-dev \
-		@testing-library/react \
-		@testing-library/jest-dom \
-		@testing-library/user-event \
-		jest \
-		jest-environment-jsdom \
-		@types/jest \
-		--filter react-library
+ 
