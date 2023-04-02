@@ -1,13 +1,6 @@
 export {
-  Button,
-  CounterButton,
-  Input,
-  Tags,
-  Label,
+  Link,
   Logo,
-  TabLink,
-  Textarea,
-  Title,
 } from './atoms';
 
 

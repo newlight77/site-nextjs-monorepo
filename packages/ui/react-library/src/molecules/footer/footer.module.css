@@ -8,16 +8,6 @@
   color: var(--color-primary-variant);
 }
 
-.link {
-  color: var(--color-primary);
-  text-decoration: none;
-}
-
-.link:hover{
-  color: var(--color-primary);
-  background-color: var(--color-primary-variant);
-}
-
 @media (min-width: 768px) {
   .footer {
     padding: 1rem 3rem;

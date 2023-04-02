@@ -23,7 +23,7 @@ const other: any = {
 };
 
 describe('TextLink component testing', () => {
-  it('Should render a text link with "Send" label', () => {
+  it('Should render a text link with "my content as link" as text', () => {
 
     render(<TextLink id={'id'} text={text} annotations={annotations} {...other} />);
 

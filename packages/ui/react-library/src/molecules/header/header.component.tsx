@@ -1,16 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import './header.module.css';
+import { Logo } from '../../atoms';
 
 export const Header: FunctionComponent = () => {
   return (
       <div className="header__nav">
         <div className="header__brand">
           <a href="/">
-            <img
-              className="header__brand_logo"
-              src="images/oneprofile-logo.png"
-              alt="logo"
-            />
+            <Logo />
           </a>
 
           <h3 className="header__brand_name">

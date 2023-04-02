@@ -1,6 +1,7 @@
 .logo {
-    width: 40%;
-    padding-top: 2rem;
-    display: flex;
-    margin: auto;
+    height: auto;
+    width: auto;
+    margin: -1rem 1rem;
+    max-height: 9.6rem;
+    margin-right: 1.2rem;
 }
