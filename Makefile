@@ -6,7 +6,7 @@ build:
 	@turbo run build
 
 build-site:
-	@turbo run build --filter={apps/site-nextjs}
+	@turbo run build --filter site-nextjs
 
 format:
 	@yarn format
@@ -14,11 +14,14 @@ format:
 lint:
 	@turbo run lint
 
+preview-storybook:
+	@turbo run preview --filter storybook
+
 start:
 	@turbo run start
 
 start-site:
-	@turbo run start --filter={apps/site-nextjs}
+	@turbo run start --filter site-nextjs
 
 clean:
 	@turbo run clean
@@ -96,9 +99,9 @@ add-deps-storybook:
         @storybook/addon-interactions \
         @storybook/addon-links \
         @storybook/builder-webpack5 \
+		@storybook/manager-webpack5 \
         @storybook/node-logger \
         @storybook/preset-create-react-app \
         @storybook/react \
         @storybook/testing-library \
-		--filter react-library \
-		--filter react-notion-library
+		--filter storybook

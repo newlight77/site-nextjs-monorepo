@@ -11,6 +11,7 @@
     "start:all": "turbo run start",
     "format": "prettier '**/*.{js,jsx,ts,tsx,md}' --write",
     "lint": "turbo run lint",
+    "preview": "turbo run preview --filter={apps/storybook}",
     "test": "run-p test:*",
     "test:lint": "turbo run lint",
     "test:test": "turbo run test"
