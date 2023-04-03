@@ -3,11 +3,12 @@ import { api } from 'pages/api/routing';
 import { newLogger } from "logger";
 
 const logger = newLogger("ssr-client");
-// logger.log = logger.noOp;
+logger.log = logger.noOp;
 
 
 const getPostById = async (id?: string): Promise<BlogPost> => {
-    const post:BlogPost = await fetch(`${api.notionPostById}`, {
+    logger.info('ssr-client getPostById id', id);
+    const post:any = await fetch(`${api.notionPostById}`, {
         method: 'POST',
         body: JSON.stringify({ id }),
         headers: {
@@ -59,7 +60,7 @@ const getAllTags = async () => {
 }
 
 const search = async (params: any) => {
-    const results: any = await fetch(`${api.notionTags}`, {
+    const results: any = await fetch(`${api.notionSearch}`, {
         method: 'POST',
         body: JSON.stringify(params),
         headers: {

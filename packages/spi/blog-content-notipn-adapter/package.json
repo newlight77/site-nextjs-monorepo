@@ -20,9 +20,10 @@
   },
   "dependencies": {
     "@notionhq/client": "^2.2.3",
-    "blog-model": "workspace:*",
     "blog-content-service": "workspace:*",
-    "logger": "workspace:*"
+    "blog-model": "workspace:*",
+    "logger": "workspace:*",
+    "notion-to-md": "^2.5.5"
   },
   "devDependencies": {
     "@types/jest": "^26.0.22",

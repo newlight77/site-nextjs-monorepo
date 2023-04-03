@@ -4,6 +4,7 @@ import { BlogPost, BlogPostsPaginated, BlogPostsPaginatedFilter } from 'blog-mod
 import { Tag } from 'blog-model';
 import { BlogContentSpi } from 'blog-content-service';
 import { newLogger } from "logger";
+import { NotionToMarkdown } from 'notion-to-md';
 
 const logger = newLogger("BlogContentNotionAdapter");
 logger.log = logger.noOp;
@@ -20,21 +21,21 @@ const client = new Client({
 
 type Property = [ propertyName: string, propertyValue: any ];
 
-class BlogContentNotionAdapter implements BlogContentSpi {
+export class BlogContentNotionAdapter implements BlogContentSpi {
 
   constructor(private client: Client) {}
 
   fetchAllTags = async (): Promise<Tag[]> => {
-    logger.log('fetchAllTags databaseId auth', rootDatabaseId);
+    // logger.log('fetchAllTags databaseId auth', rootDatabaseId);
     const dbMeta = await this.client.databases.retrieve({ database_id: rootDatabaseId });
-    logger.log('fetchAllTags dbMeta', dbMeta);
+    // logger.log('fetchAllTags dbMeta', dbMeta);
 
     const tags = Object.entries(dbMeta.properties)
     .filter(([propertyName, ]: Property) => propertyName === 'Tags')
     .flatMap(([ , propertyValue]: Property) => {
         return propertyValue.multi_select.options
     });
-    logger.log('getAllTags tags', tags);
+    logger.log('fetchAllTags tags', tags);
 
     return tags;
   }
@@ -43,16 +44,15 @@ class BlogContentNotionAdapter implements BlogContentSpi {
     logger.log('fetchBlogPosts pagindatedFilter', pagindatedFilter);
 
     const database = await this.getDatabase(rootDatabaseId);
+    // logger.log('fetchBlogPosts database', database);
+    // logger.log('fetchBlogPosts database.results', database.results);
 
-    logger.log('getDatabase database', database);
-    logger.log('getDatabase database.results', database.results);
-
-    
-    logger.log('getBlogPosts database', database);
-
-    const posts: BlogPost[] = Object.entries(database.results)
-    .flatMap(([ , propertyValue]: Property) => mapToBlogPost(propertyValue));
-    // log('getBlogPosts posts', posts);
+    const posts: BlogPost[] = [];
+    Object.entries(database.results)
+    .flatMap(([ , propertyValue]: Property) => 
+      mapToBlogPost(propertyValue).then(e => posts.push(e))
+    );
+    logger.log('getBlogPosts posts', posts);
 
     return {
         entries: posts,
@@ -61,22 +61,21 @@ class BlogContentNotionAdapter implements BlogContentSpi {
   }
 
   fetchPostById = async (id: string): Promise<BlogPost | undefined> => {
-    logger.log('getPage pageId auth', id, accessToken);
+    logger.log('fetchPostById pageId auth', id, accessToken);
     const page = await this.client.pages.retrieve({ page_id: id ? id : rootPageId });
-    logger.log('getPage page', page);
+    logger.log('fetchPostById page', page);
 
-    const postMeta = Object.entries([page])
-    .map(([ , propertyValue]: Property) => {
-      logger.log('getPage postMeta', propertyValue)
-      return mapToBlogPost(propertyValue)
-    })[0];
+    const pageContent = Object.entries([page])
+    .map(([ , propertyValue]: Property) => propertyValue)[0];
+    const body = await mapToMarkdown(pageContent);
+    const postMeta = await mapToBlogPost(pageContent, body)
 
-    logger.log('getPage postMeta', postMeta);
+    logger.log('fetchPostById postMeta', postMeta);
 
     for await (const block of iteratePaginatedAPI(this.client.blocks.children.list, {
       block_id: page.id,
     })) {
-      logger.log('getPage block', block);
+      logger.log('fetchPostById block', block);
     }
 
     return postMeta;
@@ -103,7 +102,7 @@ class BlogContentNotionAdapter implements BlogContentSpi {
   }
 
   private getDatabase = async (databaseId?: string): Promise<QueryDatabaseResponse > => {
-    logger.log('getDatabase databaseId auth', databaseId, accessToken);
+    // logger.log('getDatabase databaseId auth', databaseId, accessToken);
 
     type direction = "descending" | "ascending"
     const sorts: [{ property: string, direction: direction }] = [{
@@ -124,7 +123,7 @@ class BlogContentNotionAdapter implements BlogContentSpi {
     });
 
     logger.log('getDatabase database', database);
-    logger.log('getDatabase database.results', database.results);
+    // logger.log('getDatabase database.results', database.results);
 
     return database;
   }
@@ -152,12 +151,12 @@ class BlogContentNotionAdapter implements BlogContentSpi {
   };
 }
 
-function mapToBlogPost(propertyValue: any): BlogPost {
-  logger.log('mapToBlogPost mapToBlogPost', propertyValue);
+async function mapToBlogPost(propertyValue: any, body = ""): Promise<BlogPost> {
+  logger.log('mapToBlogPost propertyValue', propertyValue);
   return {
       id: propertyValue.id,
       slug: propertyValue.properties.Slug.rich_text[0].plain_text,
-      body: undefined,
+      body: body,
       title: propertyValue.properties.Name.title[0].plain_text,
       description: propertyValue.properties.Description.rich_text[0].plain_text,
       tags: propertyValue.properties.Tags.multi_select,
@@ -165,6 +164,15 @@ function mapToBlogPost(propertyValue: any): BlogPost {
       author: propertyValue.properties.Author.people[0].name,
       publishedAt: propertyValue.properties.Created.created_time
   };
+}
+
+async function mapToMarkdown(page: any): Promise<string> {
+  logger.log('mapToMarkdown page', page);
+  const n2m = new NotionToMarkdown({ notionClient: client });
+  const mdblocks = await n2m.pageToMarkdown(page.id);
+  const mdString = n2m.toMarkdownString(mdblocks);
+  //todo : call the notion to markdown library
+  return mdString;
 }
 
 export const blogContentNotionAdapter = new BlogContentNotionAdapter(client);

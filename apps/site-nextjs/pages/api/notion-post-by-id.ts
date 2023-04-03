@@ -16,6 +16,10 @@ const getBlogPostById = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const post = await notionService.getPostById(id);
 
+  // this page is call directly from [id].tsx
+  // get notion raw page
+  // render to html
+
   logger.log('>>> getBlogPostById id post', id, post)
 
   res.setHeader(

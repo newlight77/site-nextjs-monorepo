@@ -7,7 +7,7 @@ import { BlogPost } from 'blog-model';
 import { MetaTags, PageType, RobotsContent } from 'blog-model';
 import { MarkdownSyntaxHighlighter } from '@/components/markdown/markdown-syntax-highlighter';
 import { contentfulService } from '@/lib/content-service.provider';
-import { ssrClient } from 'pages/api/ssr-client';
+import { notionService } from '@/lib/content-service.provider';
 import { newLogger } from "logger";
 
 const logger = newLogger("[id] page");
@@ -66,37 +66,24 @@ PostPage.getInitialProps = async ({ query }: NextPageContext) => {
   const id: string = typeof query.id === "string" ? query.id : '';
   const slug: string = typeof query.slug === "string" ? query.slug : '';
 
+  logger.log('getInitialProps id slug', id, slug);
   if (isContentful(id)) {
-    logger.log('getInitialProps id slug', id, slug);
     const article: any = await contentfulService.getPostById(slug);
-    logger.log('getInitialProps article.tags', article.tags);
+    logger.log('getInitialProps article', article);
     const tags = article.tags ? article.tags.map((tag: any) => tag.sys.id) : [];
     logger.log('getInitialProps tags', tags);
     const suggestedArticles = await contentfulService.getSuggestions(tags, article.id, 2);
     logger.log('getInitialProps suggestedArticles', suggestedArticles);
     return { article, suggestedArticles };
   } else {
-    logger.log('getInitialProps id slug', id, slug);
-    const article: any = await ssrClient.getPostById(id);
+    const article: any = await notionService.getPostById(id);
     logger.log('getInitialProps article', article);
     const tags = article.tags ? article.tags.map((tag: any) => tag.id) : [];
     logger.log('getInitialProps tags', tags);
-    const suggestedArticles = await contentfulService.getSuggestions(tags, article.id, 2);
+    const suggestedArticles = await notionService.getSuggestions(tags, article.id, 2);
     logger.log('getInitialProps suggestedArticles', suggestedArticles);
     return { article, suggestedArticles };
-
   }
-  
-  // const service = id.length == 22 ? contentfulService: ssrClient;
-  // logger.log('getInitialProps id slug', id, slug);
-
-  // const article: any = await service.getPostById(slug);
-  // logger.log('getInitialProps article', article);
-
-  // const tags = article.tags ? article.tags.map((tag: any) => tag.id) : [];
-  // logger.log('getInitialProps tags', tags);
-  // const suggestedArticles = await service.getSuggestions(tags, 2, article.id);
-  // return { article, suggestedArticles };
 };
 
 const isContentful = (id: string): boolean => {

@@ -3,7 +3,7 @@ import { notionService } from '@/lib/content-service.provider';
 import { newLogger } from "logger";
 
 const logger = newLogger("notion-posts");
-// logger.log = logger.noOp;
+logger.log = logger.noOp;
 
 
 const getBlogPosts = async (req: NextApiRequest, res: NextApiResponse) => {
