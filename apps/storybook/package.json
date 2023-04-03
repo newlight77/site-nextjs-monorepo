@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "dev": "start-storybook -p 6006 -s public",
-        "build": "build-storybook --docs -s public",
+        "docs": "build-storybook --docs -s public",
         "preview": "serve storybook-static",
         "clean": "rm -rf .turbo && rm -rf node_modules"
     },
@@ -15,7 +15,7 @@
         "react-notion-library": "workspace:*"
     },
     "devDependencies": {
-        "@babel/core": "^7.21.4",       
+        "@babel/core": "^7.21.4",
         "@storybook/addon-actions": "^6.5.16",
         "@storybook/addon-docs": "^6.5.16",
         "@storybook/addon-essentials": "^6.5.16",
