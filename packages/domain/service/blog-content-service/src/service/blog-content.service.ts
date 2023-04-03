@@ -2,7 +2,7 @@ import { BlogPost, BlogPostsPaginated, BlogPostsPaginatedFilter } from 'blog-mod
 import { Tag } from 'blog-model';
 import { newLogger } from "logger";
 
-const logger = newLogger();
+const logger = newLogger("BlogContentService");
 logger.log = logger.noOp;
 
 export interface BlogContentSpi {

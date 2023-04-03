@@ -1,6 +1,6 @@
 import { newLogger } from "..";
 
-const logger = newLogger();
+const logger = newLogger("logger test");
 
 jest.spyOn(global.console, "log");
 

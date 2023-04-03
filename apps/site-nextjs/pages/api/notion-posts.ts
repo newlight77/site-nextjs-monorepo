@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { notionService } from '@/lib/content-service.provider';
 import { newLogger } from "logger";
 
-const logger = newLogger();
+const logger = newLogger("notion-posts");
 // logger.log = logger.noOp;
 
 

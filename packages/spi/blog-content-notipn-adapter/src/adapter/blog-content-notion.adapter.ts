@@ -5,7 +5,7 @@ import { Tag } from 'blog-model';
 import { BlogContentSpi } from 'blog-content-service';
 import { newLogger } from "logger";
 
-const logger = newLogger();
+const logger = newLogger("BlogContentNotionAdapter");
 logger.log = logger.noOp;
 
 

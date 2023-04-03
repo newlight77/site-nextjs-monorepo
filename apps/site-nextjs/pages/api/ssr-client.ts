@@ -2,7 +2,7 @@ import { BlogPost, BlogPostsPaginated, PostsFilter } from 'blog-model';
 import { api } from 'pages/api/routing';
 import { newLogger } from "logger";
 
-const logger = newLogger();
+const logger = newLogger("ssr-client");
 // logger.log = logger.noOp;
 
 

@@ -13,7 +13,7 @@ import { ssrClient } from 'pages/api/ssr-client';
 import { contentfulService } from '@/lib/content-service.provider';
 import { newLogger } from "logger";
 
-const logger = newLogger();
+const logger = newLogger("posts page");
 logger.log = logger.noOp;
 
 const MAX_PER_PAGE = 10;

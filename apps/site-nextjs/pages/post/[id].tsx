@@ -10,7 +10,7 @@ import { contentfulService } from '@/lib/content-service.provider';
 import { ssrClient } from 'pages/api/ssr-client';
 import { newLogger } from "logger";
 
-const logger = newLogger();
+const logger = newLogger("[id] page");
 logger.log = logger.noOp;
 
 type Props = {

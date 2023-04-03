@@ -2,7 +2,7 @@ import { blogContentNotionAdapter } from 'blog-content-notion-adapter';
 import { NextApiRequest, NextApiResponse } from 'next'
 import { newLogger } from "logger";
 
-const logger = newLogger();
+const logger = newLogger("notion-search");
 logger.log = logger.noOp;
 
 
