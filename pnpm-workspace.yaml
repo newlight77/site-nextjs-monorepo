@@ -4,5 +4,5 @@ packages:
   - "packages/domain/model/*"
   - "packages/domain/service/*"
   - "packages/spi/*"
-  - "packages/util/*"
+  - "packages/lib/*"
   - "packages/ui/*"
