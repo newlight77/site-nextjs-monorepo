@@ -21,6 +21,7 @@
     "preset": "jest-presets/jest/react"
   },
   "dependencies": {
+    "notion-model": "workspace:*",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {

@@ -7,7 +7,7 @@ import { newLogger } from "logger";
 import { NotionToMarkdown } from 'notion-to-md';
 
 const logger = newLogger("BlogContentNotionAdapter");
-logger.log = logger.noOp;
+// logger.log = logger.noOp;
 
 
 const accessToken = process.env.NOTION_INTEGRATION_TOKEN || 'secret_7V4rGuSckUhQV0DzAaVKE5mVNZ2nm8xKJzEyenXQfvD';
@@ -61,22 +61,24 @@ export class BlogContentNotionAdapter implements BlogContentSpi {
   }
 
   fetchPostById = async (id: string): Promise<BlogPost | undefined> => {
-    logger.log('fetchPostById pageId auth', id, accessToken);
+    // logger.log('fetchPostById pageId auth', id, accessToken);
     const page = await this.client.pages.retrieve({ page_id: id ? id : rootPageId });
-    logger.log('fetchPostById page', page);
+    // logger.log('fetchPostById page', page);
 
-    const pageContent = Object.entries([page])
-    .map(([ , propertyValue]: Property) => propertyValue)[0];
+    const pageContentList = Object.entries([page])
+    .map(([ , propertyValue]: Property) => propertyValue);
+    logger.log('fetchPostById pageContentList', pageContentList);
+    const pageContent = pageContentList[0];
     const body = await mapToMarkdown(pageContent);
     const postMeta = await mapToBlogPost(pageContent, body)
 
     logger.log('fetchPostById postMeta', postMeta);
 
-    for await (const block of iteratePaginatedAPI(this.client.blocks.children.list, {
-      block_id: page.id,
-    })) {
-      logger.log('fetchPostById block', block);
-    }
+    // for await (const block of iteratePaginatedAPI(this.client.blocks.children.list, {
+    //   block_id: page.id,
+    // })) {
+    //   logger.log('fetchPostById block', block);
+    // }
 
     return postMeta;
   }

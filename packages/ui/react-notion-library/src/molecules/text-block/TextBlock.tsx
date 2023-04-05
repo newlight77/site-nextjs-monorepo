@@ -1,5 +1,6 @@
 import React from 'react';
-import { type Text, TextLink } from '../../atoms/text-link/TextLink';
+import { type Text } from 'notion-model';
+import { TextLink } from '../../atoms/text-link/TextLink';
 
 
 type TextBlockProps = { 
