@@ -19,18 +19,15 @@ importers:
 
   apps/site-nextjs:
     dependencies:
-      blog-content-contentful-adapter:
-        specifier: workspace:*
-        version: link:../../packages/spi/blog-content-contentful-adapter
-      blog-content-notion-adapter:
-        specifier: workspace:*
-        version: link:../../packages/spi/blog-content-notipn-adapter
       blog-content-service:
         specifier: workspace:*
         version: link:../../packages/domain/service/blog-content-service
       blog-model:
         specifier: workspace:*
         version: link:../../packages/domain/model/blog-model
+      contentful-adapter:
+        specifier: workspace:*
+        version: link:../../packages/spi/contentful-adapter
       dotenv-webpack:
         specifier: ^7.1.0
         version: 7.1.1(webpack@5.76.3)
@@ -43,6 +40,9 @@ importers:
       next:
         specifier: 13.0.3
         version: 13.0.3(@babel/core@7.21.4)(react-dom@18.2.0)(react@18.2.0)
+      notion-adapter:
+        specifier: workspace:*
+        version: link:../../packages/spi/notipn-adapter
       parse-numeric-range:
         specifier: ^1.3.0
         version: 1.3.0
@@ -422,7 +422,7 @@ importers:
         specifier: ^4.8.3
         version: 4.9.5
 
-  packages/spi/blog-content-contentful-adapter:
+  packages/spi/contentful-adapter:
     dependencies:
       blog-content-service:
         specifier: workspace:*
@@ -442,7 +442,7 @@ importers:
         version: 26.0.24
       '@types/node':
         specifier: ^18.15.10
-        version: 18.15.10
+        version: 18.15.11
       eslint-config-custom:
         specifier: workspace:*
         version: link:../../config/eslint-config-custom
@@ -459,7 +459,7 @@ importers:
         specifier: ^4.8.3
         version: 4.9.5
 
-  packages/spi/blog-content-notipn-adapter:
+  packages/spi/notipn-adapter:
     dependencies:
       '@notionhq/client':
         specifier: ^2.2.3
@@ -482,7 +482,7 @@ importers:
         version: 26.0.24
       '@types/node':
         specifier: ^18.11.9
-        version: 18.15.10
+        version: 18.15.11
       eslint-config-custom:
         specifier: workspace:*
         version: link:../../config/eslint-config-custom

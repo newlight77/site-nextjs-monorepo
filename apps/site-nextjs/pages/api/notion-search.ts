@@ -1,4 +1,4 @@
-import { blogContentNotionAdapter } from 'blog-content-notion-adapter';
+import { blogContentNotionAdapter } from 'notion-adapter';
 import { NextApiRequest, NextApiResponse } from 'next'
 import { newLogger } from "logger";
 

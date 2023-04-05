@@ -1,5 +1,5 @@
 {
-  "name": "blog-content-contentful-adapter",
+  "name": "contentful-adapter",
   "version": "0.0.0",
   "private": true,
   "main": "./dist/index.js",
