@@ -17,8 +17,11 @@ lint:
 preview-storybook:
 	@turbo run preview --filter storybook
 
+dev:
+	@turbo run dev --filter site-nextjs
+
 start:
-	@turbo run start
+	@turbo run start --filter site-nextjs
 
 start-site:
 	@turbo run start --filter site-nextjs
@@ -105,3 +108,13 @@ add-deps-storybook:
         @storybook/react \
         @storybook/testing-library \
 		--filter storybook
+
+add-deps-markdown-table:
+	@pnpm add --save \
+		markdown-table \
+		--filter markdown-library
+
+add-deps-notion-to-md:
+	@pnpm add --save \
+		notion-to-md \
+		--filter blog-content-notion-adapter

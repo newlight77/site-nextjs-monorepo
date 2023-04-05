@@ -1,4 +1,4 @@
-import { Client, iteratePaginatedAPI, LogLevel } from '@notionhq/client';
+import { Client, LogLevel } from '@notionhq/client';
 import { ListBlockChildrenResponse, PartialBlockObjectResponse, QueryDatabaseResponse, SearchResponse } from '@notionhq/client/build/src/api-endpoints';
 import { BlogPost, BlogPostsPaginated, BlogPostsPaginatedFilter } from 'blog-model';
 import { Tag } from 'blog-model';
@@ -73,12 +73,6 @@ export class BlogContentNotionAdapter implements BlogContentSpi {
     const postMeta = await mapToBlogPost(pageContent, body)
 
     logger.log('fetchPostById postMeta', postMeta);
-
-    // for await (const block of iteratePaginatedAPI(this.client.blocks.children.list, {
-    //   block_id: page.id,
-    // })) {
-    //   logger.log('fetchPostById block', block);
-    // }
 
     return postMeta;
   }
