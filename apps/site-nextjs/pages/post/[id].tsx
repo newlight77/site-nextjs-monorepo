@@ -9,6 +9,7 @@ import { MarkdownSyntaxHighlighter } from '@/components/markdown/markdown-syntax
 import { contentfulService } from '@/lib/content-service.provider';
 import { notionService } from '@/lib/content-service.provider';
 import { newLogger } from "logger";
+import { notionAdapter } from 'notion-adapter';
 
 const logger = newLogger("[id] page");
 logger.log = logger.noOp;
@@ -78,6 +79,8 @@ PostPage.getInitialProps = async ({ query }: NextPageContext) => {
   } else {
     const article: any = await notionService.getPostById(id);
     logger.log('getInitialProps article', article);
+    const blocks = await notionAdapter.getChildrenBlocks(id, 10);
+    logger.log('getInitialProps blocks', blocks);
     const tags = article.tags ? article.tags.map((tag: any) => tag.id) : [];
     logger.log('getInitialProps tags', tags);
     const suggestedArticles = await notionService.getSuggestions(tags, article.id, 2);

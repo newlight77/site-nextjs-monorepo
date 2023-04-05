@@ -2,7 +2,8 @@ import { Client } from "@notionhq/client";
 import { BlockObjectResponse, 
   ListBlockChildrenResponse, 
   PartialBlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
-import { newLogger } from "logger";
+  import { notionClient } from "./notion.client";
+  import { newLogger } from "logger";
 
 const logger = newLogger("BlogContentNotionAdapter");
 // logger.log = logger.noOp;
@@ -49,3 +50,4 @@ export class NotionAdapter {
   }
 }
 
+export const notionAdapter = new NotionAdapter(notionClient);

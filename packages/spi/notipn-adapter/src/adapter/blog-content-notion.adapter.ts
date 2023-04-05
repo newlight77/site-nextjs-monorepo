@@ -1,10 +1,11 @@
-import { Client, LogLevel } from '@notionhq/client';
+import { Client } from '@notionhq/client';
 import { ListBlockChildrenResponse, PartialBlockObjectResponse, QueryDatabaseResponse, SearchResponse } from '@notionhq/client/build/src/api-endpoints';
+import { NotionToMarkdown } from 'notion-to-md';
+import { notionClient } from "./notion.client";
 import { BlogPost, BlogPostsPaginated, BlogPostsPaginatedFilter } from 'blog-model';
 import { Tag } from 'blog-model';
 import { BlogContentSpi } from 'blog-content-service';
 import { newLogger } from "logger";
-import { NotionToMarkdown } from 'notion-to-md';
 
 const logger = newLogger("BlogContentNotionAdapter");
 // logger.log = logger.noOp;
@@ -13,11 +14,6 @@ const logger = newLogger("BlogContentNotionAdapter");
 const accessToken = process.env.NOTION_INTEGRATION_TOKEN || 'secret_7V4rGuSckUhQV0DzAaVKE5mVNZ2nm8xKJzEyenXQfvD';
 const rootPageId = process.env.NOTION_BLOG_ROOT_PAGE_ID || 'fbad63643b7447c1a27d19bcf9f02331';
 const rootDatabaseId = process.env.NOTION_BLOG_DATABASE_ID || 'fbad63643b7447c1a27d19bcf9f02331';
-
-const client = new Client({
-  auth: accessToken,
-  logLevel: LogLevel.ERROR,
-});
 
 type Property = [ propertyName: string, propertyValue: any ];
 
@@ -164,11 +160,11 @@ async function mapToBlogPost(propertyValue: any, body = ""): Promise<BlogPost> {
 
 async function mapToMarkdown(page: any): Promise<string> {
   logger.log('mapToMarkdown page', page);
-  const n2m = new NotionToMarkdown({ notionClient: client });
+  const n2m = new NotionToMarkdown({ notionClient });
   const mdblocks = await n2m.pageToMarkdown(page.id);
   const mdString = n2m.toMarkdownString(mdblocks);
   //todo : call the notion to markdown library
   return mdString;
 }
 
-export const blogContentNotionAdapter = new BlogContentNotionAdapter(client);
+export const blogContentNotionAdapter = new BlogContentNotionAdapter(notionClient);
