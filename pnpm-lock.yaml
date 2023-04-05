@@ -576,7 +576,7 @@ importers:
         version: 26.0.24
       '@types/node':
         specifier: ^18.15.10
-        version: 18.15.10
+        version: 18.15.11
       eslint-config-custom:
         specifier: workspace:*
         version: link:../../config/eslint-config-custom
@@ -589,6 +589,40 @@ importers:
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
+      tsconfig:
+        specifier: workspace:*
+        version: link:../../config/tsconfig
+      typescript:
+        specifier: ^4.8.3
+        version: 4.9.5
+
+  packages/util/markdown:
+    dependencies:
+      logger:
+        specifier: workspace:*
+        version: link:../logger
+      markdown-table:
+        specifier: ^3.0.0
+        version: 3.0.0
+    devDependencies:
+      '@types/jest':
+        specifier: ^26.0.22
+        version: 26.0.24
+      '@types/markdown-table':
+        specifier: ^3.0.0
+        version: 3.0.0
+      '@types/node':
+        specifier: ^18.11.9
+        version: 18.15.11
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../../config/eslint-config-custom
+      jest:
+        specifier: ^26.6.3
+        version: 26.6.3
+      jest-presets:
+        specifier: workspace:*
+        version: link:../../config/jest-presets
       tsconfig:
         specifier: workspace:*
         version: link:../../config/tsconfig
@@ -4847,6 +4881,13 @@ packages:
     resolution: {integrity: sha512-km+Vyn3BYm5ytMO13k9KTp27O75rbQ0NFw+U//g+PX7VZyjCioXaRFisqSIJRECljcTv73G3i6BpglNGHgUQ5A==}
     dev: true
 
+  /@types/markdown-table@3.0.0:
+    resolution: {integrity: sha512-vX5zya26rnLLHdAKA3E9ZOT07CJslYp2gZfAZiXKUY5vd2RRiJyOQKrSlmUjyJ+eNoDAPkHflebG3PsfqC32aA==}
+    deprecated: This is a stub types definition. markdown-table provides its own type definitions, so you do not need this installed.
+    dependencies:
+      markdown-table: 3.0.0
+    dev: true
+
   /@types/mdast@3.0.11:
     resolution: {integrity: sha512-Y/uImid8aAwrEA24/1tcRZwpxX3pIFTSilcNDKSPn+Y2iDywSEachzRuvgAYYLR3wpGXAsMbv5lvKLDZLeYPAw==}
     dependencies:
@@ -4930,6 +4971,9 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.3
       csstype: 3.1.1
+
+  /@types/repeat-string@1.6.3:
+    resolution: {integrity: sha512-kfvZrs4kR7jQY6JdFNXb+l0sTF4fVNoLZ34ylgXB2uiaKtKVIBu6QJpjsP9VfJsNxPYneFgb7JtoD5TaIBovOQ==}
 
   /@types/scheduler@0.16.3:
     resolution: {integrity: sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ==}
@@ -11819,6 +11863,12 @@ packages:
     dependencies:
       repeat-string: 1.6.1
     dev: false
+
+  /markdown-table@3.0.0:
+    resolution: {integrity: sha512-sSFatFzGRPVHCKgj80iNcYDdySAGS36qBzPON99RO0Zl5YwkK38zmhMQ0QSJik3YxGroyBnqP51ZGLueDtOqmg==}
+    dependencies:
+      '@types/repeat-string': 1.6.3
+      repeat-string: 1.6.1
 
   /marked@4.3.0:
     resolution: {integrity: sha512-PRsaiG84bK+AMvxziE/lCFss8juXjNaWzVbN5tXAm4XjeaS9NAHhop+PjQxz2A9h8Q4M/xGmzP8vqNwy6JeK0A==}

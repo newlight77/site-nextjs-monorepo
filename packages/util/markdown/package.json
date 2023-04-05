@@ -1,0 +1,35 @@
+{
+  "name": "markdown-library",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "source": "./src/index.ts",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "dev": "tsc -w",
+    "lint": "eslint 'src/**/*.ts*'",
+    "test": "jest --passWithNoTests"
+  },
+  "jest": {
+    "preset": "jest-presets/jest/node"
+  },
+  "dependencies": {
+    "logger": "workspace:*",
+    "markdown-table": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.22",
+    "@types/markdown-table": "^3.0.0",
+    "@types/node": "^18.11.9",
+    "eslint-config-custom": "workspace:*",
+    "jest": "^26.6.3",
+    "jest-presets": "workspace:*",
+    "tsconfig": "workspace:*",
+    "typescript": "^4.8.3"
+  }
+}

@@ -113,6 +113,10 @@ add-deps-markdown-table:
 	@pnpm add --save \
 		markdown-table \
 		--filter markdown-library
+	@pnpm add --save-dev \
+		@types/markdown-table \
+		--filter markdown-library
+
 
 add-deps-notion-to-md:
 	@pnpm add --save \

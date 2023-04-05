@@ -25,7 +25,7 @@ export class NotionAdapter {
       let cursor = undefined;
 
       do {
-        const response = await this.retrieveChildrenList(cursor, block_id);
+        const response: BlockResponse = await this.retrieveChildrenList(cursor, block_id);
         result.push(...response.results);
         cursor = response?.next_cursor;
         pageCount += 1;
