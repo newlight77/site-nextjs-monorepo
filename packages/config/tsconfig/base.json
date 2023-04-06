@@ -13,6 +13,7 @@
     "importHelpers": false,
     "inlineSources": false,
     "isolatedModules": true,
+    "module": "ESNext",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": false,
@@ -35,7 +36,7 @@
   "ts-node": {
     "compilerOptions": {
       "esModuleInterop": true,
-      "module": "commonjs",
+      "module": "ESNext",
       "moduleResolution": "node",
       "noEmit": true,
       "allowSyntheticDefaultImports": true

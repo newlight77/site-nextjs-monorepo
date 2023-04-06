@@ -1,11 +1,11 @@
 import { NextPage, NextPageContext } from 'next';
 import React from 'react';
-// import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown';
 import {Card} from 'react-library';
 import {Layout} from 'react-library';
 import { BlogPost } from 'blog-model';
 import { MetaTags, PageType, RobotsContent } from 'blog-model';
-// import { MarkdownSyntaxHighlighter } from '@/components/markdown/markdown-syntax-highlighter';
+import { MarkdownSyntaxHighlighter } from '@/components/markdown/markdown-syntax-highlighter';
 import { contentfulService } from '@/lib/content-service.provider';
 import { notionService } from '@/lib/content-service.provider';
 import { newLogger } from "logger";
@@ -48,9 +48,9 @@ const PostPage: NextPage<Props, any> = (props: Props) => {
         </div>
       </div>
       <div className="post__body">
-        {/* <ReactMarkdown className="markdown" components={MarkdownSyntaxHighlighter}>
+        <ReactMarkdown className="markdown" components={MarkdownSyntaxHighlighter}>
           {props.article.body}
-        </ReactMarkdown> */}
+        </ReactMarkdown>
       </div>
       <div className="post__footer">
         <h2 className="post__suggestions_title">Related articles : </h2>

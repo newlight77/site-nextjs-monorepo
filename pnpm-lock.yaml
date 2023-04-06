@@ -402,6 +402,9 @@ importers:
       markdown-table:
         specifier: ^3.0.0
         version: 3.0.0
+      notion-model:
+        specifier: workspace:*
+        version: link:../../domain/model/notion-model
     devDependencies:
       '@types/jest':
         specifier: ^26.0.22
