@@ -23,7 +23,7 @@
     "blog-content-service": "workspace:*",
     "blog-model": "workspace:*",
     "logger": "workspace:*",
-    "notion-to-md": "^2.5.5"
+    "notion-model": "workspace:*"
   },
   "devDependencies": {
     "@types/jest": "^26.0.22",

@@ -18,7 +18,7 @@ class Logger {
 
   debug = (message?: any, ...optionalParams: any[]) => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const colorfulParams = this.util.inspect(optionalParams, { colors: true, depth: 5 })
+    const colorfulParams = this.util.inspect(optionalParams, { colors: true, depth: 10 })
     console.debug(`------    ${this.name}  ${message}`, colorfulParams);
   };
 

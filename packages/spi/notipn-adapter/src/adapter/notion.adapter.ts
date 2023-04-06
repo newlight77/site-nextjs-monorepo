@@ -1,21 +1,57 @@
 import { Client } from "@notionhq/client";
-import { BlockObjectResponse, 
+import { BlockObjectResponse,
+  PartialPageObjectResponse,
+  PageObjectResponse,
   ListBlockChildrenResponse, 
   PartialBlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
-  import { notionClient } from "./notion.client";
-  import { newLogger } from "logger";
+import { notionClient, rootPageId } from "./notion.client";
+import { newLogger } from "logger";
+import { LinkedBlock, LinkedBlocks } from "notion-model"
 
 const logger = newLogger("BlogContentNotionAdapter");
 // logger.log = logger.noOp;
 
 export type WithCursorBlock = ListBlockChildrenResponse;
-export type BlockObjects = Array<PartialBlockObjectResponse | BlockObjectResponse>;
+export type PartialBlockObject = PartialBlockObjectResponse;
+export type BlockOjbect = PartialBlockObjectResponse | BlockObjectResponse;
+export type BlockObjects = BlockOjbect[];
+export type PageObject = PartialPageObjectResponse | PageObjectResponse;
+
+const MAX_BLOCKS = 100;
 
 export class NotionAdapter {
 
   constructor(private notionClient: Client) {}
 
-  getChildrenBlocks = async (
+  retrieveBlockGraph = async (
+    rootBlockId: string,
+    totalPage: number | null
+  ): Promise<LinkedBlock> => {
+
+    const rootBlock = await this.fetchBlock(rootBlockId);
+
+    const childBlocks: BlockObjects = await this.retrieveChildBlocks(rootBlockId, totalPage);
+    const linkedChildBlocks: LinkedBlocks = this.mapToLnkedBlocks(childBlocks);
+
+    const linkedBlock: LinkedBlock = {
+      type: (rootBlock as BlockObjectResponse).type,
+      id: rootBlock.id,
+      blockObject: rootBlock,
+      childLinkedBlocks: linkedChildBlocks
+    }
+
+    const limit = this.computeBlocksSizeLimit(totalPage, linkedChildBlocks);
+
+    if (limit > 0) {
+      await this.retrieveAndAttachChildNestedLinkedBlocks(linkedChildBlocks, limit)      
+    }
+
+    logger.debug('retrieveBlockGraph linkedBlock with nested blocks', linkedBlock);
+
+    return linkedBlock;
+  }
+
+  private retrieveChildBlocks = async (
     blockId: string,
     totalPage: number | null
   ): Promise<BlockObjects> => {
@@ -25,7 +61,7 @@ export class NotionAdapter {
       let cursor: string | undefined = undefined;
 
       do {
-        const response: WithCursorBlock = await this.retrieveChildrenBlocks(cursor, blockId);
+        const response: WithCursorBlock = await this.fetchChildrenBlocks(cursor, blockId);
         result.push(...response.results);
         cursor = response?.next_cursor ? response?.next_cursor : undefined;
         pageCount += 1;
@@ -38,16 +74,63 @@ export class NotionAdapter {
     }
   };
 
+  private retrieveAndAttachChildNestedLinkedBlocks = async (
+    linkedBlocks: LinkedBlocks = [],
+    totalPage: number | null = null
+  ) => {
+
+    if (!linkedBlocks) return linkedBlocks;
+
+    for (let i = 0; i < linkedBlocks.length; i++) {
+
+      if (totalPage && i > totalPage) break;
+
+      const linkedBlock = linkedBlocks[i];
+
+      if ("has_children" in linkedBlock && linkedBlock.has_children) {
+        const nestedChildBlocks: BlockObjects = await this.retrieveChildBlocks(linkedBlock.id, totalPage);
+        linkedBlock.childLinkedBlocks.push(...this.mapToLnkedBlocks(nestedChildBlocks))
+      }
+    }
+  }
+
+  private computeBlocksSizeLimit(totalPage: number | null, childBlocks: LinkedBlocks) {
+    const max = totalPage ? totalPage : MAX_BLOCKS;
+    const limit = max - childBlocks.length > 0 ? max - childBlocks.length : 0;
+    return limit;
+  }
+
+  private mapToLnkedBlocks(childBlocks: BlockObjects): LinkedBlocks {
+    return childBlocks
+      .filter(b => b.object === 'block')
+      .map((b) => {
+        return {
+          type: (b as BlockObjectResponse).type,
+          id: b.id,
+          blockObject: b,
+          childLinkedBlocks: []
+        };
+      });
+  }
+
   private isWithinPageRange(totalPage: number | null, pageCount: number) {
     return totalPage == null || pageCount < totalPage;
   }
 
-  private async retrieveChildrenBlocks(cursor: string | undefined, blockId: string) {
+  private async fetchChildrenBlocks(cursor: string | undefined, parentBlockId: string) {
     return (await this.notionClient.blocks.children.list({
       start_cursor: cursor,
-      block_id: blockId,
+      block_id: parentBlockId,
     })) as WithCursorBlock;
   }
+
+  private async fetchBlock(blockId: string) {
+    const page = await this.notionClient.blocks.retrieve({
+      block_id: blockId ? blockId : rootPageId
+    });
+    return page;
+  }
+
 }
 
 export const notionAdapter = new NotionAdapter(notionClient);
