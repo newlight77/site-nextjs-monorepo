@@ -1,7 +1,7 @@
 import { markdownTable } from "markdown-table";
 import { newLogger } from "logger";
 
-const logger = newLogger("BlogContentNotionAdapter");
+const logger = newLogger("markdown-fields.marhsaller");
 logger.log = logger.noOp;
 
 export type CalloutIcon =

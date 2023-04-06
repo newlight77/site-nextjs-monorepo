@@ -1,15 +1,17 @@
 import { Client } from "@notionhq/client";
-import { BlockObjectResponse,
-  PartialPageObjectResponse,
-  PageObjectResponse,
+import {
+  BlockObjectResponse,
   ListBlockChildrenResponse, 
-  PartialBlockObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+  PartialBlockObjectResponse,
+  PartialPageObjectResponse,
+  PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 import { notionClient, rootPageId } from "./notion.client";
 import { newLogger } from "logger";
 import { LinkedBlock, LinkedBlocks } from "notion-model"
+import { NotionContentSpi } from 'blog-content-service'
 
-const logger = newLogger("BlogContentNotionAdapter");
-// logger.log = logger.noOp;
+const logger = newLogger("NotionAdapter");
+logger.log = logger.noOp;
 
 export type WithCursorBlock = ListBlockChildrenResponse;
 export type PartialBlockObject = PartialBlockObjectResponse;
@@ -19,11 +21,11 @@ export type PageObject = PartialPageObjectResponse | PageObjectResponse;
 
 const MAX_BLOCKS = 100;
 
-export class NotionAdapter {
+export class NotionAdapter implements NotionContentSpi {
 
   constructor(private notionClient: Client) {}
 
-  retrieveBlockGraph = async (
+  fetchBlockGraph = async (
     rootBlockId: string,
     totalPage: number | null
   ): Promise<LinkedBlock> => {
@@ -46,7 +48,7 @@ export class NotionAdapter {
       await this.retrieveAndAttachChildNestedLinkedBlocks(linkedChildBlocks, limit)      
     }
 
-    logger.debug('retrieveBlockGraph linkedBlock with nested blocks', linkedBlock);
+    logger.log('fetchBlockGraph linkedBlock with nested blocks', linkedBlock);
 
     return linkedBlock;
   }
@@ -87,7 +89,7 @@ export class NotionAdapter {
 
       const linkedBlock = linkedBlocks[i];
 
-      if ("has_children" in linkedBlock && linkedBlock.has_children) {
+      if ("has_children" in linkedBlock.blockObject && linkedBlock.blockObject.has_children) {
         const nestedChildBlocks: BlockObjects = await this.retrieveChildBlocks(linkedBlock.id, totalPage);
         linkedBlock.childLinkedBlocks.push(...this.mapToLnkedBlocks(nestedChildBlocks))
       }

@@ -1,1 +1,1 @@
-export type { Text, TextBlock, Annotations } from "./domain/notion";
+export type { Text, TextBlock, Annotations, LinkedBlock, LinkedBlocks } from "./domain/notion";

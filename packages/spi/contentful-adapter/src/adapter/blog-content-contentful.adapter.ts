@@ -81,10 +81,6 @@ class BlogContentContentfulAdapter implements BlogContentSpi {
     return undefined;
   }
 
-  fetchUsers = async (): Promise<any | undefined> => {
-    return undefined;
-  }
-
   private async fetchById(id: string): Promise<any> {
     return await this.client.getEntries({
       content_type: CONTENT_TYPE_BLOGPOST,

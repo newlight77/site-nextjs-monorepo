@@ -1,15 +1,14 @@
 import { NextPage, NextPageContext } from 'next';
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
+// import ReactMarkdown from 'react-markdown';
 import {Card} from 'react-library';
 import {Layout} from 'react-library';
 import { BlogPost } from 'blog-model';
 import { MetaTags, PageType, RobotsContent } from 'blog-model';
-import { MarkdownSyntaxHighlighter } from '@/components/markdown/markdown-syntax-highlighter';
+// import { MarkdownSyntaxHighlighter } from '@/components/markdown/markdown-syntax-highlighter';
 import { contentfulService } from '@/lib/content-service.provider';
 import { notionService } from '@/lib/content-service.provider';
 import { newLogger } from "logger";
-import { notionAdapter } from 'notion-adapter';
 
 const logger = newLogger("[id] page");
 logger.log = logger.noOp;
@@ -49,10 +48,9 @@ const PostPage: NextPage<Props, any> = (props: Props) => {
         </div>
       </div>
       <div className="post__body">
-        {/* <ReactMarkdown className="markdown" children={props.article.body} /> */}
-        <ReactMarkdown className="markdown" components={MarkdownSyntaxHighlighter}>
+        {/* <ReactMarkdown className="markdown" components={MarkdownSyntaxHighlighter}>
           {props.article.body}
-        </ReactMarkdown>
+        </ReactMarkdown> */}
       </div>
       <div className="post__footer">
         <h2 className="post__suggestions_title">Related articles : </h2>
@@ -70,21 +68,19 @@ PostPage.getInitialProps = async ({ query }: NextPageContext) => {
   logger.log('getInitialProps id slug', id, slug);
   if (isContentful(id)) {
     const article: any = await contentfulService.getPostById(slug);
-    logger.log('getInitialProps article', article);
+    // logger.log('getInitialProps article', article);
     const tags = article.tags ? article.tags.map((tag: any) => tag.sys.id) : [];
     logger.log('getInitialProps tags', tags);
     const suggestedArticles = await contentfulService.getSuggestions(tags, article.id, 2);
-    logger.log('getInitialProps suggestedArticles', suggestedArticles);
+    // logger.log('getInitialProps suggestedArticles', suggestedArticles);
     return { article, suggestedArticles };
   } else {
     const article: any = await notionService.getPostById(id);
-    logger.log('getInitialProps article', article);
-    const blocks = await notionAdapter.getChildrenBlocks(id, 10);
-    logger.log('getInitialProps blocks', blocks);
+    // logger.log('getInitialProps article', article);
     const tags = article.tags ? article.tags.map((tag: any) => tag.id) : [];
     logger.log('getInitialProps tags', tags);
     const suggestedArticles = await notionService.getSuggestions(tags, article.id, 2);
-    logger.log('getInitialProps suggestedArticles', suggestedArticles);
+    // logger.log('getInitialProps suggestedArticles', suggestedArticles);
     return { article, suggestedArticles };
   }
 };

@@ -1,5 +1,7 @@
 import { BlogPost, BlogPostsPaginated, BlogPostsPaginatedFilter } from 'blog-model';
 import { Tag } from 'blog-model';
+import { LinkedBlock } from "notion-model"
+import { markdownMarshaller } from 'markdown-library';
 import { newLogger } from "logger";
 
 const logger = newLogger("BlogContentService");
@@ -10,16 +12,21 @@ export interface BlogContentSpi {
     fetchBlogPosts(filter: BlogPostsPaginatedFilter): Promise<BlogPostsPaginated>;
     fetchPostById(id: string): Promise<BlogPost | undefined>;
     fetchSuggestions(tags: string[], currentArticleId: string, max: number): Promise<BlogPost[] | undefined>;
-    search(params: any): Promise<any | undefined>;    
-    fetchUsers(): Promise<any | undefined>;
+    search(params: any): Promise<any | undefined>;
+}
+
+export interface NotionContentSpi {
+    fetchBlockGraph (rootBlockId: string, totalPage: number | null): Promise<LinkedBlock>;
 }
 
 export class BlogContentService {
-    constructor(private spi: BlogContentSpi) { }
+    constructor(
+        private blocContentSpi: BlogContentSpi,
+        private notionSpi: NotionContentSpi) { }
 
     async getAllTags(): Promise<Tag[]> {
         try {
-            const tags = await this.spi.fetchAllTags();
+            const tags = await this.blocContentSpi.fetchAllTags();
             logger.log('getAllTags tags', tags);
             return tags
         } catch (error) {
@@ -37,8 +44,7 @@ export class BlogContentService {
     ): Promise<BlogPostsPaginated | undefined> {
         logger.log('getBlogPosts limit skip tag', limit, skip, tag);
         try {
-            const posts = await this.spi.fetchBlogPosts({ limit, skip, tag });
-            logger.log('getBlogPosts posts', posts);
+            const posts = await this.blocContentSpi.fetchBlogPosts({ limit, skip, tag });
             return posts;
         } catch (error) {
             console.error(error);
@@ -48,8 +54,15 @@ export class BlogContentService {
     async getPostById(id: string): Promise<BlogPost | undefined> {
         logger.log('getPostById id', id);
         try {
-            const post = await this.spi.fetchPostById(id);
-            logger.log('getBlogPostById post', post);
+            const post = await this.blocContentSpi.fetchPostById(id);
+
+            const blocks = await this.notionSpi.fetchBlockGraph(id, 10);
+            logger.log('getPostById blocks', blocks);
+
+            if (post && post.body === '') {
+                post.body = toMarkdown(blocks);
+            }
+        
             return post;
         } catch (error) {
             console.error(error);
@@ -59,8 +72,7 @@ export class BlogContentService {
     async getSuggestions(tags: string[], currentArticleId: string, max = 2): Promise<BlogPost[] | undefined> {
         logger.log('getSuggestions tags currentArticleId max', tags, currentArticleId, max);
         try {
-            const suggestions = await this.spi.fetchSuggestions(tags, currentArticleId, max);
-            logger.log('getSuggestions suggestions', suggestions);
+            const suggestions = await this.blocContentSpi.fetchSuggestions(tags, currentArticleId, max);
 
             return suggestions;
         } catch (e) {
@@ -70,12 +82,15 @@ export class BlogContentService {
 
     async search(params: any): Promise<any | undefined> {
         try {
-            const results = await this.spi.search(params);
-            logger.log('search results', results);
+            const results = await this.blocContentSpi.search(params);
             return results;
         } catch (error) {
             console.error(error);
         }
     }
+}
 
+const toMarkdown = (blocks: LinkedBlock): string => {
+    logger.log('toMarkdown blocks', blocks);
+    return markdownMarshaller.toMarkdown(blocks);
 }

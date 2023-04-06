@@ -59,24 +59,6 @@ const getAllTags = async () => {
     return results;
 }
 
-const search = async (params: any) => {
-    const results: any = await fetch(`${api.notionSearch}`, {
-        method: 'POST',
-        body: JSON.stringify(params),
-        headers: {
-            'content-type': 'application/json'
-        }
-    })
-    .then((res) => {
-        if (!res.ok) return toError(res, results);
-        return res;
-    })
-    .then((res) => res.json());
-    logger.info('ssr-client search results', results);
-
-    return results;
-}
-
 const getSuggestions = async (tags: string[], currentArticleId: string, max: number): Promise<BlogPostsPaginated> => {
     const results:any = await fetch(`${api.notionPosts}`, {
         method: 'POST',
@@ -106,6 +88,5 @@ export const ssrClient = {
     getPostById,
     getBlogPosts,
     getAllTags,
-    search,
     getSuggestions
 }

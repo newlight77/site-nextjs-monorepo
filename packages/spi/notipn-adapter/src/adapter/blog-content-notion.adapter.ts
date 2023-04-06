@@ -1,5 +1,9 @@
 import { Client } from '@notionhq/client';
-import { ListBlockChildrenResponse, PartialBlockObjectResponse, QueryDatabaseResponse, SearchResponse } from '@notionhq/client/build/src/api-endpoints';
+import {
+  ListBlockChildrenResponse,
+  PartialBlockObjectResponse,
+  QueryDatabaseResponse,
+  SearchResponse } from '@notionhq/client/build/src/api-endpoints';
 // import { NotionToMarkdown } from 'notion-to-md';
 import { notionClient, rootDatabaseId, rootPageId } from "./notion.client";
 import { BlogPost, BlogPostsPaginated, BlogPostsPaginatedFilter } from 'blog-model';
@@ -60,8 +64,7 @@ export class BlogContentNotionAdapter implements BlogContentSpi {
     .map(([ , propertyValue]: Property) => propertyValue);
     logger.log('fetchPostById pageContentList', pageContentList);
     const pageContent = pageContentList[0];
-    const body = pageContent;
-    const postMeta = await mapToBlogPost(pageContent, body)
+    const postMeta = await mapToBlogPost(pageContent)
 
     logger.log('fetchPostById postMeta', postMeta);
 
@@ -79,12 +82,6 @@ export class BlogContentNotionAdapter implements BlogContentSpi {
     const results = await this.client.search(params);
     logger.log('search results', results);
     return results;
-  }
-
-  fetchUsers = async (): Promise<any | undefined> => {
-    const users = await this.client.users.list({  });
-    logger.log('getUsers users', users);
-    return users;
   }
 
   private getDatabase = async (databaseId?: string): Promise<QueryDatabaseResponse > => {

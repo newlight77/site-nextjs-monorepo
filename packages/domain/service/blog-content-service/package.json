@@ -20,7 +20,9 @@
   },
   "dependencies": {
     "blog-model": "workspace:*",
-    "logger": "workspace:*"
+    "notion-model": "workspace:*",
+    "logger": "workspace:*",
+    "markdown-library": "workspace:*"
   },
   "devDependencies": {
     "@types/jest": "^26.0.24",

@@ -335,6 +335,12 @@ importers:
       logger:
         specifier: workspace:*
         version: link:../../../lib/logger
+      markdown-library:
+        specifier: workspace:*
+        version: link:../../../lib/markdown
+      notion-model:
+        specifier: workspace:*
+        version: link:../../model/notion-model
     devDependencies:
       '@types/jest':
         specifier: ^26.0.24
@@ -473,9 +479,9 @@ importers:
       logger:
         specifier: workspace:*
         version: link:../../lib/logger
-      notion-to-md:
-        specifier: ^2.5.5
-        version: 2.5.5
+      notion-model:
+        specifier: workspace:*
+        version: link:../../domain/model/notion-model
     devDependencies:
       '@types/jest':
         specifier: ^26.0.22
@@ -11858,12 +11864,6 @@ packages:
     resolution: {integrity: sha512-8z4efJYk43E0upd0NbVXwgSTQs6cT3T06etieCMEg7dRbzCbxUCK/GHlX8mhHRDcp+OLlHkPKsvqQTCvsRl2cg==}
     dev: true
 
-  /markdown-table@2.0.0:
-    resolution: {integrity: sha512-Ezda85ToJUBhM6WGaG6veasyym+Tbs3cMAw/ZhOPqXiYsr0jgocBV3j3nx+4lk47plLlIqjwuTm/ywVI+zjJ/A==}
-    dependencies:
-      repeat-string: 1.6.1
-    dev: false
-
   /markdown-table@3.0.0:
     resolution: {integrity: sha512-sSFatFzGRPVHCKgj80iNcYDdySAGS36qBzPON99RO0Zl5YwkK38zmhMQ0QSJik3YxGroyBnqP51ZGLueDtOqmg==}
     dependencies:
@@ -12658,13 +12658,6 @@ packages:
     resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
     dev: true
-
-  /notion-to-md@2.5.5:
-    resolution: {integrity: sha512-EdzuNZpJyc+287ItRALOld90RkshWBDiSA0WThf75z98Y8cyynhu6Hg+h377eD5K4UOSQHy5K0SUV4vGdCxCiA==}
-    engines: {node: '>=12'}
-    dependencies:
-      markdown-table: 2.0.0
-    dev: false
 
   /npm-run-all@4.1.5:
     resolution: {integrity: sha512-Oo82gJDAVcaMdi3nuoKFavkIHBRVqQ1qvMb+9LHk/cF4P6B2m8aP04hGf7oL6wZ9BuGwX1onlLhpuoofSyoQDQ==}
