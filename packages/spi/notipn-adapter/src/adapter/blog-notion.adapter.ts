@@ -17,7 +17,7 @@ logger.log = logger.noOp;
 
 type Property = [ propertyName: string, propertyValue: any ];
 
-export class BlogContentNotionAdapter implements BlogContentSpi {
+export class BlogNotionAdapter implements BlogContentSpi {
 
   constructor(private client: Client) {}
 
@@ -157,4 +157,4 @@ async function mapToBlogPost(propertyValue: any, body = ""): Promise<BlogPost> {
 //   return mdString;
 // }
 
-export const blogContentNotionAdapter = new BlogContentNotionAdapter(notionClient);
+export const blogNotionAdapter = new BlogNotionAdapter(notionClient);

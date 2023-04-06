@@ -337,7 +337,7 @@ importers:
         version: link:../../../lib/logger
       markdown-library:
         specifier: workspace:*
-        version: link:../../../lib/markdown
+        version: link:../../../lib/markdown-library
       notion-model:
         specifier: workspace:*
         version: link:../../model/notion-model
@@ -394,7 +394,7 @@ importers:
         specifier: ^4.8.3
         version: 4.9.5
 
-  packages/lib/markdown:
+  packages/lib/markdown-library:
     dependencies:
       logger:
         specifier: workspace:*

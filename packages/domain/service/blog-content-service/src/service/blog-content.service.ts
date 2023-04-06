@@ -56,11 +56,11 @@ export class BlogContentService {
         try {
             const post = await this.blocContentSpi.fetchPostById(id);
 
-            const blocks = await this.notionSpi.fetchBlockGraph(id, 10);
-            logger.log('getPostById blocks', blocks);
+            const block = await this.notionSpi.fetchBlockGraph(id, 10);
+            logger.log('getPostById blocks', block);
 
             if (post && post.body === '') {
-                post.body = toMarkdown(blocks);
+                post.body = toMarkdown(block);
             }
         
             return post;

@@ -1,6 +1,6 @@
 import { BlogContentService } from 'blog-content-service';
-import { blogContentContentfulAdapter } from 'contentful-adapter';
-import { blogContentNotionAdapter, notionAdapter } from 'notion-adapter';
+import { blogContentfulAdapter } from 'contentful-adapter';
+import { blogNotionAdapter, notionAdapter } from 'notion-adapter';
 
-export const contentfulService = new BlogContentService(blogContentContentfulAdapter, notionAdapter);
-export const notionService = new BlogContentService(blogContentNotionAdapter, notionAdapter);
+export const contentfulService = new BlogContentService(blogContentfulAdapter, notionAdapter);
+export const notionService = new BlogContentService(blogNotionAdapter, notionAdapter);

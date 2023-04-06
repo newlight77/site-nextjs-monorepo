@@ -24,7 +24,7 @@ const client = createClient({
 
 type Item = { sys: any, fields: any, };
 
-class BlogContentContentfulAdapter implements BlogContentSpi {
+class BlogContentfulAdapter implements BlogContentSpi {
 
   constructor(private client: ContentfulClientApi) {}
 
@@ -177,5 +177,5 @@ const mapToBlogPosts = (entries: any): BlogPost[] => {
   });
 }
 
-export const blogContentContentfulAdapter = new BlogContentContentfulAdapter(client);
+export const blogContentfulAdapter = new BlogContentfulAdapter(client);
 
