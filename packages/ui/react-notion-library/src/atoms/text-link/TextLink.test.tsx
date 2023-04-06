@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { render, screen } from '@testing-library/react';
-import { Annotations, Text, TextLink } from './TextLink';
+import { TextLink } from './TextLink';
+import { Annotations, Text } from "notion-model"
 
 const text: Text = {
   content: "my content as link",

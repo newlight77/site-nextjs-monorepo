@@ -44,10 +44,10 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Lint check
-        run: pnpm turbo run lint --filter --filter blog-model --filter blog-content-service
+        run: pnpm turbo run lint --filter blog-model --filter blog-content-service
 
       - name: Run the tests and generate coverage report
-        run: pnpm turbo run test --filter --filter blog-model --filter blog-content-service
+        run: pnpm turbo run test --filter blog-model --filter blog-content-service
 
       - name: Build
-        run: pnpm turbo run build --filter --filter blog-model --filter blog-content-service
+        run: pnpm turbo run build --filter blog-model --filter blog-content-service
