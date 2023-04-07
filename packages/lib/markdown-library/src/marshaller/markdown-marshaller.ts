@@ -3,15 +3,15 @@ import { newLogger } from "logger";
 import * as md from "./markdown-fields.marshaller"
 
 const logger = newLogger("MarkdownMarshaller");
-logger.info = logger.noOp;
-logger.debug = logger.noOp;
-logger.error = logger.noOp;
+// logger.info = logger.noOp;
+// logger.debug = logger.noOp;
+// logger.error = logger.noOp;
 
 
 class MarkdownMarshaller {
 
     toMarkdown(block: LinkedBlock) {
-        logger.info('toMarkdown blocks', block);
+        // logger.info('toMarkdown blocks', block);
         let mdString = "";
 
         const rootBlockMd = this.blockToMarkdown(block.blockObject)
@@ -27,7 +27,7 @@ class MarkdownMarshaller {
             });
         });
 
-        logger.debug('toMarkdown mdString', mdString);
+        // logger.debug('toMarkdown mdString', mdString);
 
         return mdString;
     }
@@ -38,7 +38,7 @@ class MarkdownMarshaller {
         const { type }: { type: string } = block;
         const markshalledText = this.marshall(type, block)
 
-        logger.info('blockToMarkdownString, content', markshalledText)
+        // logger.info('blockToMarkdownString, content', markshalledText)
         return markshalledText;
     }
 
@@ -47,10 +47,16 @@ class MarkdownMarshaller {
             case "heading_1": return md.heading1(this.annotateTextContent(type, block));
             case "heading_2": return md.heading2(this.annotateTextContent(type, block));
             case "heading_3": return md.heading3(this.annotateTextContent(type, block));
+            case "code": return md.codeBlock(this.annotateTextContent(type, block), block[type].language);
             case "divider": return md.divider();
             case "equation": return md.codeBlock(block.equation.expression);
+            case "bulleted_list_item": return md.bullet(this.annotateTextContent(type, block));
+            case "numbered_list_item": return md.bullet(this.annotateTextContent(type, block), block.numbered_list_item.number);
+            case "paragraph": return md.paragraph(this.annotateTextContent(type, block));
+            case "quote": return md.quote(this.annotateTextContent(type, block));
+            case "to_do": return md.todo(this.annotateTextContent(type, block), block.to_do.checked);
             default: 
-                logger.error("unknown type, not able to match marhsall function to call", type, block);    
+                logger.warn("unknown type, not able to match marhsall function to call", type, block);    
                 return "";
         }
     }
@@ -100,14 +106,14 @@ class MarkdownMarshaller {
         if (annotations.code) text = md.inlineCode(text);
         // if (annotations.color) text = md.color(text);
 
-        logger.info('annotatePlainText, annotatedText', leadingSpaces + text + trailingSpaces)
+        // logger.info('annotatePlainText, annotatedText', leadingSpaces + text + trailingSpaces)
 
         return leadingSpaces + text + trailingSpaces;
     }
 
     private annotateLink(plainText: string, href: string, ) {
         if (href && href !== "") return md.link(plainText, href);
-        logger.info('annotateLink, annotatedText', md.link(plainText, href))
+        // logger.info('annotateLink, annotatedText', md.link(plainText, href))
         return plainText;
     }
     
