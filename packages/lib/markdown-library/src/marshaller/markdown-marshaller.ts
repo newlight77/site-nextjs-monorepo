@@ -3,7 +3,9 @@ import { newLogger } from "logger";
 import * as md from "./markdown-fields.marshaller"
 
 const logger = newLogger("MarkdownMarshaller");
-// logger.debug = logger.noOp;
+logger.info = logger.noOp;
+logger.debug = logger.noOp;
+logger.error = logger.noOp;
 
 
 class MarkdownMarshaller {
@@ -36,7 +38,7 @@ class MarkdownMarshaller {
         const { type }: { type: string } = block;
         const markshalledText = this.marshall(type, block)
 
-        // logger.info('blockToMarkdownString, content', markshalledText)
+        logger.info('blockToMarkdownString, content', markshalledText)
         return markshalledText;
     }
 
@@ -48,7 +50,7 @@ class MarkdownMarshaller {
             case "divider": return md.divider();
             case "equation": return md.codeBlock(block.equation.expression);
             default: 
-                logger.log("unknown type, not able to match marhsall function to call", type, block);    
+                logger.error("unknown type, not able to match marhsall function to call", type, block);    
                 return "";
         }
     }

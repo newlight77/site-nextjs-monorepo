@@ -1,10 +1,11 @@
 import { Client } from "@notionhq/client";
 import {
   BlockObjectResponse,
-  ListBlockChildrenResponse, 
+  ListBlockChildrenResponse,
   PartialBlockObjectResponse,
   PartialPageObjectResponse,
-  PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+  PageObjectResponse
+} from "@notionhq/client/build/src/api-endpoints";
 import { notionClient, rootPageId } from "./notion.client";
 import { newLogger } from "logger";
 import { LinkedBlock, LinkedBlocks } from "notion-model"
@@ -23,7 +24,7 @@ const MAX_BLOCKS = 100;
 
 export class NotionAdapter implements NotionContentSpi {
 
-  constructor(private notionClient: Client) {}
+  constructor(private notionClient: Client) { }
 
   fetchBlockGraph = async (
     rootBlockId: string,
@@ -31,8 +32,10 @@ export class NotionAdapter implements NotionContentSpi {
   ): Promise<LinkedBlock> => {
 
     const rootBlock = await this.fetchBlock(rootBlockId);
+    // logger.info('fetchBlockGraph rootBlock', rootBlock);
 
     const childBlocks: BlockObjects = await this.retrieveChildBlocks(rootBlockId, totalPage);
+    // logger.info('fetchBlockGraph childBlocks', childBlocks);
     const linkedChildBlocks: LinkedBlocks = this.mapToLnkedBlocks(childBlocks);
 
     const linkedBlock: LinkedBlock = {
@@ -42,13 +45,21 @@ export class NotionAdapter implements NotionContentSpi {
       childLinkedBlocks: linkedChildBlocks
     }
 
-    const limit = this.computeBlocksSizeLimit(totalPage, linkedChildBlocks);
-
-    if (limit > 0) {
-      await this.retrieveAndAttachChildNestedLinkedBlocks(linkedChildBlocks, limit)      
+    const limitLeft = this.computeBlocksSizeLimit(totalPage, linkedChildBlocks.length);
+    if (limitLeft > 0) {
+      await this.retrieveAndAttachChildNestedLinkedBlocks(linkedChildBlocks, limitLeft);
     }
 
-    logger.log('fetchBlockGraph linkedBlock with nested blocks', linkedBlock);
+    // linkedChildBlocks.forEach(async (nestedChildBlock) => {
+    //   limitLeft = this.computeBlocksSizeLimit(limitLeft, nestedChildBlock.childLinkedBlocks.length);
+    //   if (limitLeft > 0) {
+    //     // logger.info('fetchBlockGraph limitLeft', limitLeft);
+    //     await this.retrieveAndAttachChildNestedLinkedBlocks(nestedChildBlock.childLinkedBlocks, limitLeft);
+    //   }
+    // })
+
+    // logger.info('fetchBlockGraph limitLeft', limitLeft);
+    // logger.info('fetchBlockGraph linkedBlock with nested blocks', linkedBlock);
 
     return linkedBlock;
   }
@@ -64,6 +75,7 @@ export class NotionAdapter implements NotionContentSpi {
 
       do {
         const response: WithCursorBlock = await this.fetchChildrenBlocks(cursor, blockId);
+        // logger.info('retrieveChildBlocks response', response);
         result.push(...response.results);
         cursor = response?.next_cursor ? response?.next_cursor : undefined;
         pageCount += 1;
@@ -96,10 +108,10 @@ export class NotionAdapter implements NotionContentSpi {
     }
   }
 
-  private computeBlocksSizeLimit(totalPage: number | null, childBlocks: LinkedBlocks) {
-    const max = totalPage ? totalPage : MAX_BLOCKS;
-    const limit = max - childBlocks.length > 0 ? max - childBlocks.length : 0;
-    return limit;
+  private computeBlocksSizeLimit(limit: number | null, count: number) {
+    const max = limit ? limit : MAX_BLOCKS;
+    const newLimit = max - count > 0 ? max - count : 0;
+    return newLimit;
   }
 
   private mapToLnkedBlocks(childBlocks: BlockObjects): LinkedBlocks {
