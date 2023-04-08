@@ -36,28 +36,51 @@ class MarkdownMarshaller {
         if (typeof block !== "object" || !("type" in block)) return "";
 
         const { type }: { type: string } = block;
-        const markshalledText = this.marshall(type, block)
+        const marshalledText = this.marshall(type, block)
 
-        // logger.info('blockToMarkdownString, content', markshalledText)
-        return markshalledText;
+        // logger.info('blockToMarkdownString, content', marshalledText)
+        return marshalledText;
     }
 
     private marshall(type: string, block: any): string {
         switch (type) {
-            case "heading_1": return md.heading1(this.annotateTextContent(type, block));
-            case "heading_2": return md.heading2(this.annotateTextContent(type, block));
-            case "heading_3": return md.heading3(this.annotateTextContent(type, block));
-            case "code": return md.codeBlock(this.annotateTextContent(type, block), block[type].language);
-            case "divider": return md.divider();
+            case "paragraph": return md.paragraph(this.marhsallTextContent(type, block));
+            case "heading_1": return md.heading1(this.marhsallTextContent(type, block));
+            case "heading_2": return md.heading2(this.marhsallTextContent(type, block));
+            case "heading_3": return md.heading3(this.marhsallTextContent(type, block));
+            case "bulleted_list_item": return md.bullet(this.marhsallTextContent(type, block));
+            case "numbered_list_item": return md.bullet(this.marhsallTextContent(type, block), block.numbered_list_item.number);
+            case "quote": return md.quote(this.marhsallTextContent(type, block));
+            case "to_do": return md.todo(this.marhsallTextContent(type, block), block.to_do.checked);
+            case "toggle": return "//TODO toggle"
+            case "template": return "//TODO template"
+            case "synced_block": return "//TODO synced_block"
+            case "child_page": return "//TODO child_page"
+            case "child_database": return "//TODO child_database"
             case "equation": return md.codeBlock(block.equation.expression);
-            case "bulleted_list_item": return md.bullet(this.annotateTextContent(type, block));
-            case "numbered_list_item": return md.bullet(this.annotateTextContent(type, block), block.numbered_list_item.number);
-            case "paragraph": return md.paragraph(this.annotateTextContent(type, block));
-            case "quote": return md.quote(this.annotateTextContent(type, block));
-            case "to_do": return md.todo(this.annotateTextContent(type, block), block.to_do.checked);
+            case "code": return md.codeBlock(this.marhsallTextContent(type, block), block[type].language);
+            case "callout": return "//TODO callout"
+            case "divider": return md.divider();
+            case "breadcrumb": return "//TODO breadcrumb"
+            case "table_of_contents": return "//TODO table_of_contents"
+            case "column_list": return "//TODO column_list"
+            case "column": return "//TODO column"
+            case "link_to_page": return "//TODO link_to_page"
+            case "table": return "//TODO table"
+            case "table_row": return "//TODO table_row"
+            case "embed": return "//TODO embed"
+            case "bookmark": return "//TODO bookmark"
+            case "image": return this.marshallMediaFile(type, block);
+            case "video": return this.marshallMediaFile(type, block);
+            case "pdf": return this.marshallMediaFile(type, block);
+            case "file": return this.marshallMediaFile(type, block);
+            case "audio": return this.marshallMediaFile(type, block);
+            case "link_preview": return "//TODO link_preview"
+
+            case "unsupported":
             default: 
                 logger.warn("unknown type, not able to match marhsall function to call", type, block);    
-                return "";
+                return "error : unsupported";
         }
     }
 
@@ -71,8 +94,8 @@ class MarkdownMarshaller {
     //     return selection ? selection(text) : logger.log("unknown type, not able to match marhsall function to call");
     // }
 
-    private annotateTextContent(type: string, block: any) {
-        if (typeof block !== "object" || !("type" in block)) return "";
+    private marhsallTextContent(type: string, block: any) {
+        if (typeof block !== "object" || !("type" in block)) return "error : not a valid object";
 
         const blockTextContent = block[type].text || block[type].rich_text || [];
 
@@ -81,7 +104,7 @@ class MarkdownMarshaller {
             let text = content.plain_text;
 
             text = this.annotatePlainText(text, annotations);
-            text = this.annotateLink(text, content["href"]);
+            text = this.marshallLink(text, content["href"]);
 
             return text;
         }).join('');
@@ -111,12 +134,23 @@ class MarkdownMarshaller {
         return leadingSpaces + text + trailingSpaces;
     }
 
-    private annotateLink(plainText: string, href: string, ) {
+    private marshallLink(plainText: string, href: string, ) {
         if (href && href !== "") return md.link(plainText, href);
         // logger.info('annotateLink, annotatedText', md.link(plainText, href))
         return plainText;
     }
-    
+
+    private marshallMediaFile(type: string, block: any): string {
+        if ( type !in ["file" , "image", "video", "audio", "pdf"]) return "error : not a valid media file"
+
+        const fileBlock = block[type];
+        const caption_plain = fileBlock.caption
+            .map((item: any) => item.plain_text)
+            .join("");
+        const url = fileBlock.type === "external" ? fileBlock.external.url : fileBlock.file.url; 
+        return md.image(caption_plain, url);
+    }
+
 }
 
 export const markdownMarshaller = new MarkdownMarshaller();

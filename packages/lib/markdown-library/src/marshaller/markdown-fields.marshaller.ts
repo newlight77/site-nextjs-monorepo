@@ -56,7 +56,7 @@ export const heading3 = (text: string) => {
 
 export const paragraph = (text: string) => {
   // the replace is done to handle multiple lines
-  return `${text} "\n")}`;
+  return `${text} \n`;
 };
 
 export const quote = (text: string) => {
