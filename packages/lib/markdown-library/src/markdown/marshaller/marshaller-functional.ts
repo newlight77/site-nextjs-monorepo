@@ -224,7 +224,7 @@ const marshallFile: MarshallType = (type: string, block: any): string => {
         .map((item: any) => item.plain_text)
         .join("");
     const url = fileBlock.type === "external" ? fileBlock.external.url : fileBlock.file.url; 
-    return md.image(text, url);
+    return annotateLink(text, url);
 }
 marshallerProvider.register("file", marshallFile);
 
@@ -248,7 +248,7 @@ const marshallVideo: MarshallType = (type: string, block: any): string => {
         .map((item: any) => item.plain_text)
         .join("");
     const url = fileBlock.type === "external" ? fileBlock.external.url : fileBlock.file.url; 
-    return md.image(text, url);
+    return annotateLink(text, url);
 }
 marshallerProvider.register("video", marshallVideo);
 
@@ -260,7 +260,7 @@ const marshallAudio: MarshallType = (type: string, block: any): string => {
         .map((item: any) => item.plain_text)
         .join("");
     const url = fileBlock.type === "external" ? fileBlock.external.url : fileBlock.file.url; 
-    return md.image(text, url);
+    return annotateLink(text, url);
 }
 marshallerProvider.register("audio", marshallAudio);
 
@@ -272,7 +272,7 @@ const marshallPdf: MarshallType = (type: string, block: any): string => {
         .map((item: any) => item.plain_text)
         .join("");
     const url = fileBlock.type === "external" ? fileBlock.external.url : fileBlock.file.url; 
-    return md.image(text, url);
+    return annotateLink(text, url);
 }
 marshallerProvider.register("pdf", marshallPdf);
 

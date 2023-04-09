@@ -269,7 +269,7 @@ class FileMashaller implements IPerTypeMarshaller {
             .map((item: any) => item.plain_text)
             .join("");
         const url = fileBlock.type === "external" ? fileBlock.external.url : fileBlock.file.url; 
-        return md.image(text, url);
+        return annotateLink(text, url);
     }
 }
 marshallerProvider.register(new FileMashaller());
@@ -299,7 +299,7 @@ class VideoMashaller implements IPerTypeMarshaller {
             .map((item: any) => item.plain_text)
             .join("");
         const url = fileBlock.type === "external" ? fileBlock.external.url : fileBlock.file.url; 
-        return md.image(text, url);
+        return annotateLink(text, url);
     }
 }
 marshallerProvider.register(new VideoMashaller());
@@ -314,7 +314,7 @@ class AudioMashaller implements IPerTypeMarshaller {
             .map((item: any) => item.plain_text)
             .join("");
         const url = fileBlock.type === "external" ? fileBlock.external.url : fileBlock.file.url; 
-        return md.image(text, url);
+        return annotateLink(text, url);
     }
 }
 marshallerProvider.register(new AudioMashaller());
@@ -329,7 +329,7 @@ class PdfMashaller implements IPerTypeMarshaller {
             .map((item: any) => item.plain_text)
             .join("");
         const url = fileBlock.type === "external" ? fileBlock.external.url : fileBlock.file.url; 
-        return md.image(text, url);
+        return annotateLink(text, url);
     }
 }
 marshallerProvider.register(new PdfMashaller());

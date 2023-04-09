@@ -37,7 +37,7 @@ export class SimpleMarshaller implements IMarshaller {
             case "embed": return this.marhsallEmbed(type, block);
             case "bookmark": return this.marhsallBookmark(type, block);
 
-            case "image": return this.marshallMediaFile(type, block);
+            case "image": return this.marshallImageFile(type, block);
             case "video": return this.marshallMediaFile(type, block);
             case "pdf": return this.marshallMediaFile(type, block);
             case "file": return this.marshallMediaFile(type, block);
@@ -151,8 +151,8 @@ export class SimpleMarshaller implements IMarshaller {
         return this.annotateLink(text, url);
     }
 
-    private marshallMediaFile(type: string, block: any): string {
-        if ( type !in ["file" , "image", "video", "audio", "pdf"]) return `error : ${type} is not a valid type`
+    private marshallImageFile(type: string, block: any): string {
+        if ( type !in ["image"]) return `error : ${type} is not a valid type`
 
         const fileBlock = block[type];
         const text = fileBlock.caption
@@ -160,6 +160,17 @@ export class SimpleMarshaller implements IMarshaller {
             .join("");
         const url = fileBlock.type === "external" ? fileBlock.external.url : fileBlock.file.url; 
         return md.image(text, url);
+    }
+
+    private marshallMediaFile(type: string, block: any): string {
+        if ( type !in ["file", "video", "audio", "pdf"]) return `error : ${type} is not a valid type`
+
+        const fileBlock = block[type];
+        const text = fileBlock.caption
+            .map((item: any) => item.plain_text)
+            .join("");
+        const url = fileBlock.type === "external" ? fileBlock.external.url : fileBlock.file.url; 
+        return md.link(text, url);
     }
 
     private marshallCallout(type: string, block: any): string {
