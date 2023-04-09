@@ -44,11 +44,11 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: lint check
-        run: pnpm turbo run lint --filter blog-content-contentful-adapter --filter blog-content-notion-adapter
+        run: pnpm turbo run lint --filter contentful-adapter --filter notion-adapter
 
       - name: Run the tests and generate coverage report
-        run: pnpm turbo run test --filter blog-content-contentful-adapter --filter blog-content-notion-adapter
+        run: pnpm turbo run test --filter contentful-adapter --filter notion-adapter
 
       - name: Build
-        run: pnpm turbo run build --filter blog-content-contentful-adapter --filter blog-content-notion-adapter
+        run: pnpm turbo run build --filter contentful-adapter --filter notion-adapter
 
