@@ -160,7 +160,7 @@ class EquationMashaller implements IPerTypeMarshaller {
     marshall(type: string, block: any): string {
         if ( type !== this.type) return `error : ${type} is not a valid type != ${this.type} \n`
 
-        return md.codeBlock(annotateTextArray(type, block));
+        return md.codeBlock(block.equation.expression);
     }
 }
 marshallerProvider.register(new EquationMashaller());

@@ -137,7 +137,7 @@ marshallerProvider.register("to_do", marshallTodoListItem);
 const marshallEquation: MarshallType = (type: string, block: any): string => {
     if ( type !== "equation") return `error : ${type} is not a valid type`
 
-    return md.codeBlock(annotateTextArray(type, block));
+    return md.codeBlock(block.equation.expression);
 }
 marshallerProvider.register("equation", marshallEquation);
 
