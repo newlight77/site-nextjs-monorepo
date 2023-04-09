@@ -1,0 +1,56 @@
+import { LinkedBlock } from "notion-model"
+import { newLogger } from "logger";
+// import { simpleMarshaller } from "./marshaller/marshaller-simple";
+// import { strategicMarshaller } from "./marshaller/marshaller-strategy";
+import { functionalMarshaller } from "./marshaller/marshaller-functional";
+
+const logger = newLogger("MarkdownMarshaller");
+// logger.info = logger.noOp;
+logger.debug = logger.noOp;
+// logger.error = logger.noOp;
+
+
+class MarkdownMarshaller {
+
+    constructor(private marshaller: IMarshaller) {}
+
+    toMarkdown(block: LinkedBlock) {
+        // logger.info('toMarkdown blocks', block);
+        let mdString = "";
+
+        const rootBlockMd = this.blockToMarkdown(block.blockObject)
+        mdString = [mdString, rootBlockMd].join('\n');
+
+        block.childLinkedBlocks.forEach(childBlock => {
+            const blockMd = this.blockToMarkdown(childBlock.blockObject)
+            mdString = [mdString, blockMd].join('\n');
+
+            childBlock.childLinkedBlocks.forEach(nestedChildBlock => {
+                const blockMd = this.blockToMarkdown(nestedChildBlock.blockObject)
+                mdString = [mdString, blockMd].join('\n');
+            });
+        });
+
+        logger.debug('toMarkdown mdString', mdString);
+
+        return mdString;
+    }
+
+    private blockToMarkdown(block: any): string {
+        if (typeof block !== "object" || !("type" in block)) return "";
+
+        const { type }: { type: string } = block;
+        const marshalledText = this.marshaller.marshall(type, block)
+
+        // logger.info('blockToMarkdownString, content', marshalledText)
+        return marshalledText;
+    }
+}
+
+export interface IMarshaller {
+    marshall(type: string, block: any): string
+}
+
+// export const markdownMarshaller = new MarkdownMarshaller(simpleMarshaller);
+// export const markdownMarshaller = new MarkdownMarshaller(strategicMarshaller);
+export const markdownMarshaller = new MarkdownMarshaller(functionalMarshaller);

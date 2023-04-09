@@ -1,6 +1,7 @@
-import { Annotations, LinkedBlock } from "notion-model"
+import { Annotations } from "notion-model"
 import { newLogger } from "logger";
-import * as md from "./markdown-fields.marshaller"
+import * as md from "./helper/markdown-fields.marshaller"
+import { IMarshaller } from "../markdown-marshaller";
 
 const logger = newLogger("MarkdownMarshaller");
 // logger.info = logger.noOp;
@@ -8,55 +9,26 @@ const logger = newLogger("MarkdownMarshaller");
 // logger.error = logger.noOp;
 
 
-class MarkdownMarshaller {
+export class SimpleMarshaller implements IMarshaller {
+    type = "none";
 
-    toMarkdown(block: LinkedBlock) {
-        // logger.info('toMarkdown blocks', block);
-        let mdString = "";
-
-        const rootBlockMd = this.blockToMarkdown(block.blockObject)
-        mdString = [mdString, rootBlockMd].join('\n');
-
-        block.childLinkedBlocks.forEach(childBlock => {
-            const blockMd = this.blockToMarkdown(childBlock.blockObject)
-            mdString = [mdString, blockMd].join('\n');
-
-            childBlock.childLinkedBlocks.forEach(nestedChildBlock => {
-                const blockMd = this.blockToMarkdown(nestedChildBlock.blockObject)
-                mdString = [mdString, blockMd].join('\n');
-            });
-        });
-
-        // logger.debug('toMarkdown mdString', mdString);
-
-        return mdString;
-    }
-
-    private blockToMarkdown(block: any): string {
-        if (typeof block !== "object" || !("type" in block)) return "";
-
-        const { type }: { type: string } = block;
-        const marshalledText = this.marshall(type, block)
-
-        // logger.info('blockToMarkdownString, content', marshalledText)
-        return marshalledText;
-    }
-
-    private marshall(type: string, block: any): string {
+    marshall(type: string, block: any): string {
         switch (type) {
-            case "paragraph": return md.paragraph(this.marhsallTextContent(type, block));
-            case "heading_1": return md.heading1(this.marhsallTextContent(type, block));
-            case "heading_2": return md.heading2(this.marhsallTextContent(type, block));
-            case "heading_3": return md.heading3(this.marhsallTextContent(type, block));
-            case "bulleted_list_item": return md.bullet(this.marhsallTextContent(type, block));
-            case "numbered_list_item": return md.bullet(this.marhsallTextContent(type, block), block.numbered_list_item.number);
-            case "quote": return md.quote(this.marhsallTextContent(type, block));
-            case "to_do": return md.todo(this.marhsallTextContent(type, block), block.to_do.checked);
-            case "equation": return md.codeBlock(block.equation.expression);
-            case "code": return md.codeBlock(this.marhsallTextContent(type, block), block[type].language);
             case "divider": return md.divider();
 
-            case "template": return md.paragraph(this.marhsallTextContent(type, block));
+            case "paragraph": return md.paragraph(this.annotateTextArray(type, block));
+            case "heading_1": return md.heading1(this.annotateTextArray(type, block));
+            case "heading_2": return md.heading2(this.annotateTextArray(type, block));
+            case "heading_3": return md.heading3(this.annotateTextArray(type, block));
+            case "template": return md.paragraph(this.annotateTextArray(type, block));
+            case "quote": return md.quote(this.annotateTextArray(type, block));
+
+            case "bulleted_list_item": return md.bullet(this.annotateTextArray(type, block));
+            case "numbered_list_item": return md.bullet(this.annotateTextArray(type, block), block.numbered_list_item.number);
+            case "to_do": return md.todo(this.annotateTextArray(type, block), block.to_do.checked);
+
+            case "equation": return md.codeBlock(block.equation.expression);
+            case "code": return md.codeBlock(this.annotateTextArray(type, block), block[type].language);
 
             case "child_page": return this.marhsallChildPage(type, block);
             case "child_database": return this.marhsallChildDatabase(type, block);
@@ -100,8 +72,8 @@ class MarkdownMarshaller {
     //     return selection ? selection(text) : logger.log("unknown type, not able to match marhsall function to call");
     // }
 
-    private marhsallTextContent(type: string, block: any) {
-        if (typeof block !== "object" || !("type" in block)) return "error : not a valid object";
+    private annotateTextArray(type: string, block: any) {
+        if (typeof block !== "object" || !("type" in block)) return `error : ${type} is not a valid type`
 
         const blockTextContent = block[type].text || block[type].rich_text || [];
 
@@ -110,7 +82,7 @@ class MarkdownMarshaller {
             let text = content.plain_text;
 
             text = this.annotatePlainText(text, annotations);
-            text = this.marshallLink(text, content["href"]);
+            text = this.annotateLink(text, content["href"]);
 
             return text;
         }).join('');
@@ -121,66 +93,66 @@ class MarkdownMarshaller {
     }
 
     private marhsallChildPage(type: string, block: any): string {
-        if ( type !in ["child_page"]) return "error : not a child_page type"
+        if ( type !== "child_page") return `error : ${type} is not a valid type`
 
         const blockContent = block[type];
         const text = blockContent.title;
         const url = block.id;
 
-        return this.marshallLink(text, url);
+        return this.annotateLink(text, url);
     }
 
     private marhsallChildDatabase(type: string, block: any): string {
-        if ( type !in ["child_database"]) return "error : not a child_database type"
+        if ( type !== "child_database") return `error : ${type} is not a valid type`
 
         const blockContent = block[type];
         const text = blockContent.title;
         const url = block.id;
 
-        return this.marshallLink(text, url);
+        return this.annotateLink(text, url);
     }
 
     private marhsallLinkToPage(type: string, block: any): string {
-        if ( type !in ["link_to_page"]) return "error : not a link_to_page type"
+        if ( type !== "link_to_page") return `error : ${type} is not a valid type`
 
         const blockContent = block[type];
         const text = blockContent[blockContent.type];
         const url = text;
-        return this.marshallLink(text, url);
+        return this.annotateLink(text, url);
     }
 
     private marhsallLinkPreview(type: string, block: any): string {
-        if ( type !in ["link_preview"]) return "error : not a link_preview type"
+        if ( type !== "link_preview") return `error : ${type} is not a valid type`
 
         const blockContent = block[type];
         const text = blockContent.url;
         const url = blockContent.url;
 
-        return this.marshallLink(text, url);
+        return this.annotateLink(text, url);
     }
 
     private marhsallEmbed(type: string, block: any): string {
-        if ( type !in ["embed"]) return "error : not a embed type"
+        if ( type !== "embed") return `error : ${type} is not a valid type`
 
         const blockContent = block[type];
         const text = blockContent.caption;
         const url = block.url;
 
-        return this.marshallLink(text, url);
+        return this.annotateLink(text, url);
     }
 
     private marhsallBookmark(type: string, block: any): string {
-        if ( type !in ["bookmark"]) return "error : not a bookmark type"
+        if ( type !== "bookmark") return `error : ${type} is not a valid type`
 
         const blockContent = block[type];
         const text = blockContent.caption;
         const url = block.url;
 
-        return this.marshallLink(text, url);
+        return this.annotateLink(text, url);
     }
 
     private marshallMediaFile(type: string, block: any): string {
-        if ( type !in ["file" , "image", "video", "audio", "pdf"]) return "error : not a valid media file"
+        if ( type !in ["file" , "image", "video", "audio", "pdf"]) return `error : ${type} is not a valid type`
 
         const fileBlock = block[type];
         const text = fileBlock.caption
@@ -191,16 +163,16 @@ class MarkdownMarshaller {
     }
 
     private marshallCallout(type: string, block: any): string {
-        if ( type !in ["callout"]) return "error : not a callout type"
+        if ( type !== "callout") return `error : ${type} is not a valid type`
 
-        const text = this.marhsallTextContent(type, block)
+        const text = this.annotateTextArray(type, block)
         const icon = block.url;
 
         return md.callout(text, icon);
     }
 
     private marshallTable(type: string, block: any): string {
-        if ( type !in ["callout"]) return "error : not a table type"
+        if ( type !== "table") return `error : ${type} is not a valid type`
 
         const blockContent = block[type];
 
@@ -210,7 +182,7 @@ class MarkdownMarshaller {
     }
 
     private marshallToggle(type: string, block: any): string {
-        if ( type !in ["callout"]) return "error : not a table type"
+        if ( type !== "toggle") return `error : ${type} is not a valid type`
 
         const blockContent = block[type];
         const summary = blockContent.rich_text[0]?.plain_text;
@@ -239,7 +211,7 @@ class MarkdownMarshaller {
         return leadingSpaces + text + trailingSpaces;
     }
 
-    private marshallLink(plainText: string, href: string, ) {
+    private annotateLink(plainText: string, href: string, ) {
         if (plainText && plainText !== "" && href && href !== "") return md.link(plainText, href);
         // logger.info('annotateLink, annotatedText', md.link(plainText, href))
         return plainText;
@@ -247,5 +219,5 @@ class MarkdownMarshaller {
 
 }
 
-export const markdownMarshaller = new MarkdownMarshaller();
+export const simpleMarshaller = new SimpleMarshaller();
 

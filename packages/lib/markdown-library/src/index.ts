@@ -1,1 +1,1 @@
-export { markdownMarshaller } from "./marshaller/markdown-marshaller";
+export { markdownMarshaller } from "./markdown/markdown-marshaller";
