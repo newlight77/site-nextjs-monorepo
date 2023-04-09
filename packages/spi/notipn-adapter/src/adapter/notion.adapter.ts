@@ -12,7 +12,7 @@ import { LinkedBlock, LinkedBlocks } from "notion-model"
 import { NotionContentSpi } from 'blog-content-service'
 
 const logger = newLogger("NotionAdapter");
-logger.log = logger.noOp;
+// logger.log = logger.noOp;
 
 export type WithCursorBlock = ListBlockChildrenResponse;
 export type PartialBlockObject = PartialBlockObjectResponse;
@@ -31,32 +31,30 @@ export class NotionAdapter implements NotionContentSpi {
     totalPage: number | null
   ): Promise<LinkedBlock> => {
 
+    // ROOT
     const rootBlock = await this.fetchBlock(rootBlockId);
     // logger.info('fetchBlockGraph rootBlock', rootBlock);
-
-    const childBlocks: BlockObjects = await this.retrieveChildBlocks(rootBlockId, totalPage);
-    // logger.info('fetchBlockGraph childBlocks', childBlocks);
-    const linkedChildBlocks: LinkedBlocks = this.mapToLnkedBlocks(childBlocks);
 
     const linkedBlock: LinkedBlock = {
       type: (rootBlock as BlockObjectResponse).type,
       id: rootBlock.id,
       blockObject: rootBlock,
-      childLinkedBlocks: linkedChildBlocks
+      childLinkedBlocks: []
     }
 
-    const limitLeft = this.computeBlocksSizeLimit(totalPage, linkedChildBlocks.length);
+    // Level 1 children
+    const childBlocks: BlockObjects = await this.retrieveChildBlocks(rootBlockId, totalPage);
+    // logger.info('fetchBlockGraph childBlocks', childBlocks);
+    const linkedChildBlocks: LinkedBlocks = this.mapToLnkedBlocks(childBlocks);
+    linkedBlock.childLinkedBlocks.push(...linkedChildBlocks);
+
+    logger.info('fetchBlockGraph level linkedBlock.childLinkedBlocks', 1, linkedBlock.childLinkedBlocks.length);
+
+    // Level 2 children
+    const limitLeft = this.computeBlocksSizeLimit(totalPage, linkedBlock.childLinkedBlocks.length);
     if (limitLeft > 0) {
-      await this.retrieveAndAttachChildNestedLinkedBlocks(linkedChildBlocks, limitLeft);
+      await this.retrieveAndAttachChildNestedLinkedBlocks(linkedBlock.childLinkedBlocks, limitLeft, 2);
     }
-
-    // linkedChildBlocks.forEach(async (nestedChildBlock) => {
-    //   limitLeft = this.computeBlocksSizeLimit(limitLeft, nestedChildBlock.childLinkedBlocks.length);
-    //   if (limitLeft > 0) {
-    //     // logger.info('fetchBlockGraph limitLeft', limitLeft);
-    //     await this.retrieveAndAttachChildNestedLinkedBlocks(nestedChildBlock.childLinkedBlocks, limitLeft);
-    //   }
-    // })
 
     // logger.info('fetchBlockGraph limitLeft', limitLeft);
     // logger.info('fetchBlockGraph linkedBlock with nested blocks', linkedBlock);
@@ -90,7 +88,8 @@ export class NotionAdapter implements NotionContentSpi {
 
   private retrieveAndAttachChildNestedLinkedBlocks = async (
     linkedBlocks: LinkedBlocks = [],
-    totalPage: number | null = null
+    totalPage: number | null = null,
+    level = 0
   ) => {
 
     if (!linkedBlocks) return linkedBlocks;
@@ -104,6 +103,16 @@ export class NotionAdapter implements NotionContentSpi {
       if ("has_children" in linkedBlock.blockObject && linkedBlock.blockObject.has_children) {
         const nestedChildBlocks: BlockObjects = await this.retrieveChildBlocks(linkedBlock.id, totalPage);
         linkedBlock.childLinkedBlocks.push(...this.mapToLnkedBlocks(nestedChildBlocks))
+
+        logger.info('retrieveAndAttachChildNestedLinkedBlocks linkedBlock.childLinkedBlocks.length', level, linkedBlock.childLinkedBlocks.length);
+
+        const nestedHasChildrenList = linkedBlock.childLinkedBlocks.filter((b) => ("has_children" in b.blockObject && b.blockObject.has_children))
+        const limitLeft = this.computeBlocksSizeLimit(totalPage, nestedHasChildrenList.length);
+
+        logger.info('retrieveAndAttachChildNestedLinkedBlocks level nestedHasChildrenList.length', level, nestedHasChildrenList.length);
+        if (nestedHasChildrenList.length > 0 && limitLeft > 0 && level <= 3) {
+          this.retrieveAndAttachChildNestedLinkedBlocks(nestedHasChildrenList, totalPage, level + 1);
+        }
       }
     }
   }

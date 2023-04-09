@@ -47,10 +47,10 @@ test-notion-service:
 	@turbo run test --filter blog-content-service
 
 test-cententful-adapter:
-	@turbo run test --filter blog-content-cententful-adapter
+	@turbo run test --filter cententful-adapter
 
 test-notion-adapter:
-	@turbo run test --filter blog-content-notion-adapter
+	@turbo run test --filter notion-adapter
 
 
 
