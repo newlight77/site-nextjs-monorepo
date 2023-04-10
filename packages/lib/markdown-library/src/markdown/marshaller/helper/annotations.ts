@@ -3,8 +3,8 @@ import { newLogger } from "logger";
 import * as md from "./markdown-fields.marshaller"
 
 const logger = newLogger("MarkdownMarshaller");
-// logger.info = logger.noOp;
-// logger.debug = logger.noOp;
+logger.info = logger.noOp;
+logger.debug = logger.noOp;
 // logger.error = logger.noOp;
 
 export const annotateTextArray = (type: string, block: any) => {
@@ -22,7 +22,7 @@ export const annotateTextArray = (type: string, block: any) => {
         return text;
     }).join('');
 
-    logger.info('annotateTextContent, annotatedText', annotatedText)
+    // logger.info('annotateTextContent, annotatedText', annotatedText)
 
     return annotatedText;
 }
@@ -42,7 +42,7 @@ export const annotatePlainText = (text: string, annotations: Annotations): strin
     if (annotations.code) text = md.inlineCode(text);
     // if (annotations.color) text = md.color(text);
 
-    logger.info('annotatePlainText, annotatedText', leadingSpaces + text + trailingSpaces)
+    // logger.info('annotatePlainText, annotatedText', leadingSpaces + text + trailingSpaces)
 
     return leadingSpaces + text + trailingSpaces;
     }

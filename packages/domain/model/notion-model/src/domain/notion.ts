@@ -50,6 +50,7 @@ export type LinkedBlock = {
     type?: string;
     id: string;
     blockObject: any;
+    hasChildren: boolean;
     childLinkedBlocks: LinkedBlocks;
 };
 

@@ -4,8 +4,10 @@ import * as md from "./helper/markdown-fields.marshaller"
 import { newLogger } from "logger";
 
 const logger = newLogger("MarkdownMarshaller");
-// logger.info = logger.noOp;
-// logger.debug = logger.noOp;
+logger.log = logger.log;
+logger.info = logger.noOp;
+logger.debug = logger.noOp;
+logger.warn = logger.noOp;
 // logger.error = logger.noOp;
 
 type MarshallType = (type: string, block: any) => string;
@@ -326,7 +328,7 @@ const marshallSyncedBlock = (type: string, block: any): string => {
     const url = blockContent.synced_from.block_id;
     const text = url;
 
-    logger.warn("unsupported", `type=${type}`, `block=${block}`);
+    logger.warn("unsupported", `type=${type}`, block);
 
     return annotateLink(text, url);
 }
@@ -335,7 +337,7 @@ marshallerProvider.register("synced_block", marshallSyncedBlock);
 const marshallBreadCrumb = (type: string, block: any): string => {
     if ( type !== "breadcrumb") return `error : ${type} is not a valid type`
 
-    logger.warn("unsupported", `type=${type}`, `block=${block}`);
+    logger.warn("unsupported", `type=${type}`, block);
 
     return "";
 }
@@ -345,7 +347,7 @@ marshallerProvider.register("breadcrumb", marshallBreadCrumb);
 const marshallTableOfContent = (type: string, block: any): string => {
     if ( type !== "table_of_contents") return `error : ${type} is not a valid type`
 
-    logger.warn("unsupported", `type=${type}`, `block=${block}`);
+    logger.warn("unsupported", `type=${type}`, block);
 
     return "";
 }
@@ -355,7 +357,7 @@ marshallerProvider.register("table_of_contents", marshallTableOfContent);
 const marshallColumnList = (type: string, block: any): string => {
     if ( type !== "column_list") return `error : ${type} is not a valid type`
 
-    logger.warn("unsupported", `type=${type}`, `block=${block}`);
+    logger.warn("unsupported", `type=${type}`, block);
 
     return "";
 }
@@ -365,7 +367,7 @@ marshallerProvider.register("column_list", marshallColumnList);
 const marshallColumn = (type: string, block: any): string => {
     if ( type !== "column") return `error : ${type} is not a valid type`
 
-    logger.warn("unsupported", `type=${type}`, `block=${block}`);
+    logger.warn("unsupported", `type=${type}`, block);
 
     return "";
 }

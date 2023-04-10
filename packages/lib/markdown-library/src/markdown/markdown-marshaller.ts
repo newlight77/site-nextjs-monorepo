@@ -5,8 +5,10 @@ import { newLogger } from "logger";
 import { functionalMarshaller } from "./marshaller/marshaller-functional";
 
 const logger = newLogger("MarkdownMarshaller");
-// logger.info = logger.noOp;
+logger.log = logger.log;
+logger.info = logger.noOp;
 logger.debug = logger.noOp;
+logger.warn = logger.noOp;
 // logger.error = logger.noOp;
 
 

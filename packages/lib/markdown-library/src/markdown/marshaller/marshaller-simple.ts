@@ -4,8 +4,10 @@ import * as md from "./helper/markdown-fields.marshaller"
 import { IMarshaller } from "../markdown-marshaller";
 
 const logger = newLogger("MarkdownMarshaller");
-// logger.info = logger.noOp;
-// logger.debug = logger.noOp;
+logger.log = logger.log;
+logger.info = logger.noOp;
+logger.debug = logger.noOp;
+logger.warn = logger.noOp;
 // logger.error = logger.noOp;
 
 

@@ -4,8 +4,10 @@ import { newLogger } from "logger";
 import { IMarshaller } from "../markdown-marshaller";
 
 const logger = newLogger("MarkdownMarshaller");
-// logger.info = logger.noOp;
-// logger.debug = logger.noOp;
+logger.log = logger.log;
+logger.info = logger.noOp;
+logger.debug = logger.noOp;
+logger.warn = logger.noOp;
 // logger.error = logger.noOp;
 
 class MarshallerProvider {
@@ -398,7 +400,7 @@ class SyncedBlockMashaller implements IPerTypeMarshaller {
         const url = blockContent.synced_from.block_id;
         const text = url;
 
-        logger.warn("unsupported", `type=${type}`, `block=${block}`);
+        logger.warn("unsupported", `type=${type}`, block);
 
         return annotateLink(text, url);
     }
@@ -410,7 +412,7 @@ class BreadCrumbMashaller implements IPerTypeMarshaller {
     marshall(type: string, block: any): string {
         if ( type !== this.type) return `error : ${type} is not a valid type != ${this.type} \n`
 
-        logger.warn("unsupported", `type=${type}`, `block=${block}`);
+        logger.warn("unsupported", `type=${type}`, block);
 
         return "";
     }
@@ -425,7 +427,7 @@ class TableOfContentsMashaller implements IPerTypeMarshaller {
         const blockContent = block[type];
         const color = blockContent.color;
 
-        logger.warn("unsupported", `type=${type}`, `block=${block}`);
+        logger.warn("unsupported", `type=${type}`, block);
 
         return "";
     }
@@ -437,7 +439,7 @@ class ColumnListMashaller implements IPerTypeMarshaller {
     marshall(type: string, block: any): string {
         if ( type !== this.type) return `error : ${type} is not a valid type != ${this.type} \n`
 
-        logger.warn("unsupported", `type=${type}`, `block=${block}`);
+        logger.warn("unsupported", `type=${type}`, block);
 
         return "";
     }
@@ -449,7 +451,7 @@ class ColumnMashaller implements IPerTypeMarshaller {
     marshall(type: string, block: any): string {
         if ( type !== this.type) return `error : ${type} is not a valid type != ${this.type} \n`
 
-        logger.warn("unsupported", `type=${type}`, `block=${block}`);
+        logger.warn("unsupported", `type=${type}`, block);
 
         return "";
     }

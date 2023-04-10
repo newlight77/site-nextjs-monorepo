@@ -3,6 +3,7 @@ import { newLogger } from "logger";
 
 const logger = newLogger("markdown-fields.marhsaller");
 logger.log = logger.noOp;
+logger.debug = logger.noOp;
 
 export type CalloutIcon =
     | { type: 'emoji'; emoji?: string }

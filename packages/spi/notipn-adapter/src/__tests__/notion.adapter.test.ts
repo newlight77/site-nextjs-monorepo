@@ -6,7 +6,7 @@ import { childBlocks } from "./notion-data/data-child-blocks";
 import { rootBlock } from "./notion-data/data-root-block";
 import { expectedGraphBlock } from "./notion-data/expected-graph-block";
 
-const logger = newLogger("NotionAdapter");
+const logger = newLogger("NotionAdapter test");
 // logger.log = logger.noOp;
 
 // jest.spyOn(global.console, "log");
@@ -26,25 +26,11 @@ const notionClient: any = {
   }
 }
 
-describe("notionAdapter", () => {
+describe("notionAdapter tests", () => {
 
   // notionClient.blocks.retrieve = ({_id}: { _id: string}) => rootBlock;
   // notionClient.blocks.children.list = ({_cursor, _id} : { _cursor: any, _id: string}) => childBlocks;
   const notionAdapter = new NotionAdapter(notionClient);
-
-  it("compute new limit", () => {
-    const currentLimit = 20;
-    const countConsumed = 5;
-    const newLimit = notionAdapter["computeTotalLeft"](currentLimit, countConsumed);
-    expect(newLimit).toBe(15);
-  });
-
-  it("check if within range", () => {
-    const total = 20;
-    const count = 5;
-    const result = notionAdapter["isWithinRange"](total, count);
-    expect(result).toBeTruthy;
-  });
 
   it("fetch blocks by id", async () => {
     const blockId = "e04ec3d0-9f89-4486-a5bf-1ad4b11a278b";
@@ -61,15 +47,15 @@ describe("notionAdapter", () => {
 
   it("fetch block", async () => {
     const blockId = "e04ec3d0-9f89-4486-a5bf-1ad4b11a278b";
-    const result = await notionAdapter["fetchBlock"](blockId, 100);
+    const result = await notionAdapter["fetchBlock"](blockId);
     expect(result).toEqual(expectedGraphBlock);
   });
 
   it.skip("fetch block from notion api", async () => {
     const adapter = new NotionAdapter(client);
     const blockId = "e04ec3d0-9f89-4486-a5bf-1ad4b11a278b";
-    const result = await adapter["fetchBlock"](blockId, 120);
-    // logger.log("result", result.childLinkedBlocks)
+    const result = await adapter["fetchBlock"](blockId);
+    logger.log("result", result.childLinkedBlocks)
     // expect(result).toEqual(expectedGraphBlock);
   });
 
