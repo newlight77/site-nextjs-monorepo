@@ -55,10 +55,9 @@ export class BlogContentService {
         try {
             const post = await this.blogContentSpi.fetchPostById(id);
 
-            const block = await this.notionSpi.fetchBlock(id);
-            logger.log('getPostById blocks', block);
-
-            if (post && post.body === '') {
+            if (post && post.body === '' && isUUID(id)) {
+                const block = await this.notionSpi.fetchBlock(id);
+                logger.log('getPostById blocks', block);
                 post.body = toMarkdown(block);
             }
         
@@ -93,3 +92,9 @@ const toMarkdown = (blocks: any): string => {
     logger.log('toMarkdown blocks', blocks);
     return markdownMarshaller.toMarkdown(blocks);
 }
+
+function isUUID (uuid: string ) {
+    const result = uuid.match('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$');  
+    return (result !== null)
+  }
+  

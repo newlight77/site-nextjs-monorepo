@@ -66,7 +66,7 @@ PostPage.getInitialProps = async ({ query }: NextPageContext) => {
   const slug: string = typeof query.slug === "string" ? query.slug : '';
 
   logger.log('getInitialProps id slug', id, slug);
-  if (isContentful(id)) {
+  if (!isUUID(id)) {
     const article: any = await contentfulService.getPostById(slug);
     // logger.log('getInitialProps article', article);
     const tags = article.tags ? article.tags.map((tag: any) => tag.sys.id) : [];
@@ -85,11 +85,9 @@ PostPage.getInitialProps = async ({ query }: NextPageContext) => {
   }
 };
 
-const isContentful = (id: string): boolean => {
-  if (id.length >= 32) {
-    return false;
-  }
-  return true;
+function isUUID (uuid: string ) {
+  const result = uuid.match('^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$');  
+  return (result !== null)
 }
 
 export default PostPage;

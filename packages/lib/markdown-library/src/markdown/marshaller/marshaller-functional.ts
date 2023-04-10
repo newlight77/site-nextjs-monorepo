@@ -85,14 +85,14 @@ marshallerProvider.register("heading_1", marshallHeading1);
 const marshallHeading2: MarshallType = (type: string, block: any): string => {
     if ( type !== "heading_2") return `error : ${type} is not a valid type`
 
-    return md.heading1(annotateTextArray(type, block));
+    return md.heading2(annotateTextArray(type, block));
 }
 marshallerProvider.register("heading_2", marshallHeading2);
 
 const marshallHeading3: MarshallType = (type: string, block: any): string => {
     if ( type !== "heading_3") return `error : ${type} is not a valid type`
 
-    return md.heading1(annotateTextArray(type, block));
+    return md.heading3(annotateTextArray(type, block));
 }
 marshallerProvider.register("heading_3", marshallHeading3);
 
