@@ -1,6 +1,5 @@
 import { BlogPost, BlogPostsPaginated, BlogPostsPaginatedFilter } from 'blog-model';
 import { Tag } from 'blog-model';
-import { LinkedBlock } from "notion-model"
 import { markdownMarshaller } from 'markdown-library';
 import { newLogger } from "logger";
 
@@ -16,7 +15,7 @@ export interface BlogContentSpi {
 }
 
 export interface NotionContentSpi {
-    fetchBlock (rootBlockId: string, totalBlocks?: number, level?: number): Promise<LinkedBlock>;
+    fetchBlock (rootBlockId: string, totalBlocks?: number, level?: number): Promise<any>;
 }
 
 export class BlogContentService {
@@ -90,7 +89,7 @@ export class BlogContentService {
     }
 }
 
-const toMarkdown = (blocks: LinkedBlock): string => {
+const toMarkdown = (blocks: any): string => {
     logger.log('toMarkdown blocks', blocks);
     return markdownMarshaller.toMarkdown(blocks);
 }

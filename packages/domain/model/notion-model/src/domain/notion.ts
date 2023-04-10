@@ -45,13 +45,3 @@ export type CalloutIcon =
     | { type: 'external'; external?: { url: string } }
     | { type: 'file'; file: { url: string; expiry_time: string } }
     | null;
-
-export type LinkedBlock = {
-    type?: string;
-    id: string;
-    blockObject: any;
-    hasChildren: boolean;
-    childLinkedBlocks: LinkedBlocks;
-};
-
-export type LinkedBlocks = LinkedBlock[];

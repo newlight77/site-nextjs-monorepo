@@ -425,6 +425,7 @@ class TableOfContentsMashaller implements IPerTypeMarshaller {
         if ( type !== this.type) return `error : ${type} is not a valid type != ${this.type} \n`
 
         const blockContent = block[type];
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const color = blockContent.color;
 
         logger.warn("unsupported", `type=${type}`, block);

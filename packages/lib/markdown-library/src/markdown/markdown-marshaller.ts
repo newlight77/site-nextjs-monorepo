@@ -1,4 +1,3 @@
-import { LinkedBlock } from "notion-model"
 import { newLogger } from "logger";
 // import { simpleMarshaller } from "./marshaller/marshaller-simple";
 // import { strategicMarshaller } from "./marshaller/marshaller-strategy";
@@ -16,19 +15,19 @@ class MarkdownMarshaller {
 
     constructor(private marshaller: IMarshaller) {}
 
-    toMarkdown(block: LinkedBlock) {
+    toMarkdown(block: any) {
         // logger.info('toMarkdown blocks', block);
         let mdString = "";
 
-        const rootBlockMd = this.blockToMarkdown(block.blockObject)
+        const rootBlockMd = this.blockToMarkdown(block)
         mdString = [mdString, rootBlockMd].join('\n');
 
-        block.childLinkedBlocks.forEach(childBlock => {
-            const blockMd = this.blockToMarkdown(childBlock.blockObject)
+        block.childLinkedBlocks.forEach((childBlock: any) => {
+            const blockMd = this.blockToMarkdown(childBlock)
             mdString = [mdString, blockMd].join('\n');
 
-            childBlock.childLinkedBlocks.forEach(nestedChildBlock => {
-                const blockMd = this.blockToMarkdown(nestedChildBlock.blockObject)
+            childBlock.childLinkedBlocks.forEach((nestedChildBlock: any) => {
+                const blockMd = this.blockToMarkdown(nestedChildBlock)
                 mdString = [mdString, blockMd].join('\n');
             });
         });

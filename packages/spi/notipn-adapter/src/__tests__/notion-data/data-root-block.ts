@@ -13,5 +13,6 @@ export const rootBlock: any = {
     has_children: true,
     archived: false,
     type: 'child_page',
-    child_page: { title: 'Demo Article' }
+    child_page: { title: 'Demo Article' },
+    childLinkedBlocks: []
 }

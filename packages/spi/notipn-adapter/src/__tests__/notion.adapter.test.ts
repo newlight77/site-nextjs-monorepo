@@ -35,7 +35,7 @@ describe("notionAdapter tests", () => {
   it("fetch blocks by id", async () => {
     const blockId = "e04ec3d0-9f89-4486-a5bf-1ad4b11a278b";
     const result = await notionAdapter["fetchBlocksById"](blockId);
-    expect(result).toBe(rootBlock);
+    expect(result).toStrictEqual(rootBlock);
   });
 
   it("fetch child blocks", async () => {
@@ -48,6 +48,7 @@ describe("notionAdapter tests", () => {
   it("fetch block", async () => {
     const blockId = "e04ec3d0-9f89-4486-a5bf-1ad4b11a278b";
     const result = await notionAdapter["fetchBlock"](blockId);
+    logger.log("result", result)
     expect(result).toEqual(expectedGraphBlock);
   });
 
