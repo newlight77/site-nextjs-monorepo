@@ -16,17 +16,17 @@ export interface BlogContentSpi {
 }
 
 export interface NotionContentSpi {
-    fetchBlockGraph (rootBlockId: string, totalPage: number | null): Promise<LinkedBlock>;
+    fetchBlock (rootBlockId: string, totalBlocks?: number, level?: number): Promise<LinkedBlock>;
 }
 
 export class BlogContentService {
     constructor(
-        private blocContentSpi: BlogContentSpi,
+        private blogContentSpi: BlogContentSpi,
         private notionSpi: NotionContentSpi) { }
 
     async getAllTags(): Promise<Tag[]> {
         try {
-            const tags = await this.blocContentSpi.fetchAllTags();
+            const tags = await this.blogContentSpi.fetchAllTags();
             logger.log('getAllTags tags', tags);
             return tags
         } catch (error) {
@@ -44,7 +44,7 @@ export class BlogContentService {
     ): Promise<BlogPostsPaginated | undefined> {
         logger.log('getBlogPosts limit skip tag', limit, skip, tag);
         try {
-            const posts = await this.blocContentSpi.fetchBlogPosts({ limit, skip, tag });
+            const posts = await this.blogContentSpi.fetchBlogPosts({ limit, skip, tag });
             return posts;
         } catch (error) {
             console.error(error);
@@ -54,9 +54,9 @@ export class BlogContentService {
     async getPostById(id: string): Promise<BlogPost | undefined> {
         logger.log('getPostById id', id);
         try {
-            const post = await this.blocContentSpi.fetchPostById(id);
+            const post = await this.blogContentSpi.fetchPostById(id);
 
-            const block = await this.notionSpi.fetchBlockGraph(id, 10);
+            const block = await this.notionSpi.fetchBlock(id);
             logger.log('getPostById blocks', block);
 
             if (post && post.body === '') {
@@ -72,7 +72,7 @@ export class BlogContentService {
     async getSuggestions(tags: string[], currentArticleId: string, max = 2): Promise<BlogPost[] | undefined> {
         logger.log('getSuggestions tags currentArticleId max', tags, currentArticleId, max);
         try {
-            const suggestions = await this.blocContentSpi.fetchSuggestions(tags, currentArticleId, max);
+            const suggestions = await this.blogContentSpi.fetchSuggestions(tags, currentArticleId, max);
 
             return suggestions;
         } catch (e) {
@@ -82,7 +82,7 @@ export class BlogContentService {
 
     async search(params: any): Promise<any | undefined> {
         try {
-            const results = await this.blocContentSpi.search(params);
+            const results = await this.blogContentSpi.search(params);
             return results;
         } catch (error) {
             console.error(error);
