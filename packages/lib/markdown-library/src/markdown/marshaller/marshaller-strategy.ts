@@ -17,7 +17,7 @@ class MarshallerProvider {
     get = (type: string): IPerTypeMarshaller => {
         const marshaller = (this.marshallers as any)[type]
         if (marshaller === null || marshaller === undefined) {
-            logger.error("unknown type, not able to match marhsall function to call");
+            logger.error("unknown type, not able to match marhsall function to call", `type=${type}`);
             return new NoOpMashaller();
         }
 
@@ -361,6 +361,20 @@ class TableMashaller implements IPerTypeMarshaller {
 }
 marshallerProvider.register(new TableMashaller());
 
+class TableRowMashaller implements IPerTypeMarshaller {
+    type = "table_row";
+    marshall(type: string, block: any): string {
+        if ( type !== this.type) return `error : ${type} is not a valid type != ${this.type} \n`
+
+        const blockContent = block[type];
+
+        const cells: string[][] = blockContent.cells || [];
+
+        return md.table(cells);
+    }
+}
+marshallerProvider.register(new TableRowMashaller());
+
 class ToggleMashaller implements IPerTypeMarshaller {
     type = "toggle";
     marshall(type: string, block: any): string {
@@ -374,3 +388,70 @@ class ToggleMashaller implements IPerTypeMarshaller {
     }
 }
 marshallerProvider.register(new ToggleMashaller());
+
+class SyncedBlockMashaller implements IPerTypeMarshaller {
+    type = "synced_block";
+    marshall(type: string, block: any): string {
+        if ( type !== this.type) return `error : ${type} is not a valid type != ${this.type} \n`
+
+        const blockContent = block[type];
+        const url = blockContent.synced_from.block_id;
+        const text = url;
+
+        logger.warn("unsupported", `type=${type}`, `block=${block}`);
+
+        return annotateLink(text, url);
+    }
+}
+marshallerProvider.register(new SyncedBlockMashaller());
+
+class BreadCrumbMashaller implements IPerTypeMarshaller {
+    type = "breadcrumb";
+    marshall(type: string, block: any): string {
+        if ( type !== this.type) return `error : ${type} is not a valid type != ${this.type} \n`
+
+        logger.warn("unsupported", `type=${type}`, `block=${block}`);
+
+        return "";
+    }
+}
+marshallerProvider.register(new BreadCrumbMashaller());
+
+class TableOfContentsMashaller implements IPerTypeMarshaller {
+    type = "table_of_contents";
+    marshall(type: string, block: any): string {
+        if ( type !== this.type) return `error : ${type} is not a valid type != ${this.type} \n`
+
+        const blockContent = block[type];
+        const color = blockContent.color;
+
+        logger.warn("unsupported", `type=${type}`, `block=${block}`);
+
+        return "";
+    }
+}
+marshallerProvider.register(new TableOfContentsMashaller());
+
+class ColumnListMashaller implements IPerTypeMarshaller {
+    type = "column_list";
+    marshall(type: string, block: any): string {
+        if ( type !== this.type) return `error : ${type} is not a valid type != ${this.type} \n`
+
+        logger.warn("unsupported", `type=${type}`, `block=${block}`);
+
+        return "";
+    }
+}
+marshallerProvider.register(new ColumnListMashaller());
+
+class ColumnMashaller implements IPerTypeMarshaller {
+    type = "column";
+    marshall(type: string, block: any): string {
+        if ( type !== this.type) return `error : ${type} is not a valid type != ${this.type} \n`
+
+        logger.warn("unsupported", `type=${type}`, `block=${block}`);
+
+        return "";
+    }
+}
+marshallerProvider.register(new ColumnMashaller());

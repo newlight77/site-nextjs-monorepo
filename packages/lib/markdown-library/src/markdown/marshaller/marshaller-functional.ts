@@ -25,7 +25,7 @@ const marshallerProviderFunc = (): MarshallerProvider => {
             const marshallFunc = (marshallers as any)[type]
 
             if (marshallFunc === null || marshallFunc === undefined) {
-                logger.log("unknown type, not able to match marhsall function to call, marshallFunc=", marshallFunc);
+                logger.warn("unknown type, not able to match marhsall function to call", `type=${type}`);
             }
 
             return marshallFunc;
@@ -297,6 +297,17 @@ const marshallTable: MarshallType = (type: string, block: any): string => {
 }
 marshallerProvider.register("table", marshallTable);
 
+const marshallTableRow: MarshallType = (type: string, block: any): string => {
+    if ( type !== "table_row") return `error : ${type} is not a valid type`
+
+    const blockContent = block[type];
+
+    const cells: string[][] = blockContent.cells || [];
+
+    return md.table(cells);
+}
+marshallerProvider.register("table_row", marshallTableRow);
+
 const marshallToggle: MarshallType = (type: string, block: any): string => {
     if ( type !== "toggle") return `error : ${type} is not a valid type`
 
@@ -307,3 +318,56 @@ const marshallToggle: MarshallType = (type: string, block: any): string => {
     return md.table(tableArr);
 }
 marshallerProvider.register("toggle", marshallToggle);
+
+const marshallSyncedBlock = (type: string, block: any): string => {
+    if ( type !== "synced_block") return `error : ${type} is not a valid type`
+
+    const blockContent = block[type];
+    const url = blockContent.synced_from.block_id;
+    const text = url;
+
+    logger.warn("unsupported", `type=${type}`, `block=${block}`);
+
+    return annotateLink(text, url);
+}
+marshallerProvider.register("synced_block", marshallSyncedBlock);
+
+const marshallBreadCrumb = (type: string, block: any): string => {
+    if ( type !== "breadcrumb") return `error : ${type} is not a valid type`
+
+    logger.warn("unsupported", `type=${type}`, `block=${block}`);
+
+    return "";
+}
+marshallerProvider.register("breadcrumb", marshallBreadCrumb);
+
+
+const marshallTableOfContent = (type: string, block: any): string => {
+    if ( type !== "table_of_contents") return `error : ${type} is not a valid type`
+
+    logger.warn("unsupported", `type=${type}`, `block=${block}`);
+
+    return "";
+}
+
+marshallerProvider.register("table_of_contents", marshallTableOfContent);
+
+const marshallColumnList = (type: string, block: any): string => {
+    if ( type !== "column_list") return `error : ${type} is not a valid type`
+
+    logger.warn("unsupported", `type=${type}`, `block=${block}`);
+
+    return "";
+}
+
+marshallerProvider.register("column_list", marshallColumnList);
+
+const marshallColumn = (type: string, block: any): string => {
+    if ( type !== "column") return `error : ${type} is not a valid type`
+
+    logger.warn("unsupported", `type=${type}`, `block=${block}`);
+
+    return "";
+}
+
+marshallerProvider.register("column", marshallColumn);

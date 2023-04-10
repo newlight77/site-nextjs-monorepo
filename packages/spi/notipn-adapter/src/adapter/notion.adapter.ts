@@ -21,7 +21,8 @@ export type BlockObjects = BlockOjbect[];
 export type PageObject = PartialPageObjectResponse | PageObjectResponse;
 
 const MAX_BLOCKS = 100;
-const MAX_LEVEL = 3
+const MAX_LEVEL = 5;
+const DEFAULT_LEVEL = 4;
 
 export class NotionAdapter implements NotionContentSpi {
 
@@ -30,11 +31,13 @@ export class NotionAdapter implements NotionContentSpi {
   fetchBlock = async (
     blockId: string,
     totalBlocks?: number,
-    maxLevel?: number
+    nestedLevel?: number
   ): Promise<LinkedBlock> => {
 
+    const maxNestLevel = nestedLevel ? nestedLevel : DEFAULT_LEVEL;
 
     // ROOT
+    let currentLevel = 1;
     const rootBlock = await this.fetchBlocksById(blockId);
     // logger.info('fetchBlockGraph rootBlock', rootBlock);
 
@@ -45,21 +48,23 @@ export class NotionAdapter implements NotionContentSpi {
       childLinkedBlocks: []
     }
 
-    const level = maxLevel ? maxLevel : MAX_LEVEL;
-    let totalLeft = totalBlocks ? totalBlocks : MAX_BLOCKS - 1;
+    // level 2 : first children
+    currentLevel = 2;
+    let totalLeft = totalBlocks ? totalBlocks-1 : MAX_BLOCKS - 1;
+    if (totalLeft > 0 && currentLevel <= maxNestLevel) {
+      const childBlocks: BlockObjects = await this.retrieveChildBlocks(blockId, totalLeft);
+      // logger.info('fetchBlockGraph childBlocks', childBlocks);
+      const linkedChildBlocks: LinkedBlocks = this.mapToLnkedBlocks(childBlocks);
+      linkedBlock.childLinkedBlocks.push(...linkedChildBlocks);
 
-    // Level 1 children
-    const childBlocks: BlockObjects = await this.retrieveChildBlocks(blockId, totalLeft);
-    // logger.info('fetchBlockGraph childBlocks', childBlocks);
-    const linkedChildBlocks: LinkedBlocks = this.mapToLnkedBlocks(childBlocks);
-    linkedBlock.childLinkedBlocks.push(...linkedChildBlocks);
+      logger.info('fetchBlockGraph level linkedBlock.childLinkedBlocks', 2, linkedBlock.childLinkedBlocks.length);
+    }
 
-    logger.info('fetchBlockGraph level linkedBlock.childLinkedBlocks', 1, linkedBlock.childLinkedBlocks.length);
-
-    // Level 2 children
+    // Level 3 : children of children
+    currentLevel = 3;
     totalLeft = this.computeTotalLeft(totalLeft, linkedBlock.childLinkedBlocks.length);
-    if (totalLeft > 0) {
-      await this.retrieveAndAttachChildNestedLinkedBlocks(linkedBlock.childLinkedBlocks, totalLeft, level);
+    if (totalLeft > 0 && currentLevel <= maxNestLevel) {
+      await this.retrieveAndAttachChildNestedLinkedBlocks(linkedBlock.childLinkedBlocks, totalLeft, currentLevel);
     }
 
     // logger.info('fetchBlockGraph limitLeft', limitLeft);
@@ -95,7 +100,7 @@ export class NotionAdapter implements NotionContentSpi {
   private retrieveAndAttachChildNestedLinkedBlocks = async (
     linkedBlocks: LinkedBlocks = [],
     totalLeft: number,
-    level = 0
+    currentLevel: number
   ) => {
 
     if (!linkedBlocks) return linkedBlocks;
@@ -107,18 +112,21 @@ export class NotionAdapter implements NotionContentSpi {
       const linkedBlock = linkedBlocks[i];
 
       if ("has_children" in linkedBlock.blockObject && linkedBlock.blockObject.has_children) {
+
         const nestedChildBlocks: BlockObjects = await this.retrieveChildBlocks(linkedBlock.id, totalLeft);
         linkedBlock.childLinkedBlocks.push(...this.mapToLnkedBlocks(nestedChildBlocks))
 
-        logger.info('retrieveAndAttachChildNestedLinkedBlocks linkedBlock.childLinkedBlocks.length', level, linkedBlock.childLinkedBlocks.length);
+        logger.info('retrieveAndAttachChildNestedLinkedBlocks level linkedBlock.childLinkedBlocks.length', currentLevel, linkedBlock.childLinkedBlocks.length);
 
         const nestedHasChildrenList = linkedBlock.childLinkedBlocks.filter((b) => ("has_children" in b.blockObject && b.blockObject.has_children))
-        const updatedTotalLeft = this.computeTotalLeft(totalLeft, nestedHasChildrenList.length);
 
-        logger.info('retrieveAndAttachChildNestedLinkedBlocks level nestedHasChildrenList.length', level, nestedHasChildrenList.length);
-        if (nestedHasChildrenList.length > 0 && updatedTotalLeft > 0 && level <= 3) {
-          this.retrieveAndAttachChildNestedLinkedBlocks(nestedHasChildrenList, updatedTotalLeft, level + 1);
+        const updatedTotalLeft = this.computeTotalLeft(totalLeft, linkedBlock.childLinkedBlocks.length);
+        if (updatedTotalLeft > 0 && currentLevel+1 <= MAX_LEVEL) {
+          this.retrieveAndAttachChildNestedLinkedBlocks(nestedHasChildrenList, updatedTotalLeft, currentLevel + 1);
+        } else {
+          logger.warn('retrieveAndAttachChildNestedLinkedBlocks lowest level still has children but not fetched', `level=${currentLevel}`, nestedHasChildrenList.length);
         }
+
       }
     }
   }

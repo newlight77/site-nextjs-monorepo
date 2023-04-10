@@ -57,7 +57,7 @@ export class SimpleMarshaller implements IMarshaller {
 
             case "unsupported":
             default: 
-                logger.warn("unknown type, not able to match marhsall function to call", type, block);    
+                logger.warn("unknown type, not able to match marhsall function to call", type, block);
                 return "error : unsupported";
         }
     }

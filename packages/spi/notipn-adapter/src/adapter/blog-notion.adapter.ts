@@ -4,7 +4,6 @@ import {
   PartialBlockObjectResponse,
   QueryDatabaseResponse,
   SearchResponse } from '@notionhq/client/build/src/api-endpoints';
-// import { NotionToMarkdown } from 'notion-to-md';
 import { notionClient, rootDatabaseId, rootPageId } from "./notion.client";
 import { BlogPost, BlogPostsPaginated, BlogPostsPaginatedFilter } from 'blog-model';
 import { Tag } from 'blog-model';
@@ -147,14 +146,5 @@ async function mapToBlogPost(propertyValue: any, body = ""): Promise<BlogPost> {
       publishedAt: propertyValue.properties.Created.created_time
   };
 }
-
-// async function mapToMarkdown(page: any): Promise<string> {
-//   logger.log('mapToMarkdown page', page);
-//   const n2m = new NotionToMarkdown({ notionClient });
-//   const mdblocks = await n2m.pageToMarkdown(page.id);
-//   const mdString = n2m.toMarkdownString(mdblocks);
-//   //todo : call the notion to markdown library
-//   return mdString;
-// }
 
 export const blogNotionAdapter = new BlogNotionAdapter(notionClient);
