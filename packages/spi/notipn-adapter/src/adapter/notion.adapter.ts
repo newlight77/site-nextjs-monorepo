@@ -13,7 +13,7 @@ import { NotionContentSpi } from 'blog-content-service'
 const logger = newLogger("NotionAdapter");
 logger.info = logger.noOp;
 logger.log = logger.noOp;
-// logger.debug = logger.noOp;
+logger.debug = logger.noOp;
 
 export type WithCursorBlock = ListBlockChildrenResponse;
 export type PartialBlockObject = PartialBlockObjectResponse;

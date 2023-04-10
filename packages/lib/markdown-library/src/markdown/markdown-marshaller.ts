@@ -17,24 +17,32 @@ class MarkdownMarshaller {
 
     toMarkdown(block: any) {
         // logger.info('toMarkdown blocks', block);
-        let mdString = "";
+        let md = "";
 
-        const rootBlockMd = this.blockToMarkdown(block)
-        mdString = [mdString, rootBlockMd].join('\n');
+        const blockMd = this.blockToMarkdown(block)
+        md = [md, blockMd].join('\n');
 
-        block.childLinkedBlocks.forEach((childBlock: any) => {
-            const blockMd = this.blockToMarkdown(childBlock)
-            mdString = [mdString, blockMd].join('\n');
+        const childBlocksMd = this.blocksToMarkdown(block.childLinkedBlocks);
+        md = [md, childBlocksMd].join('\n');
 
-            childBlock.childLinkedBlocks.forEach((nestedChildBlock: any) => {
-                const blockMd = this.blockToMarkdown(nestedChildBlock)
-                mdString = [mdString, blockMd].join('\n');
-            });
-        });
+        logger.debug('toMarkdown md', md);
 
-        logger.debug('toMarkdown mdString', mdString);
+        return md;
+    }
 
-        return mdString;
+    private blocksToMarkdown(childBlocks: any[]) {
+        let md = "";
+        for (let i=0; i < childBlocks.length; i++) {
+            const block = childBlocks[i];
+            const blockMd = this.blockToMarkdown(block)
+            md = [md, blockMd].join('\n');
+
+            if (!this.hasChildren(block)) continue;
+
+            const childBlocksMd = this.blocksToMarkdown(block.childLinkedBlocks)
+            md = [md, childBlocksMd].join('\n');
+        }
+        return md;
     }
 
     private blockToMarkdown(block: any): string {
@@ -45,6 +53,10 @@ class MarkdownMarshaller {
 
         // logger.info('blockToMarkdownString, content', marshalledText)
         return marshalledText;
+    }
+
+    private hasChildren = (block: any): boolean => {
+        return "has_children" in block && block.has_children;
     }
 }
 
