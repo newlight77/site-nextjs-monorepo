@@ -8,6 +8,13 @@
   font-size: 16px;
   line-height: 1.6;
   word-wrap: break-word;
+
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 45px;
+
 }
 
 .markdown a {
@@ -400,9 +407,14 @@
 }
 
 .markdown img {
-  max-width: 100%;
+  max-width: 90%;
+  max-height: 50%;
+  width: 30%;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 
 .markdown code {
@@ -423,7 +435,7 @@
 
 
 .markdown pre {
-  border: 1px solid var(--color-secondary-text);
+  /* border: 1px solid var(--color-secondary-text); */
   /* background-color: var(--color-secondary); */
   padding: 0rem 0.4rem;
   margin: 1rem 0;
