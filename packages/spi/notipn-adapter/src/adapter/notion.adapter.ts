@@ -6,6 +6,8 @@ import {
   PartialPageObjectResponse,
   PageObjectResponse
 } from "@notionhq/client/build/src/api-endpoints";
+import { CacheContainer } from 'node-ts-cache';
+import { MemoryStorage } from 'node-ts-cache-storage-memory';
 import { notionClient, rootPageId } from "./notion.client";
 import { newLogger } from "logger";
 import { NotionContentSpi } from 'blog-content-service'
@@ -28,6 +30,8 @@ export type LinkedBlocks = LinkedBlock[];
 
 const MAX_BLOCKS = 200;
 const MAX_LEVEL = 5;
+
+const blocksCache = new CacheContainer(new MemoryStorage())
 
 export class NotionAdapter implements NotionContentSpi {
   totalLeft = MAX_BLOCKS;
@@ -90,7 +94,7 @@ export class NotionAdapter implements NotionContentSpi {
   }
 
   private retrieveChildrenOfChildBlocks = async (blocks: LinkedBlocks, currentLevel: number, maxNestLevel: number) => {
-    logger.info('retrieveAndAttachChildNestedLinkedBlocks', `level=${currentLevel}`, `totalLeft=${this.totalLeft}`);
+    logger.info('retrieveChildrenOfChildBlocks', `level=${currentLevel}`, `totalLeft=${this.totalLeft}`);
 
     if (this.totalLeft < 1) return;
     if (!blocks || blocks.length < 1) return;
@@ -100,27 +104,27 @@ export class NotionAdapter implements NotionContentSpi {
     const hasChildrenList = blocks.filter((b: LinkedBlock) => this.hasChildren(b))
 
     if (hasChildrenList.length >= 1)
-      logger.warn('fetchBlock hasChildren', `level=${currentLevel+1}`, `totalLeft=${this.totalLeft}`, `children=${hasChildrenList.length}`);
+      logger.warn('fetchBlock hasChildren', `level=${currentLevel}`, `totalLeft=${this.totalLeft}`, `children=${hasChildrenList.length}`);
 
     // logger.debug('fetchBlock nestedHasChildrenList', nestedHasChildrenList);
     if (hasChildrenList.length < 1) return;
 
-    logger.info('retrieveAndAttachChildNestedLinkedBlocks processing for loop', `level=${currentLevel}`, `totalLeft=${this.totalLeft}`);
+    logger.info('retrieveChildrenOfChildBlocks processing for loop', `level=${currentLevel}`, `totalLeft=${this.totalLeft}`);
 
     for (let i=0; i < hasChildrenList.length; i++) {
       const linkedBlock = hasChildrenList[i];
 
-      logger.info('retrieveAndAttachChildNestedLinkedBlocks beginning of for loop', `level=${currentLevel}`, `totalLeft=${this.totalLeft}`);
+      logger.info('retrieveChildrenOfChildBlocks beginning of for loop', `level=${currentLevel+1}`, `totalLeft=${this.totalLeft}`);
 
       const nestedChildBlocks: LinkedBlocks = (await this.retrieveChildBlocks(linkedBlock.id, this.totalLeft))
         .filter((b: LinkedBlock) => b.object === 'block');
-      logger.info('retrieveAndAttachChildNestedLinkedBlocks inside for loop', `level=${currentLevel}`, `totalLeft=${this.totalLeft}`, `size=${nestedChildBlocks.length}`);
+      logger.info('retrieveAndAttachChildNestedLinkedBlocks inside for loop', `level=${currentLevel+1}`, `totalLeft=${this.totalLeft}`, `size=${nestedChildBlocks.length}`);
 
       linkedBlock.childLinkedBlocks.push(...nestedChildBlocks);
 
       this.totalLeft -= nestedChildBlocks.length;
 
-      await this.retrieveChildrenOfChildBlocks(linkedBlock.childLinkedBlocks, currentLevel + 1, maxNestLevel);
+      await this.retrieveChildrenOfChildBlocks(linkedBlock.childLinkedBlocks, currentLevel+1, maxNestLevel);
     }
   }
 
@@ -158,11 +162,18 @@ export class NotionAdapter implements NotionContentSpi {
     return "has_children" in blockObject && blockObject.has_children;
   }
 
-  private async fetchChildrenBlocks(cursor: string | undefined, parentBlockId: string) {
-    return (await this.client.blocks.children.list({
+  private async fetchChildrenBlocks(cursor: string | undefined, blockId: string) {
+    const cachedBlock = await blocksCache.getItem<WithCursorBlock>(blockId)
+    if (cachedBlock) return cachedBlock
+
+    const children = (await this.client.blocks.children.list({
       start_cursor: cursor,
-      block_id: parentBlockId,
+      block_id: blockId,
     })) as WithCursorBlock;
+
+    await blocksCache.setItem(blockId, children, {ttl: 1800})
+
+    return children;
   }
 
 }

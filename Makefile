@@ -116,3 +116,9 @@ add-deps-markdown-table:
 	@pnpm add --save-dev \
 		@types/markdown-table \
 		--filter markdown-library
+
+add-deps-node-cache:
+	@pnpm add --save \
+		node-ts-cache \
+		node-ts-cache-storage-memory \
+		--filter notion-adapter

@@ -23,6 +23,8 @@
     "blog-content-service": "workspace:*",
     "blog-model": "workspace:*",
     "logger": "workspace:*",
+    "node-ts-cache": "^4.4.0",
+    "node-ts-cache-storage-memory": "^4.4.0",
     "notion-model": "workspace:*"
   },
   "devDependencies": {
