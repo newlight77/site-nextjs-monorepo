@@ -119,6 +119,5 @@ add-deps-markdown-table:
 
 add-deps-node-cache:
 	@pnpm add --save \
-		node-ts-cache \
-		node-ts-cache-storage-memory \
-		--filter notion-adapter
+		ioredis \
+		--filter redis-client

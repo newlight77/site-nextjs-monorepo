@@ -6,9 +6,8 @@ import {
   PartialPageObjectResponse,
   PageObjectResponse
 } from "@notionhq/client/build/src/api-endpoints";
-import { CacheContainer } from 'node-ts-cache';
-import { MemoryStorage } from 'node-ts-cache-storage-memory';
 import { notionClient, rootPageId } from "./notion.client";
+import { redisClient } from "redis-client";
 import { newLogger } from "logger";
 import { NotionContentSpi } from 'blog-content-service'
 
@@ -30,8 +29,7 @@ export type LinkedBlocks = LinkedBlock[];
 
 const MAX_BLOCKS = 200;
 const MAX_LEVEL = 5;
-
-const blocksCache = new CacheContainer(new MemoryStorage())
+const REDIS_ENABLE = Boolean(process.env.REDIS_ENABLE || 'false');
 
 export class NotionAdapter implements NotionContentSpi {
   totalLeft = MAX_BLOCKS;
@@ -163,15 +161,20 @@ export class NotionAdapter implements NotionContentSpi {
   }
 
   private async fetchChildrenBlocks(cursor: string | undefined, blockId: string) {
-    const cachedBlock = await blocksCache.getItem<WithCursorBlock>(blockId)
-    if (cachedBlock) return cachedBlock
+
+    if (REDIS_ENABLE) {
+      const cachedBlock = await redisClient.get(blockId);
+      if (cachedBlock) return JSON.parse(cachedBlock);  
+    }
 
     const children = (await this.client.blocks.children.list({
       start_cursor: cursor,
       block_id: blockId,
     })) as WithCursorBlock;
 
-    await blocksCache.setItem(blockId, children, {ttl: 1800})
+    if (REDIS_ENABLE) {
+      await redisClient.set(blockId, JSON.stringify(children))
+    }
 
     return children;
   }

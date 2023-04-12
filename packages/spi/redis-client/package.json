@@ -1,5 +1,5 @@
 {
-  "name": "notion-adapter",
+  "name": "redis-client",
   "version": "0.0.0",
   "private": true,
   "main": "./dist/index.js",
@@ -19,15 +19,12 @@
     "preset": "jest-presets/jest/node"
   },
   "dependencies": {
-    "@notionhq/client": "^2.2.3",
-    "blog-content-service": "workspace:*",
-    "blog-model": "workspace:*",
     "logger": "workspace:*",
-    "notion-model": "workspace:*",
-    "redis-client": "workspace:*"
+    "ioredis": "^5.3.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.22",
+    "@types/markdown-table": "^3.0.0",
     "@types/node": "^18.11.9",
     "eslint-config-custom": "workspace:*",
     "jest": "^26.6.3",

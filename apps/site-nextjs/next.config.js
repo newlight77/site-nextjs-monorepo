@@ -19,6 +19,12 @@ const config_webpack = {
         systemvars: true
       }) : console.error('missing .env file')
     ];
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      dns: false,
+      net: false,
+      tls: false
+    };
     return config;
   },
 };
