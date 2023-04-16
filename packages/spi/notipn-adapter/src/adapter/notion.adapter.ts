@@ -3,8 +3,6 @@ import {
   BlockObjectResponse,
   ListBlockChildrenResponse,
   PartialBlockObjectResponse,
-  PartialPageObjectResponse,
-  PageObjectResponse
 } from "@notionhq/client/build/src/api-endpoints";
 import { notionClient, rootPageId } from "./notion.client";
 import { redisClient } from "redis-client";
@@ -16,16 +14,13 @@ logger.info = logger.noOp;
 logger.log = logger.noOp;
 logger.debug = logger.noOp;
 
-export type WithCursorBlock = ListBlockChildrenResponse;
-export type PartialBlockObject = PartialBlockObjectResponse;
-export type BlockOjbect = PartialBlockObjectResponse | BlockObjectResponse;
-export type BlockObjects = BlockOjbect[];
-export type PageObject = PartialPageObjectResponse | PageObjectResponse;
+type WithCursorBlock = ListBlockChildrenResponse;
+type BlockOjbect = PartialBlockObjectResponse | BlockObjectResponse;
 
 export type LinkedBlock = BlockOjbect & {
   childLinkedBlocks: LinkedBlock[];
 };
-export type LinkedBlocks = LinkedBlock[];
+type LinkedBlocks = LinkedBlock[];
 
 const MAX_BLOCKS = 200;
 const MAX_LEVEL = 5;
@@ -40,7 +35,7 @@ export class NotionAdapter implements NotionContentSpi {
     blockId: string,
     totalBlocks?: number,
     nestedLevel?: number
-  ): Promise<any> {
+  ): Promise<LinkedBlock> {
 
     this.totalLeft = totalBlocks ? totalBlocks : MAX_BLOCKS;
     const maxNestLevel = nestedLevel && nestedLevel < MAX_LEVEL ? nestedLevel : MAX_LEVEL;
