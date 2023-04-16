@@ -37,20 +37,29 @@ test:
 test-site-nextjs:
 	@turbo run test --filter site-nextjs
 
-test-react-library:
-	@turbo run test --filter react-library
-
-test-notion-library:
-	@turbo run test --filter react-notion-library
-
-test-notion-service:
+test-blog-content-service:
 	@turbo run test --filter blog-content-service
 
-test-cententful-adapter:
-	@turbo run test --filter cententful-adapter
+test-logger:
+	@turbo run test --filter logger
+
+test-markdown-library:
+	@turbo run test --filter markdown-library
+
+test-contentful-adapter:
+	@turbo run test --filter contentful-adapter
 
 test-notion-adapter:
 	@turbo run test --filter notion-adapter
+
+test-redis-client:
+	@turbo run test --filter redis-client
+
+test-react-library:
+	@turbo run test --filter react-library
+
+test-react-notion-library:
+	@turbo run test --filter react-notion-library
 
 
 
@@ -67,6 +76,7 @@ add-deps-test-presets:
 		identity-obj-proxy \
 		ts-jest \
 		@graphql-tools/jest-transform \
+		@babel/plugin-transform-modules-commonjs \
 		--filter jest-presets \
 
 add-deps-test:
@@ -77,7 +87,7 @@ add-deps-test:
 		--filter logger \
 		--filter blog-content-service \
 		--filter blog-content-contentful-adapter \
-		--filter blog-content-notipn-adapter \
+		--filter blog-content-notion-adapter \
 		--filter react-library \
 		--filter react-notion-library \
 		--filter site-nextjs
