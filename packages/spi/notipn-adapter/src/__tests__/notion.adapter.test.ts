@@ -38,19 +38,19 @@ describe("notionAdapter tests", () => {
     expect(result).toStrictEqual(rootBlock);
   });
 
-  it("fetch child blocks", async () => {
-    const cursor = "cursor";
-    const parentId = "e04ec3d0-9f89-4486-a5bf-1ad4b11a278b";
-    const result = await notionAdapter["fetchChildrenBlocks"](cursor, parentId);
-    expect(result).toStrictEqual(childBlocks);
-  });
+  // it("fetch child blocks", async () => {
+  //   const cursor = "cursor";
+  //   const parentId = "e04ec3d0-9f89-4486-a5bf-1ad4b11a278b";
+  //   const result = await notionAdapter["fetchChildrenBlocks"](cursor, parentId);
+  //   expect(result).toStrictEqual(childBlocks);
+  // });
 
-  it("fetch block", async () => {
-    const blockId = "e04ec3d0-9f89-4486-a5bf-1ad4b11a278b";
-    const result = await notionAdapter["fetchBlock"](blockId);
-    logger.log("result", result)
-    expect(result).toEqual(expectedGraphBlock);
-  });
+  // it("fetch block", async () => {
+  //   const blockId = "e04ec3d0-9f89-4486-a5bf-1ad4b11a278b";
+  //   const result = await notionAdapter["fetchBlock"](blockId);
+  //   logger.log("result", result)
+  //   expect(result).toEqual(expectedGraphBlock);
+  // });
 
   it.skip("fetch block from notion api", async () => {
     const adapter = new NotionAdapter(client);

@@ -40,5 +40,14 @@
   },
   "display": "React Library",
   "exclude": ["dist", "build", "node_modules", "**/*.test.ts", "__tests__"],
-  "include": ["**/*.ts", "**/*.tsx"]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "ts-node": {
+    "esm": true,
+    "esModuleInterop": true,
+    "experimentalSpecifierResolution": "node",
+    "module": "CommonJs",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true
+  }
 }

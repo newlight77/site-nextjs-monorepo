@@ -47,6 +47,7 @@ module.exports = {
     '^.+\\.(gql|graphql)$': '@graphql-tools/jest-transform',
     "^.+\\.(ts|ts)?$": "ts-jest",
   },
-  transformIgnorePatterns: ['node_modules/'],
+  // transformIgnorePatterns: ['node_modules/'],
+  transformIgnorePatterns: ["/node_modules/(?!(logger))"],
   verbose: true,
 };

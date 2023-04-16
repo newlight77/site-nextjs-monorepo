@@ -12,6 +12,15 @@
     "resolveJsonModule": true,
     "skipLibCheck": false,
     "target": "ESNext",
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "ts-node": {
+      "esm": true,
+      "esModuleInterop": true,
+      "experimentalSpecifierResolution": "node",
+      "module": "CommonJs",
+      "moduleResolution": "node",
+      "noEmit": true,
+      "allowSyntheticDefaultImports": true
+    }
   }
 }

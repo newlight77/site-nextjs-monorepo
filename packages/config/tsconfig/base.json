@@ -13,7 +13,7 @@
     "importHelpers": false,
     "inlineSources": false,
     "isolatedModules": true,
-    "module": "ESNext",
+    "module": "CommonJs",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": false,
@@ -34,12 +34,12 @@
   "display": "Default",
   "exclude": ["node_modules"],
   "ts-node": {
-    "compilerOptions": {
-      "esModuleInterop": true,
-      "module": "ESNext",
-      "moduleResolution": "node",
-      "noEmit": true,
-      "allowSyntheticDefaultImports": true
-    }
+    "esm": true,
+    "esModuleInterop": true,
+    "experimentalSpecifierResolution": "node",
+    "module": "CommonJs",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true
   }
 }

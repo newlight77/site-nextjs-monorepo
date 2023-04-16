@@ -23,6 +23,7 @@
   "dependencies": {
     "blog-model": "workspace:*",
     "date-fns": "^2.29.3",
+    "logger": "workspace:*",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {

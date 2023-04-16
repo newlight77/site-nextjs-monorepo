@@ -24,5 +24,14 @@
     "typeRoots": ["./node_modules/@types"]
   },
   "extends": "./base.json",
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "ts-node": {
+    "esm": true,
+    "esModuleInterop": true,
+    "experimentalSpecifierResolution": "node",
+    "module": "CommonJs",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true
+  }
 }
