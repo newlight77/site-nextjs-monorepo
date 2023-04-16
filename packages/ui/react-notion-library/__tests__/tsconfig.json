@@ -10,6 +10,6 @@
   },
   "exclude": ["dist", "build", "node_modules"],
   "extends": "../tsconfig.json",
-  // "include": [".", "../."],
+  // "include": [".", "../"],
   "include": ["../", "../typings.d.ts"],
 }
