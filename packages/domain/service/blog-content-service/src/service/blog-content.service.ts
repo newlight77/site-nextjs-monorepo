@@ -1,4 +1,4 @@
-import { BlogPost, BlogPostsPaginated, BlogPostsPaginatedFilter } from 'blog-model';
+import { BlogPost, BlogPosts, BlogPostsPaginatedFilter } from 'blog-model';
 import { Tag } from 'blog-model';
 import { markdownMarshaller } from 'markdown-library';
 import { newLogger } from "logger";
@@ -8,7 +8,7 @@ logger.log = logger.noOp;
 
 export interface BlogContentSpi {
     fetchAllTags(): Promise<Tag[]>;
-    fetchBlogPosts(filter: BlogPostsPaginatedFilter): Promise<BlogPostsPaginated>;
+    fetchBlogPosts(filter: BlogPostsPaginatedFilter): Promise<BlogPosts>;
     fetchPostById(id: string): Promise<BlogPost | undefined>;
     fetchSuggestions(tags: string[], currentArticleId: string, max: number): Promise<BlogPost[] | undefined>;
     search(params: any): Promise<any | undefined>;
@@ -40,7 +40,7 @@ export class BlogContentService {
             skip: 0,
             tag: ''
         }
-    ): Promise<BlogPostsPaginated | undefined> {
+    ): Promise<BlogPosts | undefined> {
         logger.log('getBlogPosts limit skip tag', limit, skip, tag);
         try {
             const posts = await this.blogContentSpi.fetchBlogPosts({ limit, skip, tag });

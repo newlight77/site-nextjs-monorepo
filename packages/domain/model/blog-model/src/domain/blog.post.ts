@@ -31,7 +31,7 @@ export type BlogPostsPaginatedFilter = {
     tag?: string
 }
 
-export type BlogPostsPaginated = {
+export type BlogPosts = {
     entries: BlogPost[], 
     total: number, 
 }

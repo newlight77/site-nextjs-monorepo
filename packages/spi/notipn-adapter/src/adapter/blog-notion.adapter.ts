@@ -5,7 +5,7 @@ import {
   QueryDatabaseResponse,
   SearchResponse } from '@notionhq/client/build/src/api-endpoints';
 import { notionClient, rootDatabaseId, rootPageId } from "./notion.client";
-import { BlogPost, BlogPostsPaginated, BlogPostsPaginatedFilter } from 'blog-model';
+import { BlogPost, BlogPosts, BlogPostsPaginatedFilter } from 'blog-model';
 import { Tag } from 'blog-model';
 import { BlogContentSpi } from 'blog-content-service';
 import { newLogger } from "logger";
@@ -35,7 +35,7 @@ export class BlogNotionAdapter implements BlogContentSpi {
     return tags;
   }
 
-  fetchBlogPosts = async (pagindatedFilter: BlogPostsPaginatedFilter): Promise<BlogPostsPaginated> => {
+  fetchBlogPosts = async (pagindatedFilter: BlogPostsPaginatedFilter): Promise<BlogPosts> => {
     logger.log('fetchBlogPosts pagindatedFilter', pagindatedFilter);
 
     const database = await this.getDatabase(rootDatabaseId);

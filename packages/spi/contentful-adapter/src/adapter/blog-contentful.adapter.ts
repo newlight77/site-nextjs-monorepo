@@ -1,6 +1,6 @@
 import { ContentfulClientApi, createClient, Entry, EntryCollection } from 'contentful'
 import { Author } from 'blog-model';
-import { BlogPost, BlogPostsPaginated, BlogPostsPaginatedFilter } from 'blog-model';
+import { BlogPost, BlogPosts, BlogPostsPaginatedFilter } from 'blog-model';
 import { Tag } from 'blog-model';
 import { BlogContentSpi } from 'blog-content-service';
 import { newLogger } from "logger";
@@ -38,7 +38,7 @@ class BlogContentfulAdapter implements BlogContentSpi {
 
   async fetchBlogPosts(
     { limit, skip, tag }: BlogPostsPaginatedFilter = { limit: 5, skip: 0, tag: '' }
-  ): Promise<BlogPostsPaginated> {
+  ): Promise<BlogPosts> {
     const contents = await this.fetPosts(limit, skip, tag);
     const entries = mapToBlogPosts(contents.items);
     const total = contents.total;

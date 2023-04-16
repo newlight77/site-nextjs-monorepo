@@ -1,4 +1,4 @@
-import { BlogPost, BlogPostsPaginated, PostsFilter } from 'blog-model';
+import { BlogPost, BlogPosts, PostsFilter } from 'blog-model';
 import { api } from 'pages/api/routing';
 import { newLogger } from "logger";
 
@@ -25,7 +25,7 @@ const getPostById = async (id?: string): Promise<BlogPost> => {
     return post;
 }
 
-const getBlogPosts = async ({ limit, skip, tag }: PostsFilter): Promise<BlogPostsPaginated> => {
+const getBlogPosts = async ({ limit, skip, tag }: PostsFilter): Promise<BlogPosts> => {
     const results:any = await fetch(`${api.notionPosts}`, {
         method: 'POST',
         body: JSON.stringify({ limit, skip, tag }),
@@ -59,7 +59,7 @@ const getAllTags = async () => {
     return results;
 }
 
-const getSuggestions = async (tags: string[], currentArticleId: string, max: number): Promise<BlogPostsPaginated> => {
+const getSuggestions = async (tags: string[], currentArticleId: string, max: number): Promise<BlogPosts> => {
     const results:any = await fetch(`${api.notionPosts}`, {
         method: 'POST',
         body: JSON.stringify({ tags, currentArticleId, max }),

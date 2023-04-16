@@ -1,6 +1,6 @@
 export type { Author } from "./domain/author";
 export type { BlogPost, 
-    BlogPostsPaginated, 
+    BlogPosts, 
     BlogPostsPaginatedFilter,
     PostsFilter, PostsResult
 } from './domain/blog.post';
