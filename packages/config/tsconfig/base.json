@@ -13,6 +13,7 @@
     "importHelpers": false,
     "inlineSources": false,
     "isolatedModules": true,
+    "lib": ["esnext"],
     "module": "CommonJs",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,

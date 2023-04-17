@@ -14,8 +14,8 @@
     "inlineSources": false,
     "isolatedModules": true,
     "jsx": "react",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "module": "esnext",
+    "lib": ["dom", "dom.iterable", "ESNext"],
+    "module": "ESNext",
     "moduleResolution": "node",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
@@ -36,7 +36,7 @@
     "strict": true,
     "strictNullChecks": true,
     "sourceMap": true,
-    "target": "es6"
+    "target": "ESNext"
   },
   "display": "React Library",
   "exclude": ["dist", "build", "node_modules", "**/*.test.ts", "__tests__"],

@@ -13,7 +13,7 @@
     "importHelpers": false,
     "inlineSources": false,
     "isolatedModules": true,
-    "lib": ["esnext"],
+    "lib": ["ESNext"],
     "module": "CommonJs",
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
@@ -31,7 +31,7 @@
     "strict": true,
     "strictNullChecks": true,
     "sourceMap": true,
-    "target": "ES2020"
+    "target": "ESNext"
   },
   "display": "Node 16",
   "ts-node": {
