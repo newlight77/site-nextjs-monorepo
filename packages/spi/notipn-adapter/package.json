@@ -13,7 +13,7 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "dev": "tsc -w",
     "lint": "eslint 'src/**/*.ts*'",
-    "test": "jest --passWithNoTests"
+    "test": "REDIS_ENABLE=false jest --passWithNoTests"
   },
   "jest": {
     "preset": "jest-presets/jest/node"

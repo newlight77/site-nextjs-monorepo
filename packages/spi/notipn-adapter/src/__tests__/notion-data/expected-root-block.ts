@@ -1,5 +1,5 @@
 
-export const rootBlock: any = {
+export const expectedRootBlock: any = {
     object: 'block',
     id: 'e04ec3d0-9f89-4486-a5bf-1ad4b11a278b',
     parent: {
