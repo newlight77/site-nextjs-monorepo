@@ -109,7 +109,9 @@ export class NotionAdapter implements NotionContentSpi {
 
     if (REDIS_ENABLE === 'true') {
       const cachedBlock = await redisClient.get(blockId);
-      if (cachedBlock) {
+      const ttl = await redisClient.ttl(blockId);
+      logger.info("getChildBlocks", "blockId="+blockId, "TTL="+ttl);
+      if (ttl > -1 && cachedBlock) {
         return JSON.parse(cachedBlock);
       }
     }
