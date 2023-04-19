@@ -47,7 +47,7 @@ export const Card: FunctionComponent<Props> = ({ info }) => {
       <div className="card__container">
         <div className="card__header">
           <div className="card__author">{info.author.name}</div>
-          <div className="card__publishedAt">{'   '} {publishedAt}</div>
+          <div className="card__publishedAt">{publishedAt}</div>
         </div>
         <a href={getNavigationLink()}>
           <div className="card__body">
@@ -55,6 +55,7 @@ export const Card: FunctionComponent<Props> = ({ info }) => {
             <p className="card__text">{info.description.substring(0, 150)}</p>
           </div>
         </a>
+        <div className="spacer"></div>
         <div className="card__tags">
           {/* <p className="card__tags_title">tags: </p> */}
           {info.tags.map(renderTag)}

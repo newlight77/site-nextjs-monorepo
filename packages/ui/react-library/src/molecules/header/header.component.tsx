@@ -7,11 +7,11 @@ export const Header: FunctionComponent = () => {
       <div className="header__nav">
         <div className="header__brand">
           <a href="/">
-            <Logo />
+            <Logo size={"2.2rem"}/>
           </a>
 
           <h3 className="header__brand_name">
-            Oneprofile: open community for developers.
+            An open community for developers.
           </h3>
         </div>
       </div>

@@ -40,21 +40,21 @@ const PostPage: NextPage<Props, any> = (props: Props) => {
   return (
     <Layout metaTags={postMetaTags}>
       <div className="post__container" id="postcontainer">
-        <div className="post__header">
+        {/* <div className="post__header">
           <h1>{props.article.title}</h1>
           <div className="post__author">
             <p>Written by {props.article.author.name}</p>
           </div>
+        </div> */}
+        <div className="post__body">
+          <ReactMarkdown className="markdown" components={MarkdownSyntaxHighlighter}>
+            {props.article.body}
+          </ReactMarkdown>
         </div>
-      </div>
-      <div className="post__body">
-        <ReactMarkdown className="markdown" components={MarkdownSyntaxHighlighter}>
-          {props.article.body}
-        </ReactMarkdown>
-      </div>
-      <div className="post__footer">
-        <h2 className="post__suggestions_title">Related articles : </h2>
-        <div className="post__suggestions">{renderCards(props.suggestedArticles)}</div>
+        <div className="post__footer">
+          <h2 className="post__suggestions_title">Related articles : </h2>
+          <div className="post__suggestions">{renderCards(props.suggestedArticles)}</div>
+        </div>
       </div>
     </Layout>
   );
