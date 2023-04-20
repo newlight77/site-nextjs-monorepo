@@ -2,38 +2,34 @@
   /* display: flex; */
   /* flex-direction: row; */
   display: grid;
-  grid-template-columns: 1fr 3fr;
-  gap: 0.5rem;
-  /* width: 80vw; */
-  margin: 0rem;
-  padding: 0.6rem;
+  grid-template-columns: 5fr 8fr;
+  margin: 0.1rem 0rem;
+  gap: 1rem;
 
-  border-radius: 0.8rem;
+  border-radius: 0.6rem;
   border: 0.5px solid transparent;
   /* background: var(--color-primary-variant); */
   transition: var(--transition);
+
+  height: 20.6rem;
 }
 
 .card:hover {
   /* background: var(--color-primary-variant); */
   border-color: var(--color-primary-text);
-cursor: default;
+  cursor: default;
   transition: var(--transition);
 }
 
 .card__image {
-  margin: 0.8rem 0.8rem;
-  padding: 0rem;
   display: flex;
+  margin: 0.3rem 0.3rem;
   border-radius: 0.8rem;
   background: var(--color-primary-text);
   overflow: hidden;
   transition: var(--transition);
 
-  max-width: 48vh;
-  height: 32vh;
-  min-height: 32vh;
-  min-width: 32vw;
+  height: 20rem;
 }
 
 .card__image:hover {
@@ -48,43 +44,38 @@ cursor: default;
   display: flex;                   /* defines flexbox */
   flex-direction: column;          /* top to bottom */
   justify-content: space-between;  /* first item at start, last at end */
-  min-height: 32vh;
-
-  padding-top: 1.2rem;
+  height: 22.9rem;
   line-height: 1.1rem;
   font-size: 0.9rem;
   color: var(--color-primary-text-variant);
 }
 
 .card__header {
-  padding: 0 0 0 0;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-  margin-right: 1rem;
+  margin-top: 0rem;
   background-size: cover !important;
   /* display: grid; */
   /* grid-template-columns: 1fr 1fr; */
+  height: 2rem;
 }
 
 .card__author {
   font-size: 0.9rem;
-  /* width: 32vw; */
 }
 
 .card__publishedAt {
   font-size: 0.6rem;
-  /* width: 20vw; */
 }
 
 .card__body {
   font-size: 0.9rem;
-  height: 18vh;
-  /* width: 40vw; */
+  height: 11.8rem;
 }
 
 .card__title {
   text-align: left;
-  margin-bottom: 1.6rem;
+  margin-top: 1.4rem;
+  margin-bottom: 1rem;
+  line-height: 1.2rem;
 
   font-size: 1.3rem;
   font-weight: bold;
@@ -95,12 +86,9 @@ cursor: default;
 }
 
 .card__text {
-  /* display: flex; */
-  /* gap: 0.6rem; */
-  /* margin-left: 1rem; */
-  /* padding: 0.5rem; */
   text-align: left;
   cursor: pointer;
+  line-height: 1.2rem;
 }
 
 .spacer {
@@ -122,7 +110,6 @@ cursor: default;
   border-radius: 0.3rem;
   opacity: 0.7;
   transition: opacity 0.4s;
-  /* cursor: pointer; */
 }
 
 .card__action {
@@ -139,48 +126,78 @@ cursor: default;
 
 @media (max-width: 1200px) {
   .card {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 5fr 8fr;
     border-radius: 0.7rem;
     border: 0.2px solid transparent;
-    gap: 1rem;
-    padding: 1rem;
+    height: 20.6rem;
+    /* background-color: rgb(0, 174, 255); */
   }
   
   .card__image {
     margin: 0.3rem 0.3rem;
     padding: 0rem;
     border-radius: 0.6rem;
-    height: 32vh;
-    }
+    height: 20rem;
+  }
 }
 
 @media (max-width: 991px) {
   .card {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 8fr 8fr;
     border-radius: 0.6rem;
     border: 0.2px solid transparent;
+    height: 20.5rem;
+    /* background-color: rgb(0, 255, 106); */
   }
   
   .card__image {
     margin: 0.2rem 0.2rem;
     padding: 0rem;
     border-radius: 0.4rem;
-    height: 28vh;
-    }
+    height: 20rem;
+  }
 }
 
 @media (max-width: 768px) {
   .card {
-    grid-template-columns: 1fr;
+    grid-template-columns: 9fr 8fr;
     border-radius: 0.4rem;
     border: 0.1px solid transparent;
+    height: 20.5rem;
+    /* background-color: rgb(179, 255, 0); */
   }
 
   .card__image {
     margin: 0.2rem 0.2rem;
     padding: 0rem;
     border-radius: 0.4rem;
-    height: 24vh;
+    height: 20rem;
   }
-  
+}
+
+@media (max-width: 440px) {
+  .card {
+    grid-template-columns: 1fr;
+    border-radius: 0.3rem;
+    border: 0.1px solid transparent;
+    height: 44rem;
+    /* background-color: rgb(255, 166, 0); */
+  }
+
+  .card_container {
+    height: 10rem;
+  }
+
+  .card__body {
+    font-size: 0.9rem;
+    height: 8rem;
+  }
+
+  .card__image {
+    margin: 0.1rem 0.1rem;
+    padding: 0rem;
+    border-radius: 0.3rem;
+    height: 20rem;
+  }
+
 }

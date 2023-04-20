@@ -51,7 +51,7 @@ const PostsPage: NextPage<PostsFilter, any> = (filter: PostsFilter) => {
 
   return (
     <Layout metaTags={defaultMetaTags}>
-      <div className="blogposts_container">
+      <div className="blogposts__container">
           <div className="blogposts__filters">
             <TagFilters tags={postsResult.tags} updatePage={handleTagChosen} selectedTagId={postsFilter.tag}/>
           </div>
