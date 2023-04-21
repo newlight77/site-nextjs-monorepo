@@ -1,5 +1,6 @@
 import React, { useEffect, MouseEvent } from 'react';
 import './theme-selector.module.css';
+import { Tooltip } from '../../atoms/Tooltip/Tooltip';
 
 // const THEMES = [
 //   'deepskyblue',
@@ -56,7 +57,9 @@ export const ThemeSelector = () => {
 
   return (
     <div className="theme-selector__toggle">
-      <button onClick={handleOnClick}>{getThemeIcon(theme)}</button>
+      <Tooltip text={theme} position="below">
+        <button onClick={handleOnClick}>{getThemeIcon(theme)}</button>
+      </Tooltip>
     </div>
   );
 };

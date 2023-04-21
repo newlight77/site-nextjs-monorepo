@@ -7,7 +7,9 @@ describe('Logo component testing', () => {
 
     render(<Logo />);
 
-    const element = screen.getByAltText('oneprofile');
-    expect(element).toBeDefined();
+    const one = screen.getByText('One');
+    const profile = screen.getByText('Profile');
+    expect(one).toBeDefined();
+    expect(profile).toBeDefined();
   });
 });
