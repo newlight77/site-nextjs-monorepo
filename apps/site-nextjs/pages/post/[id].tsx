@@ -47,7 +47,7 @@ const PostPage: NextPage<Props, any> = (props: Props) => {
           </div>
         </div> */}
         <div className="post__body">
-          <ReactMarkdown className="markdown" components={MarkdownSyntaxHighlighter}>
+          <ReactMarkdown className="markdown-body" components={MarkdownSyntaxHighlighter}>
             {props.article.body}
           </ReactMarkdown>
         </div>

@@ -3,6 +3,7 @@
 @import url('variables.css');
 @import url('default.css');
 @import url('react-library/dist/index.css');
+@import url('layout.css');
 @import url('app.css');
 @import url('posts.css');
 @import url('post.css');
@@ -12,4 +13,6 @@
 @import url('filter.css');
 @import url('paginator.css');
 @import url('theme.css');
-@import url('markdown.css');
+@import url('github-markdown-css/github-markdown.css');
+/* @import url('markdown.css'); */
+@import url('github-markdown.css');
