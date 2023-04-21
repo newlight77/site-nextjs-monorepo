@@ -39,4 +39,5 @@ yarn dev
 - tools/scripts to export data from notion/contentful
 - refine markdown css, perhaps use only [this](https://github.com/sindresorhus/github-markdown-css/blob/main/github-markdown.css)  :
 - mermaid component in react-notion-library (should be renamed to react-markdown-library)
-- add more react component for
+- create more stories
+- search feature
