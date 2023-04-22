@@ -30,23 +30,23 @@ export const ThemeSelector = () => {
   const handleOnClick = (e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const nextTheme = getNextTheme(theme)
-    setTheme(nextTheme == undefined ? 'default' : nextTheme);
+    setTheme(nextTheme == undefined ? 'orchid' : nextTheme);
   };
 
   const getNextTheme = (theme: string) => {
     return {
-      'default': 'white',
+      'orchid': 'white',
       'white': 'dark',
       'dark': 'peachpuff',
       'peachpuff': 'gold',
       'gold': 'deepskyblue',
-      'deepskyblue': 'default'
+      'deepskyblue': 'orchid'
     }[theme];
   }
 
   const getThemeIcon = (theme: string) => {
     return {
-      'default': '🔅',
+      'orchid': '🟣',
       'white': '🌞',
       'dark': '🌙',
       'peachpuff': '🍑',

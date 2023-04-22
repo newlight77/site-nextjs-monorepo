@@ -75,7 +75,7 @@
   
 }
 
-[data-theme='default'] {
+[data-theme='orchid'] {
   --color-primary: var(--color-orchid);
   --color-primary-variant: var(--color-orchid-variant);
   --color-secondary: var(--color-darklavender);
