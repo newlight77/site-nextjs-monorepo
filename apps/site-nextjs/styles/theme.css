@@ -17,14 +17,15 @@
 .tooltip {
     position: relative;
     margin-right: 0.4rem;
+    z-index: 1000;
 }
 
 .tooltip__box {
     background-color: transparent;
     position: absolute;
-    padding: 0.2rem;
+    padding: 0rem;
     top: calc(70% + 0.6rem);
-    right: calc(10%);
+    right: calc(12%);
     display: none;
 }
 
@@ -33,7 +34,8 @@
 }
 
 .tooltip__box_text {
-    margin-top: 1.2rem;
+    margin-right: -0.1rem;
+    margin-top: 1.8rem;
     background-color: var(--color-secondary-text-variant);
     border-radius: 0.2rem;
     border: 0.5px solid transparent;
@@ -45,8 +47,8 @@
 .tooltip__box_arrow_below {
     position: absolute;
     top: -0.4rem;
-    right: 0%;
-    border-width: 0.7rem;
+    right: -1%;
+    border-width: 0.6rem;
     border-style: solid;
     border-color: transparent transparent var(--color-primary-text) transparent;
 }

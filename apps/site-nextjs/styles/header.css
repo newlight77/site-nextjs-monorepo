@@ -1,6 +1,6 @@
 .header__nav {
-  margin: 0 0rem;
-  padding: 1rem 0.6rem;
+  /* margin: 0 0rem; */
+  /* padding: 1rem 0.6rem; */
   background-color: var(--color-secondary-variant);
   border-bottom: 1px solid var(--color-secondary);
   position: sticky;
@@ -9,38 +9,48 @@
   z-index: 100; /* Ensure that your app's content doesn't overlap the toolbar */
 }
 
-.header__nav a {
-  float: top;
-  text-decoration: none;
+.header__container {
+  display: grid;
+  grid-template-columns: 1fr 9fr;
 }
 
-.header__brand {
-  display: flex;
-  cursor: pointer;
+.header__logo {
+  margin: auto 0rem;
+  align-self: center;
 }
 
-.header__brand_name {
-  margin: auto 0.8rem;
+.header__content {
+  display: grid;
+  grid-template-rows: 1fr 2fr 2fr;
+  text-align: left;
+}
+
+.header_spacer {
+  padding: 0.1rem;
+}
+
+.header__title {
+  margin: auto 0rem;
   color: var(--color-primary-text);
   font-weight: bold;
-  letter-spacing: 2px;
+  font-size: 1.2rem;
+  letter-spacing: 1.2px;
 }
 
-@media (max-width: 768px) {
-  .header__nav {
-    padding: 0.5rem 0.8rem;
+.header__subtitle {
+  margin: auto 0rem;
+  color: var(--color-primary-text-variant);
+  font-size: 0.7rem;
+  letter-spacing: 1.4px;
+}
+
+@media (max-width: 440px) {
+  .header__title {
+    font-size: 1.1rem;
+    letter-spacing: 1.1px;
   }
-
-}
-@media (min-width: 991px) {
-  .header__nav {
-    padding: 0.8rem 1rem;
-  }
-
-}
-
-@media (min-width: 1200px) {
-  .header__nav {
-    padding: 1rem 2rem;
+  .header__subtitle {
+    font-size: 0.7rem;
+    letter-spacing: 1.3px;
   }
 }

@@ -1,12 +1,5 @@
 .logo {
-    margin: -1rem 1rem;
-    max-height: 9.6rem;
-    padding: 0.5rem 0.5rem;
-}
-
-.header__brand_name {
-    margin: auto 1rem;
-    color: var(--color-primary-text);
-    font-weight: bold;
-    letter-spacing: 2px;
+    /* height: auto;
+    width: auto; */
+    margin: 1rem 1rem;
 }

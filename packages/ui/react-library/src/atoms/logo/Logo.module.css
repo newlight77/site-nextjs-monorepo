@@ -1,7 +1,28 @@
 .logo {
-    /* height: auto; */
-    /* width: auto; */
-    margin: -1rem 1rem;
-    max-height: 9.6rem;
-    padding: 0.5rem 0.5rem;
+    height: auto;
+    width: auto;
+    /* margin: -1rem 1rem; */
+    /* max-height: 9.6rem; */
+    /* margin-right: 1.2rem; */
+}
+
+@media (min-width: 1200px) {
+    .logo {
+        margin: 0rem 0rem;
+        padding: 1rem 2rem;
+    }
+}
+
+@media (min-width: 991px) {
+    .logo {
+        margin: 0rem 0rem;
+        padding: 0.8rem 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo {
+        margin: 0rem 0rem;
+        padding: 0rem 0rem;
+    }
 }

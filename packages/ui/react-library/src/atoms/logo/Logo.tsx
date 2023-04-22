@@ -3,13 +3,14 @@ import './Logo.module.css';
 
 type PropsLogo = {
   size?: string;
+  href?: string;
 };
 
-export const Logo: React.FC<PropsLogo> = ({size}) => {
+export const Logo: React.FC<PropsLogo> = ({size, href, ...rest}) => {
 
   const fontSize = size ? size : "2rem";
   return (
-    <div className='logo'>
+    <a className="logo" href={href} {...rest}>
       <span style={{
         fontFamily: "cursive",
         fontSize: fontSize,
@@ -20,6 +21,6 @@ export const Logo: React.FC<PropsLogo> = ({size}) => {
         fontSize: fontSize,
         color: "rgb(1, 213, 250)"
       }}>Profile</span>
-    </div>
+    </a>
   )
 };
