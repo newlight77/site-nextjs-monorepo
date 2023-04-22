@@ -71,21 +71,21 @@
 
 @media (max-width: 991px) {
   .post__container {
-    margin: 1rem 0.4rem;
+    margin: 1rem 0.5rem;
     /* background-color: rgb(0, 255, 106); */
   }
 }
 
 @media (max-width: 768px) {
   .post__container {
-    margin: 1rem 0.1rem;
+    margin: 1rem 0.4rem;
     /* background-color: rgb(179, 255, 0); */
   }
 }
 
 @media (max-width: 440px) {
   .post__container {
-      margin: 0rem 0rem;
+      margin: 0rem 0.3rem;
       /* background-color: rgb(255, 166, 0); */
   }
 }
