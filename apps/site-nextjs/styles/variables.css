@@ -1,43 +1,43 @@
 /* variables */
 :root {
   --color-deepskyblue: hsl(195, 100%, 50%, 0.9);
-  --color-deepskyblue-variant: hsl(195, 100%, 50%, 0.2);
+  --color-deepskyblue-variant: hsl(195, 100%, 53%, 0.2);
   --color-darksteelblue: hsl(207, 44%, 10%);
-  --color-darksteelblue-variant: hsl(207, 44%, 10%, 0.8);
+  --color-darksteelblue-variant: hsl(207, 44%, 13%, 0.8);
   --color-darkindigoblue: hsla(250, 100%, 55%, 0.95);
-  --color-darkindigoblue-variant: hsl(250, 100%, 55%, 0.2);
+  --color-darkindigoblue-variant: hsl(250, 100%, 59%, 0.2);
   --color-lightseagreen: hsl(177, 70%, 41%, 0.9);
-  --color-lightseagreen-variant: hsl(177, 70%, 41%, 0.2);
+  --color-lightseagreen-variant: hsl(177, 70%, 44%, 0.2);
   --color-darkaqua: hsl(180, 100%, 10%);
-  --color-darkaqua-variant: hsl(180, 100%, 10%, 0.8);
+  --color-darkaqua-variant: hsl(180, 100%, 12%, 0.8);
   --color-seagreen: hsla(177, 93%, 26%, 0.792);
   --color-seagreen-variant: rgba(17, 60, 58, 0.2);
   --color-darkseagreen: hsl(180, 93%, 5%);
   --color-darkseagreen-variant: hsla(180, 100%, 1%, 0.8);
   --color-peachpuff: hsl(28, 100%, 86%, 0.9);
-  --color-peachpuff-variant: hsl(28, 100%, 86%, 0.2);
+  --color-peachpuff-variant: hsl(28, 100%, 88%, 0.2);
   --color-darkpapayawhip: hsl(37, 100%, 10%);
-  --color-darkpapayawhip-variant: hsl(37, 100%, 10%, 0.8);
+  --color-darkpapayawhip-variant: hsl(37, 100%, 12%, 0.8);
   --color-salmon: hsl(6, 93%, 71%, 0.9);
-  --color-salmon-variant: hsl(6, 93%, 71%, 0.2);
+  --color-salmon-variant: hsl(6, 93%, 74%, 0.2);
   --color-crimson: hsl(348, 83%, 10%);
-  --color-crimson-variant: hsl(348, 83%, 10%, 0.8);
+  --color-crimson-variant: hsl(348, 83%, 12%, 0.8);
   --color-orchid: hsl(302, 59%, 65%, 0.9);
-  --color-orchid-variant: hsl(302, 59%, 65%, 0.2);
+  --color-orchid-variant: hsl(302, 59%, 68%, 0.2);
   --color-lavender: hsl(240, 67%, 10%);
-  --color-lavender-variant: hsl(240, 67%, 10%, 0.8);
+  --color-lavender-variant: hsl(240, 67%, 12%, 0.8);
   --color-blueviolet: hsl(271, 76%, 53%, 0.9);
-  --color-blueviolet-variant: hsl(271, 76%, 53%, 0.2);
+  --color-blueviolet-variant: hsl(271, 76%, 56%, 0.2);
   --color-darklavender: hsl(240, 67%, 10%);
-  --color-darklavender-variant: hsl(240, 67%, 10%, 0.8);
+  --color-darklavender-variant: hsl(240, 67%, 15%, 0.8);
   --color-lemonchiffon: hsl(54, 100%, 90%, 0.9);
-  --color-lemonchiffon-variant: hsl(54, 100%, 90%, 0.2);
+  --color-lemonchiffon-variant: hsl(54, 100%, 92%, 0.2);
   --color-darkkhaki: hsl(56, 38%, 10%);
-  --color-darkkhaki-variant: hsl(156, 38%, 10%, 0.8);
+  --color-darkkhaki-variant: hsl(156, 38%, 12%, 0.8);
   --color-gold: hsl(51, 100%, 50%, 0.9);
-  --color-gold-variant: hsl(51, 100%, 50%, 0.2);
+  --color-gold-variant: hsl(51, 100%, 54%, 0.2);
   --color-moccasin: hsl(38, 100%, 10%);
-  --color-moccasin-variant: hsl(38, 100%, 10%, 0.8);
+  --color-moccasin-variant: hsl(38, 100%, 13%, 0.8);
   
   --color-white: rgba(255, 255, 255, 1);
   --color-snow: rgba(240, 255, 255, 1);
@@ -52,6 +52,7 @@
   --color-lightslategrey: hsl(210,14%,53%);
   --color-slategrey: hsl(210,13%,50%);
   --color-darkslategrey: hsl(180,25%,25%);
+  --color-lightblack: hsl(0, 0%, 12%);
   --color-black: hsl(0, 0%, 0%);
   
   --transition: all 400ms ease;
@@ -67,9 +68,9 @@
   --color-secondary: var(--color-darksteelblue);
   --color-secondary-variant: var(--color-darksteelblue-variant);
 
-  --color-primary-text: var(--color-white);
+  --color-primary-text: var(--color-snow);
   --color-primary-text-variant: var(--color-whitesmoke);
-  --color-secondary-text: var(--color-lightgrey);
+  --color-secondary-text: var(--color-darkgrey);
   --color-secondary-text-variant: var(--color-dimgrey);
   
 }
@@ -80,21 +81,21 @@
   --color-secondary: var(--color-darklavender);
   --color-secondary-variant: var(--color-darklavender-variant);
 
-  --color-primary-text: var(--color-white);
+  --color-primary-text: var(--color-snow);
   --color-primary-text-variant: var(--color-whitesmoke);
-  --color-secondary-text: var(--color-lightgrey);
+  --color-secondary-text: var(--color-darkgrey);
   --color-secondary-text-variant: var(--color-dimgrey);
 }
 
 [data-theme='white'] {
   --color-primary: var(--color-lightgrey);
   --color-primary-variant: var(--color-white);
-  --color-secondary: var(--color-white);
-  --color-secondary-variant: var(--color-whitesmoke);
+  --color-secondary: var(--color-whitesmoke);
+  --color-secondary-variant: var(--color-gainsboro);
 
   --color-primary-text: var(--color-black);
   --color-primary-text-variant: var(--color-darkslategrey);
-  --color-secondary-text: var(--color-silver);
+  --color-secondary-text: var(--color-grey);
   --color-secondary-text-variant: var(--color-darkgrey);
 }
 
@@ -102,12 +103,12 @@
   --color-primary: var(--color-dimgrey);
   --color-primary-variant: var(--color-darkdimgrey);
   --color-secondary: var(--color-black);
-  --color-secondary-variant: var(--color-black);
+  --color-secondary-variant: var(--color-lightblack);
 
-  --color-primary-text: var(--color-white);
-  --color-primary-text-variant: var(--color-whitesmoke);
-  --color-secondary-text: var(--color-lightgrey);
-  --color-secondary-text-variant: var(--color-dimgrey);
+  --color-primary-text: var(--color-whitesmoke);
+  --color-primary-text-variant: var(--color-silver);
+  --color-secondary-text: var(--color-darkgrey);
+  --color-secondary-text-variant: var(--color-darkdimgrey);
 }
 
 [data-theme='deepskyblue'] {
@@ -116,9 +117,9 @@
   --color-secondary: var(--color-darksteelblue);
   --color-secondary-variant: var(--color-darksteelblue-variant);
 
-  --color-primary-text: var(--color-white);
+  --color-primary-text: var(--color-snow);
   --color-primary-text-variant: var(--color-whitesmoke);
-  --color-secondary-text: var(--color-lightgrey);
+  --color-secondary-text: var(--color-darkgrey);
   --color-secondary-text-variant: var(--color-dimgrey);
 
 }
@@ -153,9 +154,9 @@
   --color-secondary: var(--color-crimson);
   --color-secondary-variant: var(--color-crimson-variant);
 
-  --color-primary-text: var(--color-white);
+  --color-primary-text: var(--color-snow);
   --color-primary-text-variant: var(--color-whitesmoke);
-  --color-secondary-text: var(--color-lightgrey);
+  --color-secondary-text: var(--color-darkgrey);
   --color-secondary-text-variant: var(--color-dimgrey);
 
 }
@@ -198,8 +199,8 @@
   --color-secondary: var(--color-moccasin);
   --color-secondary-variant: var(--color-moccasin-variant);
 
-  --color-primary-text: var(--color-white);
+  --color-primary-text: var(--color-snow);
   --color-primary-text-variant: var(--color-whitesmoke);
-  --color-secondary-text: var(--color-lightgrey);
+  --color-secondary-text: var(--color-darkgrey);
   --color-secondary-text-variant: var(--color-dimgrey);
 }

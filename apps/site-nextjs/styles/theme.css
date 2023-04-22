@@ -4,14 +4,14 @@
     align-items: right;
     gap: 4px;
     margin: 1rem;
+    z-index: 1000;
 }
 
 .theme-selector__toggle button {
-    background: var(--color-secondary);
+    background: var(--color-secondary-variant);
     font-size: 24px;
     position: sticky;
     position: -webkit-sticky; /* For macOS/iOS Safari */
-    z-index: 1000;
 }
 
 .tooltip {
@@ -20,7 +20,7 @@
 }
 
 .tooltip__box {
-    background-color: var(--color-secondary);
+    background-color: transparent;
     position: absolute;
     padding: 0.2rem;
     top: calc(70% + 0.6rem);
@@ -34,10 +34,9 @@
 
 .tooltip__box_text {
     margin-top: 1.2rem;
-    background-color: var(--color-primary-variant);
+    background-color: var(--color-secondary-text-variant);
     border-radius: 0.2rem;
     border: 0.5px solid transparent;
-    color: var(--color-primary);
     color: var(--color-primary-text);
     padding: 0.2rem 0.6rem;
     letter-spacing: 1px;
@@ -49,7 +48,7 @@
     right: 0%;
     border-width: 0.7rem;
     border-style: solid;
-    border-color: transparent transparent var(--color-white) transparent;
+    border-color: transparent transparent var(--color-primary-text) transparent;
 }
 
 .tooltip__box_arrow_above {
@@ -58,5 +57,5 @@
     right: 0%;
     border-width: 0.7rem;
     border-style: solid;
-    border-color: transparent transparent var(--color-white) transparent;
+    border-color: transparent transparent var(--color-primary-text) transparent;
 }

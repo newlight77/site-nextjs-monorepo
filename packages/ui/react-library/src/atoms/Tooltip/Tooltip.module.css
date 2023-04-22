@@ -33,7 +33,7 @@
     right: 0%;
     border-width: 0.7rem;
     border-style: solid;
-    border-color: transparent transparent var(--color-white) transparent;
+    border-color: transparent transparent var(--color-primary-text) transparent;
 }
 
 .tooltip__box_arrow_above {
@@ -42,5 +42,5 @@
     right: 0%;
     border-width: 0.7rem;
     border-style: solid;
-    border-color: transparent transparent var(--color-white) transparent;
+    border-color: transparent transparent var(--color-primary-text) transparent;
 }
