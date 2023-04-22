@@ -39,23 +39,19 @@ export const Card: FunctionComponent<Props> = ({ info }) => {
   return (
     <div className="card">
       {/* <div className="card__header} style={cardBGStyles} /> */}
-      <a href={getNavigationLink()}>
-        <div className="card__image">
-            <img src={info.heroImage} alt={info.title} />
-        </div>
+      <a className="card__image" href={getNavigationLink()}>
+        <img src={info.heroImage} alt={info.title} />
       </a>
       <div className="card__container">
         <div className="card__header">
           <div className="card__author">{info.author.name}</div>
           <div className="card__publishedAt">{publishedAt}</div>
         </div>
-        <a href={getNavigationLink()}>
-          <div className="card__body">
-            <h3 className="card__title">{info.title}</h3>
-            <p className="card__text">{info.description.substring(0, 150)}</p>
-          </div>
+        <a className="card__body" href={getNavigationLink()}>
+          <h3 className="card__title">{info.title}</h3>
+          <p className="card__text">{info.description.substring(0, 150)}</p>
         </a>
-        <div className="spacer"></div>
+        {/* <div className="card__spacer"></div> */}
         <div className="card__tags">
           {/* <p className="card__tags_title">tags: </p> */}
           {info.tags.map(renderTag)}
