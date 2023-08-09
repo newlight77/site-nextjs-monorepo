@@ -17,7 +17,8 @@
     "preview": "turbo run preview --filter={apps/storybook}",
     "test": "run-p test:*",
     "test:lint": "turbo run lint",
-    "test:test": "turbo run test"
+    "test:test": "turbo run test",
+    "coverage:report": "sonar-scanner -Dsonar.host.url=${SONAR_URL} -Dsonar.login=${SONAR_USER} -Dsonar.password=${SONAR_PASSWORD}"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^3.3.1",
