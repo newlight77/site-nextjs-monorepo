@@ -30,6 +30,7 @@ Run the following command:
 ```sh
 pnpm install
 yarn install
+yarn test
 yarn dev
 ```
 

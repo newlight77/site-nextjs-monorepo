@@ -1,11 +1,8 @@
 {
   "name": "site-nextjs",
+  "description": "Oneprofile Blog with Next.js and Contentful / Notion.",
   "version": "1.0.0",
   "private": true,
-  "description": "Oneprofile Blog with Next.js and Contentful / Notion.",
-  "author": "Kong To <newlight77@gmail.com>",
-  "repository": "oneprofile/site-nextjs",
-  "license": "MIT",
   "engines": {
     "node": ">=16"
   },
@@ -22,7 +19,7 @@
     "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
     "analyze:browser": "cross-env BUNDLE_ANALYZE=browser next build",
     "test": "run-p test:*",
-    "test:jest": "jest --passWithNoTests",
+    "test:jest": "jest --passWithNoTests --coverage",
     "lint": "run-p lint:*",
     "lint:eslint": "eslint '**/*.{ts,tsx}'",
     "postexport": "node utils/post-export.js",
@@ -50,7 +47,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "^12.3.1",
     "@types/jest": "^26.0.22",
-    "@types/node": "^18.8.5",
+    "@types/node": "^18.11.9",
     "@types/react": "^18.0.21",
     "@types/react-syntax-highlighter": "^15.5.6",
     "autoprefixer": "^10.4.0",
