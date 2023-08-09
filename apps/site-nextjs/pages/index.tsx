@@ -2,8 +2,7 @@ import React from 'react';
 
 import { NextPage } from 'next';
 import { PostsFilter } from 'blog-model';
-import PostsPage, { toFilter } from './post/posts';
-
+import PostsPage, { MAX_PER_PAGE } from './posts';
 
 const IndexPage: NextPage<PostsFilter, any> = (props: PostsFilter) => {
   return (
@@ -22,5 +21,14 @@ IndexPage.getInitialProps = async ({ query }): Promise<PostsFilter> => {
   return toFilter(tag, page);
 };
 
+
+export const toFilter = async (tag: string, page: number): Promise<PostsFilter> => {
+  return {
+    tag: tag,
+    page: page,
+    skip: (page - 1) * MAX_PER_PAGE,
+    limit: MAX_PER_PAGE
+  };
+};
 
 export default IndexPage;

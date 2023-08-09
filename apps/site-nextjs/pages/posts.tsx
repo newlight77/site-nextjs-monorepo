@@ -9,14 +9,13 @@ import {Paginator} from 'react-library';
 import { defaultMetaTags } from 'blog-model';
 import {TagFilters} from 'react-library';
 import { PostsFilter, PostsResult } from 'blog-model';
-import { ssrClient } from 'pages/api/ssr-client';
-import { contentfulService } from '@/lib/content-service.provider';
+import { getBlogPostEntries } from '@/lib/post-content.repository';
 import { newLogger } from "logger";
 
 const logger = newLogger("posts page");
 logger.log = logger.noOp;
 
-const MAX_PER_PAGE = 10;
+export const MAX_PER_PAGE = 10;
 
 const cards = (entries: any[]) =>
   entries.map((entry, index) => <Card info={entry} key={index} />);
@@ -57,6 +56,7 @@ const PostsPage: NextPage<PostsFilter, any> = (filter: PostsFilter) => {
           </div>
           <h1 className="blogposts__header">Latest posts</h1>
           <div className="blogposts__cards">{cards(postsResult.entries)}</div>
+          {/* <div>{postCards(postsFilter)}</div> */}
           <div className="blogposts__pagination">
             <Paginator
               handlePaginationChange={(event) => handlePageChosen(event)}
@@ -76,46 +76,5 @@ const getRange = (total: number, limit: number) => {
   return calculateRange(rangeLimit);
 }
 
-const getBlogPostEntries = async( filter: PostsFilter ): Promise<PostsResult> => {
-  const posts = await contentfulService.getBlogPosts({
-      tag: filter.tag,
-      skip: filter.skip,
-      limit: filter.limit
-    });
-  const tags = await contentfulService.getAllTags();
-  
-  if (posts === undefined) return { entries: [], tags, total: 0 };
-
-  if (posts.entries.length < filter.limit) {
-    const notionPosts = await ssrClient.getBlogPosts({
-        tag: filter.tag,
-        skip: filter.skip,
-        limit: filter.limit
-      });
-    posts.entries.push(...notionPosts.entries);
-    // const posts = [...contentfulPosts.entries, ...notionPost.entries];
-
-    const notionTags = await ssrClient.getAllTags();
-    tags.push(...notionTags);
-    // const tags = [ ...contentfulTags, ...notionTags ];
-  }
-
-  logger.log('======    Posts.tsx getAllTags posts', posts);
-  logger.log('======    Posts.tsx getAllTags tags', tags);
-
-  const results = { entries : posts.entries, tags, total: posts.total };
-  logger.log('======    Posts.tsx getAllTags results', results);
-
-  return results;
-}
-
-export const toFilter = async (tag: string, page: number): Promise<PostsFilter> => {
-  return {
-    tag: tag,
-    page: page,
-    skip: (page - 1) * MAX_PER_PAGE,
-    limit: MAX_PER_PAGE
-  };
-};
 
 export default PostsPage;

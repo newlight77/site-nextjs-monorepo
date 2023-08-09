@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { notionService } from '@/lib/content-service.provider';
+import { notionServiceProvider } from '@/lib/content-service.provider';
 import { newLogger } from "logger";
 
 const logger = newLogger("notion-search");
@@ -14,7 +14,7 @@ const search = async (req: NextApiRequest, res: NextApiResponse) => {
   const searchParams: any = req.body
 
   logger.log('<<< search searchParams', searchParams)
-  const results = await notionService.search(searchParams)
+  const results = await notionServiceProvider.search(searchParams)
   logger.log('>>> search results', results)
 
   res.setHeader(

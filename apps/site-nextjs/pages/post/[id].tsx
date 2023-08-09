@@ -6,8 +6,8 @@ import {Layout} from 'react-library';
 import { BlogPost } from 'blog-model';
 import { MetaTags, PageType, RobotsContent } from 'blog-model';
 import { MarkdownSyntaxHighlighter } from '@/components/markdown/markdown-syntax-highlighter';
-import { contentfulService } from '@/lib/content-service.provider';
-import { notionService } from '@/lib/content-service.provider';
+import { contentfulServiceProvider } from '@/lib/content-service.provider';
+import { notionServiceProvider } from '@/lib/content-service.provider';
 import { newLogger } from "logger";
 
 const logger = newLogger("[id] page");
@@ -67,19 +67,19 @@ PostPage.getInitialProps = async ({ query }: NextPageContext) => {
 
   logger.log('getInitialProps id slug', id, slug);
   if (!isUUID(id)) {
-    const article: any = await contentfulService.getPostById(slug);
+    const article: any = await contentfulServiceProvider.getPostById(slug);
     // logger.log('getInitialProps article', article);
     const tags = article.tags ? article.tags.map((tag: any) => tag.sys.id) : [];
     logger.log('getInitialProps tags', tags);
-    const suggestedArticles = await contentfulService.getSuggestions(tags, article.id, 2);
+    const suggestedArticles = await contentfulServiceProvider.getSuggestions(tags, article.id, 2);
     // logger.log('getInitialProps suggestedArticles', suggestedArticles);
     return { article, suggestedArticles };
   } else {
-    const article: any = await notionService.getPostById(id);
+    const article: any = await notionServiceProvider.getPostById(id);
     // logger.log('getInitialProps article', article);
     const tags = article.tags ? article.tags.map((tag: any) => tag.id) : [];
     logger.log('getInitialProps tags', tags);
-    const suggestedArticles = await notionService.getSuggestions(tags, article.id, 2);
+    const suggestedArticles = await notionServiceProvider.getSuggestions(tags, article.id, 2);
     // logger.log('getInitialProps suggestedArticles', suggestedArticles);
     return { article, suggestedArticles };
   }

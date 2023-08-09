@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { notionService } from '@/lib/content-service.provider';
+import { notionServiceProvider } from '@/lib/content-service.provider';
 import { newLogger } from "logger";
 
 const logger = newLogger("notion-post-by-id");
@@ -14,7 +14,7 @@ const getBlogPostById = async (req: NextApiRequest, res: NextApiResponse) => {
   const id: string = req.body.id
   logger.log('<<< getBlogPostById id', id)
 
-  const post = await notionService.getPostById(id);
+  const post = await notionServiceProvider.getPostById(id);
 
   // this page is call directly from [id].tsx
   // get notion raw page

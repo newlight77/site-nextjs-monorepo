@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { notionService } from '@/lib/content-service.provider';
+import { notionServiceProvider } from '@/lib/content-service.provider';
 import { newLogger } from "logger";
 
 const logger = newLogger("notion-posts");
@@ -16,7 +16,7 @@ const getBlogPosts = async (req: NextApiRequest, res: NextApiResponse) => {
   const tag: string | undefined = req.body.tag ? req.body.tag : undefined
   logger.log('<<< getPosts filter', { limit, skip, tag })
 
-  const posts = await notionService.getBlogPosts({ limit, skip, tag });
+  const posts = await notionServiceProvider.getBlogPosts({ limit, skip, tag });
 
   logger.log('>>> getPosts posts', posts)
 

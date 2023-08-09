@@ -1,4 +1,5 @@
 import { Author } from './author';
+import { Tag } from './tags';
 
 export type BlogPost = {
     id: string;
@@ -6,7 +7,7 @@ export type BlogPost = {
     body: any;
     title: string;
     description: string;
-    tags: { id: string; name: string }[];
+    tags: Tag[];
     heroImage: any;
     author: Author;
     publishedAt: Date;
@@ -21,7 +22,7 @@ export type PostsFilter = {
 
 export type PostsResult = {
     entries: BlogPost[];
-    tags: { id: string; name: string }[];
+    tags: Tag[];
     total: number;
 };
 

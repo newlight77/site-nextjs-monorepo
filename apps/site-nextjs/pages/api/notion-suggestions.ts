@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { notionService } from '@/lib/content-service.provider';
+import { notionServiceProvider } from '@/lib/content-service.provider';
 import { newLogger } from "logger";
 
 const logger = newLogger("notion-suggestions");
@@ -16,7 +16,7 @@ const getSuggestions = async (req: NextApiRequest, res: NextApiResponse) => {
   const max: number | undefined = req.body.max ? req.body.max : undefined
   logger.log('<<< getSuggestions filter', { tags, currentArticleId, max })
 
-  const posts = await notionService.getSuggestions(tags, currentArticleId, max);
+  const posts = await notionServiceProvider.getSuggestions(tags, currentArticleId, max);
 
   logger.log('>>> getSuggestions posts', posts)
 
