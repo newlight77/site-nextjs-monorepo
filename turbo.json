@@ -15,6 +15,7 @@
       "dependsOn": ["^build"]
     },
     "test": {
+      "inputs": ["**/*.spec.ts", "**/*.spec.tsx"],
       "outputs": ["coverage/**"],
       "dependsOn": []
     },
@@ -22,6 +23,8 @@
       "dependsOn": ["^build"]
     },
     "dev": {
+      "inputs": ["src/**/*", "package.json", "tsconfig.json"],
+      "dependsOn": ["^build"],
       "cache": false,
       "persistent": false
     },

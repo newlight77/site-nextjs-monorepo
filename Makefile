@@ -1,9 +1,11 @@
 
+# first install dependencies
 install:
 	@pnpm install
 
+# seconde build
 build:
-	@turbo run build
+	@yarn build
 
 build-site:
 	@turbo run build --filter site-nextjs
@@ -12,27 +14,27 @@ format:
 	@yarn format
 
 lint:
-	@turbo run lint
+	@yarn lint
 
 preview-storybook:
 	@turbo run preview --filter storybook
 
 dev:
-	@turbo run dev --filter site-nextjs
+	@yarn dev
 
 start:
-	@turbo run start --filter site-nextjs
+	@yarn start
 
 start-site:
-	@turbo run start --filter site-nextjs
+	@turbo run start --filter storybook
 
 clean:
-	@turbo run clean
+	@yarn clean
 	@find . -name 'node_modules' -exec rm -fr {} \;
 
-
 test:
-	@turbo run test
+	@yarn test
+
 
 test-site-nextjs:
 	@turbo run test --filter site-nextjs
