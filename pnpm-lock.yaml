@@ -7,6 +7,9 @@ importers:
       '@trivago/prettier-plugin-sort-imports':
         specifier: ^3.3.1
         version: 3.4.0(prettier@2.8.7)
+      husky:
+        specifier: ^8.0.0
+        version: 8.0.0
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
@@ -10295,6 +10298,12 @@ packages:
   /human-signals@2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
+    dev: true
+
+  /husky@8.0.0:
+    resolution: {integrity: sha512-4qbE/5dzNDNxFEkX9MNRPKl5+omTXQzdILCUWiqG/lWIAioiM5vln265/l6I2Zx8gpW8l1ukZwGQeCFbBZ6+6w==}
+    engines: {node: '>=14'}
+    hasBin: true
     dev: true
 
   /iconv-lite@0.4.24:

@@ -10,9 +10,9 @@
     "dev": "turbo run dev --no-cache --continue",
     "format": "prettier '**/*.{js,jsx,ts,tsx,md}' --write",
     "lint": "turbo run lint --cache-dir=.turbo",
+    "prepare": "husky install",
     "start": "turbo run start",
     "test": "turbo run lint --cache-dir=.turbo",
-
     "build:site": "turbo run build --cache-dir=.turbo --filter={apps/site-nextjs}",
     "dev:site": "turbo run dev --no-cache --continue --filter={apps/site-nextjs}",
     "preview": "turbo run preview --filter={apps/storybook}",
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^3.3.1",
+    "husky": "^8.0.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.7.1",
     "turbo": "^1.8.8"
