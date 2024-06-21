@@ -5,35 +5,35 @@ install:
 
 # seconde build
 build:
-	@yarn build
+	@pnpm build
 
 build-site:
 	@turbo run build --filter site-nextjs
 
 format:
-	@yarn format
+	@pnpm format
 
 lint:
-	@yarn lint
+	@pnpm lint
 
 preview-storybook:
 	@turbo run preview --filter storybook
 
 dev:
-	@yarn dev
+	@pnpm dev
 
 start:
-	@yarn start
+	@pnpm start
 
 start-site:
 	@turbo run start --filter storybook
 
 clean:
-	@yarn clean
+	@pnpm clean
 	@find . -name 'node_modules' -exec rm -fr {} \;
 
 test:
-	@yarn test
+	@pnpm test
 
 
 test-site-nextjs:
