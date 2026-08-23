@@ -1,6 +1,6 @@
 
 # first install dependencies
-install:
+setup:
 	@pnpm install
 
 # seconde build
