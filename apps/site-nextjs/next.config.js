@@ -1,29 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path');
-const Dotenv = require('dotenv-webpack');
-
-const envDefaultFile = path.join(__dirname, '.env.default');
-const envFile = path.join(__dirname, '.env');
-
 const config_webpack = {
   webpack: config => {
-    config.plugins = config.plugins || [];
-    config.plugins = [
-      ...config.plugins,
-      new Dotenv({
-        path: envDefaultFile,
-        systemvars: true
-      }),
-      envFile ? new Dotenv({
-        path: envFile,
-        systemvars: true
-      }) : console.error('missing .env file')
-    ];
     config.resolve.fallback = {
       ...config.resolve.fallback,
       dns: false,
       net: false,
-      tls: false
+      tls: false,
+      encoding: false
     };
     return config;
   },
@@ -57,12 +40,6 @@ const config_rewrites = {
   },
 };
 
-const config_log = {
-  removeConsole: {
-    exclude: ["error", "warn", "info"],
-  },
-};
-
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const config_static_assets = {
     staticPageGenerationTimeout: 300,
@@ -88,5 +65,5 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 
 module.exports = withBundleAnalyzer(
-  {...config_webpack, ...allowCors, ...config_rewrites, ...config_log, ...config_static_assets}
+  {...config_webpack, ...allowCors, ...config_rewrites, ...config_static_assets}
 )

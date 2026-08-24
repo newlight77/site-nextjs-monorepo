@@ -8,24 +8,15 @@ type Props = {
     postsResult: PostsResult;
     postsFilter: PostsFilter;
     range: number[];
-    handleTagChosen: (tag: any) => {};
-    handlePageChosen: (page: number) => {};
+    handleTagChosen: (tag: any) => void;
+    handlePageChosen: (page: number) => void;
 };
 
 const cards = (entries: any[]) =>
     entries.map((entry, index) => <Card info={entry} key={index} />);
 
 
-export const PostCardsComponent = ( { postsResult, postsFilter, range } : Props) => {
-
-    const handleTagChosen = (tag: any) => {
-        setFilter({tag: tag, page: 1, skip: 0, limit: postsFilter.limit});
-    };
-
-    const handlePageChosen = (page: number) => {
-        setFilter({tag: postsFilter.tag, page: page, skip: (page - 1) * MAX_PER_PAGE, limit: postsFilter.limit});
-    };
-    
+export const PostCardsComponent = ({ postsResult, postsFilter, range, handleTagChosen, handlePageChosen }: Props) => {
     return (
         <div className="blogposts__container">
             <div className="blogposts__filters">
@@ -33,7 +24,6 @@ export const PostCardsComponent = ( { postsResult, postsFilter, range } : Props)
             </div>
             <h1 className="blogposts__header">Latest posts</h1>
             <div className="blogposts__cards">{cards(postsResult.entries)}</div>
-            {/* <div>{postCards(postsFilter)}</div> */}
             <div className="blogposts__pagination">
                 <Paginator
                     handlePaginationChange={(event) => handlePageChosen(event)}
@@ -44,10 +34,3 @@ export const PostCardsComponent = ( { postsResult, postsFilter, range } : Props)
         </div>
     );
 };
-
-const calculateRange = (length: number) => Array.from({ length }, (v, k) => k + 1);
-
-const getRange = (total: number, limit: number) => {
-    const rangeLimit = Math.ceil(total / limit);
-    return calculateRange(rangeLimit);
-}
